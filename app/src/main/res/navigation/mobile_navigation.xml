@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.wzc1748995976.hotelbooking.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_order3"
+            app:destination="@id/navigation_order" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_livedcollection"
+        android:name="com.wzc1748995976.hotelbooking.ui.livedcollection.LivedCollectionFragment"
+        android:label="@string/title_livedcollection"
+        tools:layout="@layout/lived_collection_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_order"
+        android:name="com.wzc1748995976.hotelbooking.ui.order.OrderFragment"
+        android:label="@string/title_order"
+        tools:layout="@layout/order_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_mine"
+        android:name="com.wzc1748995976.hotelbooking.ui.mine.MineFragment"
+        android:label="@string/title_mine"
+        tools:layout="@layout/mine_fragment" />
+</navigation>
