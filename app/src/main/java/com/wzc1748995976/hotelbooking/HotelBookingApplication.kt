@@ -8,10 +8,11 @@ class HotelBookingApplication : Application() {
     companion object{
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
-        const val TOKEN = ""
+        const val GD_WEB_TOKEN = "dc30468d1abbd655f077d0d14ae21396"
     }
     override fun onCreate() {
         super.onCreate()
+        context = applicationContext
     }
 
 }

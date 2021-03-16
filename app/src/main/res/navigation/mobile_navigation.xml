@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.wzc1748995976.hotelbooking.ui.home.HomeFragment"
+        android:name="com.wzc1748995976.hotelbooking.ui.homepage.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/home_fragment" >
         <action
