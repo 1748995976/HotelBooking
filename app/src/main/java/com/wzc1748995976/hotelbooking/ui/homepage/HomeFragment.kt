@@ -27,11 +27,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
-    private var locationClientSingle :AMapLocationClient? = null
-
     companion object{
         const val REQUEST_PREMISSION = 1
-        var requestTimes = 0
     }
 
     override fun onCreateView(
@@ -59,8 +56,6 @@ class HomeFragment : Fragment() {
                 true->{
                     //请求全国全部城市信息
                     homeViewModel.refresh()
-                    //请求地理位置信息
-                    startSingleLocation()
                 }
                 false->{
                     if(activity?.let { it1 ->
@@ -72,11 +67,9 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
         root.findViewById<Button>(R.id.chooseCity).setOnClickListener {
-            CityPickerInstance.getInstance(this).show()
+            CityPickerInstance.getInstance(this)?.show()
         }
-
         return root
     }
 
@@ -98,46 +91,6 @@ class HomeFragment : Fragment() {
                 result.exceptionOrNull()?.printStackTrace()
             }
         })
-    }
-
-    //设置监听回调
-    private var locationSingleListener =
-        AMapLocationListener { location ->
-            Log.d("sss","*******"+location.toStr())
-            val textView: TextView? = view?.findViewById(R.id.text_home)
-            textView?.text = location.toStr()
-            if(location.errorCode != 0){
-                textView?.text = "错误码为：${location.errorCode}"
-            }
-        }
-    // 单次客户端定位监听
-    private fun startSingleLocation(){
-        if(locationClientSingle == null){
-            locationClientSingle = AMapLocationClient(HotelBookingApplication.context)
-        }
-        val locationClientOption: AMapLocationClientOption = AMapLocationClientOption()
-        // 使用单次定位
-        locationClientOption.isOnceLocation = true
-        // 地址信息
-        locationClientOption.isNeedAddress = true
-        locationClientOption.isLocationCacheEnable = false
-        locationClientSingle?.setLocationOption(locationClientOption)
-        locationClientSingle?.setLocationListener(locationSingleListener)
-        locationClientSingle?.startLocation()
-    }
-    // 停止单次客户端定位
-    private fun stopSingleLocation() {
-        if (null != locationClientSingle) {
-            locationClientSingle!!.stopLocation()
-        }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        stopSingleLocation()
-        if(locationClientSingle != null){
-            locationClientSingle!!.onDestroy()
-            locationClientSingle = null
-        }
     }
 }
 

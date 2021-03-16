@@ -1,9 +1,15 @@
 package com.wzc1748995976.hotelbooking.ui.homepage
 
 import android.os.Handler
+import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.amap.api.location.AMapLocationClient
+import com.amap.api.location.AMapLocationClientOption
+import com.amap.api.location.AMapLocationListener
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.R
 import com.zaaach.citypicker.CityPicker
 import com.zaaach.citypicker.adapter.OnPickListener
 import com.zaaach.citypicker.model.City
@@ -12,48 +18,89 @@ import com.zaaach.citypicker.model.LocateState
 import com.zaaach.citypicker.model.LocatedCity
 
 object CityPickerInstance {
-    private val hotCities = mutableListOf<HotCity>()
-
+    private var locationClientSingle: AMapLocationClient? = null
     private var cityPickerInstance: CityPicker? = null
 
-    fun getInstance(fragment: Fragment) : CityPicker{
+    fun getInstance(fragment: Fragment?): CityPicker? {
         if (cityPickerInstance != null) {
-            return cityPickerInstance as CityPicker
+            return cityPickerInstance
         } else {
-            hotCities.add(HotCity("北京", "北京", "101010100"))
-            hotCities.add(HotCity("上海", "上海", "101020100"))
-            hotCities.add(HotCity("广州", "广东", "101280101"))
-            hotCities.add(HotCity("深圳", "广东", "101280601"))
-            hotCities.add(HotCity("杭州", "浙江", "101210101"))
-            val cityPicker = CityPicker.from(fragment).run {
+            cityPickerInstance = CityPicker.from(fragment).run {
                 enableAnimation(true)
                 setLocatedCity(null)
-                setHotCities(hotCities)
                 setOnPickListener(object : OnPickListener {
                     override fun onPick(position: Int, data: City?) {
                         Toast.makeText(
                             HotelBookingApplication.context,
-                            data?.name,
+                            data?.name + data?.code + data?.province,
                             Toast.LENGTH_SHORT
                         ).show();
                     }
+
                     override fun onCancel() {
                         Toast.makeText(HotelBookingApplication.context, "取消选择", Toast.LENGTH_SHORT)
                             .show();
+                        stopSingleLocation()
+                        if (locationClientSingle != null) {
+                            locationClientSingle!!.onDestroy()
+                            locationClientSingle = null
+                        }
                     }
+
                     override fun onLocate() {
-                        //定位接口，需要APP自身实现，这里模拟一下定位
-                        Handler().postDelayed(Runnable { //定位完成之后更新数据
-                            this@run.locateComplete(
-                                LocatedCity("深圳", "广东", "101280601"),
-                                LocateState.SUCCESS
-                            )
-                        }, 3000)
+                        //请求地理位置信息
+                        startSingleLocation()
                     }
                 })
             }
-            cityPickerInstance = cityPicker
-            return cityPickerInstance as CityPicker
+            return cityPickerInstance
+        }
+    }
+    //设置监听回调
+    private var locationSingleListener =
+        AMapLocationListener { location ->
+            Log.d("sss", "*******" + location.toStr())
+            if (location.errorCode != 0) {
+                Handler().postDelayed(Runnable {
+                    cityPickerInstance?.locateComplete(
+                        LocatedCity(location.city, location.province, null),
+                        LocateState.FAILURE
+                    )
+                }, 1000)
+                Toast.makeText(
+                    HotelBookingApplication.context,
+                    location.locationDetail,
+                    Toast.LENGTH_SHORT
+                ).show();
+                stopSingleLocation()
+            } else {
+                Handler().postDelayed(Runnable {
+                    cityPickerInstance?.locateComplete(
+                        LocatedCity(location.city, location.province, location.cityCode),
+                        LocateState.SUCCESS
+                    )
+                }, 1000)
+            }
+        }
+    // 单次客户端定位监听
+    private fun startSingleLocation() {
+        if (locationClientSingle == null) {
+            locationClientSingle = AMapLocationClient(HotelBookingApplication.context)
+        }
+        val locationClientOption: AMapLocationClientOption = AMapLocationClientOption()
+        // 使用单次定位
+        locationClientOption.isOnceLocation = true
+        // 地址信息
+        locationClientOption.isNeedAddress = true
+        locationClientOption.isLocationCacheEnable = false
+        locationClientSingle?.setLocationOption(locationClientOption)
+        locationClientSingle?.setLocationListener(locationSingleListener)
+        locationClientSingle?.startLocation()
+    }
+    // 停止单次客户端定位
+    private fun stopSingleLocation() {
+        if (null != locationClientSingle) {
+            locationClientSingle!!.stopLocation()
         }
     }
 }
