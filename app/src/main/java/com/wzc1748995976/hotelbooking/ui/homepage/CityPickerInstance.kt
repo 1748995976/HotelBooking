@@ -1,10 +1,11 @@
 package com.wzc1748995976.hotelbooking.ui.homepage
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
@@ -13,7 +14,6 @@ import com.wzc1748995976.hotelbooking.R
 import com.zaaach.citypicker.CityPicker
 import com.zaaach.citypicker.adapter.OnPickListener
 import com.zaaach.citypicker.model.City
-import com.zaaach.citypicker.model.HotCity
 import com.zaaach.citypicker.model.LocateState
 import com.zaaach.citypicker.model.LocatedCity
 
@@ -21,7 +21,7 @@ object CityPickerInstance {
     private var locationClientSingle: AMapLocationClient? = null
     private var cityPickerInstance: CityPicker? = null
 
-    fun getInstance(fragment: Fragment?): CityPicker? {
+    fun getInstance(fragment: FragmentActivity?): CityPicker? {
         if (cityPickerInstance != null) {
             return cityPickerInstance
         } else {
@@ -29,24 +29,22 @@ object CityPickerInstance {
                 enableAnimation(true)
                 setLocatedCity(null)
                 setOnPickListener(object : OnPickListener {
+                    @SuppressLint("SetTextI18n")
                     override fun onPick(position: Int, data: City?) {
                         Toast.makeText(
                             HotelBookingApplication.context,
                             data?.name + data?.code + data?.province,
                             Toast.LENGTH_SHORT
                         ).show();
+                        fragment?.findViewById<TextView>(R.id.inChinaWhereTextView)?.text = data?.name + "," + data?.province
                     }
-
                     override fun onCancel() {
-                        Toast.makeText(HotelBookingApplication.context, "取消选择", Toast.LENGTH_SHORT)
-                            .show();
                         stopSingleLocation()
                         if (locationClientSingle != null) {
                             locationClientSingle!!.onDestroy()
                             locationClientSingle = null
                         }
                     }
-
                     override fun onLocate() {
                         //请求地理位置信息
                         startSingleLocation()

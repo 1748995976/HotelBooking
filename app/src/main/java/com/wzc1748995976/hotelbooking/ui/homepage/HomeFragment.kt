@@ -10,22 +10,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TableLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.ui.mine.MineFragment
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var demoCollectionAdapter: DemoCollectionAdapter
+    private lateinit var viewPager: ViewPager2
 
     companion object{
         const val REQUEST_PREMISSION = 1
@@ -39,10 +47,6 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.home_fragment, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
         //设置按钮监听
         root.findViewById<Button>(R.id.button).setOnClickListener {
             //Navigation.findNavController(it).navigate(R.id.navigation_mine)导航目的地跳转
@@ -67,9 +71,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        root.findViewById<Button>(R.id.chooseCity).setOnClickListener {
-            CityPickerInstance.getInstance(this)?.show()
-        }
         return root
     }
 
@@ -91,6 +92,75 @@ class HomeFragment : Fragment() {
                 result.exceptionOrNull()?.printStackTrace()
             }
         })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        demoCollectionAdapter = DemoCollectionAdapter(this)
+        viewPager = view.findViewById(R.id.home_viewpager)
+        viewPager.adapter = demoCollectionAdapter
+
+        val tableLayout:TabLayout = view.findViewById(R.id.tab_layout)
+        TabLayoutMediator(tableLayout,viewPager){
+            tab, position ->  tab.text = when(position){
+            0-> "国内"
+            1-> "钟点房"
+            2-> "国际/港澳台"
+            else -> "民宿公寓"
+        }
+        }.attach()
+    }
+}
+
+
+class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+
+    override fun getItemCount(): Int = 4
+
+    override fun createFragment(position: Int): Fragment {
+        return when(position){
+            0 ->{
+                val fragment = InChinaFragment()
+                fragment.arguments = Bundle().apply {
+                    // Our object is just an integer :-P
+                    putInt("国内", position + 1)
+                }
+                fragment
+            }
+            1->{
+                val fragment = InChinaFragment()
+                fragment.arguments = Bundle().apply {
+                    // Our object is just an integer :-P
+                    putInt("钟点房", position + 1)
+                }
+                fragment
+            }
+            2->{
+                val fragment = InChinaFragment()
+                fragment.arguments = Bundle().apply {
+                    // Our object is just an integer :-P
+                    putInt("国际/港澳台", position + 1)
+                }
+                fragment
+            }
+            3->{
+                val fragment = InChinaFragment()
+                fragment.arguments = Bundle().apply {
+                    // Our object is just an integer :-P
+                    putInt("民宿公寓", position + 1)
+                }
+                fragment
+            }
+            else->{
+                val fragment = InChinaFragment()
+                fragment.arguments = Bundle().apply {
+                    // Our object is just an integer :-P
+                    putInt("未知", position + 1)
+                }
+                fragment
+            }
+        }
+
     }
 }
 

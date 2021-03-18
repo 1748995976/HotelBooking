@@ -29,7 +29,9 @@
             android:name="com.amap.api.v2.apikey"
             android:value="1775f31be79e013f89278addce9030e6" />
 
-        <activity android:name=".MainActivity" android:theme="@style/DefaultCityPickerTheme">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/DefaultCityPickerTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

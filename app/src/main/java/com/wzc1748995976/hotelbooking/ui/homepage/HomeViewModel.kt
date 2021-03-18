@@ -7,12 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.wzc1748995976.hotelbooking.logic.Repository
 
 class HomeViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
     private val refreshLiveData = MutableLiveData<Any?>()
     val refreshResult = Transformations.switchMap(refreshLiveData){
         Repository.searchAllCities()

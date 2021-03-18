@@ -7,4 +7,35 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!-- 自定义主题颜色 -->
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!--白到黑-->
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_lightgrey">#d3d3d3</color>
+    <color name="color_silver">#C0C0C0</color>
+    <color name="color_gray">#808080</color>
+    <color name="color_black">#000000</color>
+
+    <!--红橙黄绿青蓝紫-->
+    <color name="color_red">#FF0000</color>
+    <color name="color_orange">#FFA500</color>
+    <color name="color_yellow">#FFFF00</color>
+    <color name="color_green">#008000</color>
+    <color name="color_cyan">#00FFFF</color>
+    <color name="color_blue">#0000FF</color>
+    <color name="color_purple">#800080</color>
+
+    <!--酸橙、金、棕、紫红-->
+    <color name="color_lime">#00FF00</color>
+    <color name="color_gold">#FFD700</color>
+    <color name="color_brown">#A52A2A</color>
+    <color name="color_magenta">#FF00FF</color>
+
+    <!--登录按钮-->
+    <color name="color_login">#0099FF</color>
 </resources>
