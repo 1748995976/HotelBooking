@@ -69,7 +69,7 @@ object CityPickerInstance {
     //设置监听回调
     private var locationSingleListener =
         AMapLocationListener { location ->
-            Log.d("sss", "*******" + location.toStr())
+            //Log.d("sss", "*******" + location.toStr())
             if (location.errorCode != 0) {
                 Handler().postDelayed(Runnable {
                     cityPickerInstance?.locateComplete(
@@ -81,7 +81,7 @@ object CityPickerInstance {
                     HotelBookingApplication.context,
                     location.locationDetail,
                     Toast.LENGTH_SHORT
-                ).show();
+                ).show()
                 stopSingleLocation()
             } else {
                 Handler().postDelayed(Runnable {
@@ -89,7 +89,7 @@ object CityPickerInstance {
                         LocatedCity(location.city, location.province, location.cityCode),
                         LocateState.SUCCESS
                     )
-                }, 1000)
+                }, 100)
             }
         }
     // 单次客户端定位监听

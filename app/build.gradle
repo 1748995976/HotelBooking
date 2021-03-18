@@ -72,4 +72,6 @@ dependencies {
     implementation 'top.androidman:superfamily:2.2.0'
     // Introduce Date picker
     implementation 'com.github.atuan07:CustomHotelCalender:V1.0.2'
+    // Introduce double direction seekBar
+    implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
 }
