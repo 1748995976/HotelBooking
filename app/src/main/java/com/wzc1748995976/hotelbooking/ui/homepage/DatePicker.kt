@@ -11,15 +11,25 @@ import com.atuan.datepickerlibrary.CalendarUtil
 import com.atuan.datepickerlibrary.DatePopupWindow
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 
+interface pickDateCallBack{
+    fun getResultToSet(mStartTime: String,mEndTime: String,daysOffset: Int)
+}
+
+
 object DatePicker {
     private var startGroup = -1 //全局量
     private var endGroup = -1
     private var startChild = -1
     private var endChild = -1
 
+    //得到日期的数据
+    var mpickDateCallBack:pickDateCallBack? = null
+    fun setpickDateCallBack(newObject: pickDateCallBack){
+        mpickDateCallBack = newObject
+    }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun show(activity: FragmentActivity, view: View, sView:View?, eView:View?, gView:View?){
+    fun show(activity: FragmentActivity,view: View){
         DatePopupWindow.Builder(activity, Calendar.getInstance().time, view) //初始化
             .setInitSelect(startGroup, startChild, endGroup, endChild) //设置上一次选中的区间状态
             .setInitDay(false) //默认为true，UI内容为共几天、开始、结束；当为false时,UI内容为共几晚、入住、离开
@@ -33,11 +43,7 @@ object DatePicker {
                 val mStartTime = CalendarUtil.FormatDateYMD(startDate)
                 val mEndTime = CalendarUtil.FormatDateYMD(endDate)
                 val daysOffset = CalendarUtil.getTwoDay(endDate, startDate).toInt()
-                if(sView is TextView && eView is TextView && gView is TextView){
-                    sView.text = mStartTime
-                    eView.text = mEndTime
-                    gView.text = "共${daysOffset}晚"
-                }
+                mpickDateCallBack?.getResultToSet(mStartTime,mEndTime,daysOffset)
                 Toast.makeText(HotelBookingApplication.context,"您选择了：" + mStartTime + "到" + mEndTime, Toast.LENGTH_SHORT).show()
             }.builder()
     }

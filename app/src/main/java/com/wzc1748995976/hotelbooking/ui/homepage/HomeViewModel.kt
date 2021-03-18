@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.wzc1748995976.hotelbooking.logic.Repository
 
 class HomeViewModel : ViewModel() {
+    // 搜索全国的城市
     private val refreshLiveData = MutableLiveData<Any?>()
     val refreshResult = Transformations.switchMap(refreshLiveData){
         Repository.searchAllCities()
