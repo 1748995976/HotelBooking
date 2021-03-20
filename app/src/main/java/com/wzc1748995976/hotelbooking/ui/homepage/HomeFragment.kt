@@ -1,13 +1,16 @@
 package com.wzc1748995976.hotelbooking.ui.homepage
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.app.Dialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -17,6 +20,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 
 
@@ -38,30 +42,6 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.home_fragment, container, false)
-        //设置按钮监听
-        root.findViewById<Button>(R.id.button).setOnClickListener {
-            //Navigation.findNavController(it).navigate(R.id.navigation_mine)导航目的地跳转
-            activity?.let { it1 ->
-                ActivityCompat.requestPermissions(
-                    it1,
-                    arrayOf(ACCESS_FINE_LOCATION), REQUEST_PREMISSION
-                )
-            }
-            when(activity?.let { it1 -> ActivityCompat.checkSelfPermission(it1,ACCESS_FINE_LOCATION) } == PackageManager.PERMISSION_GRANTED){
-                true->{
-                    //请求全国全部城市信息
-                    homeViewModel.refresh()
-                }
-                false->{
-                    if(activity?.let { it1 ->
-                            ActivityCompat.shouldShowRequestPermissionRationale(
-                                it1, ACCESS_FINE_LOCATION)
-                        } == false){
-                        Toast.makeText(activity, "请前往应用设置赋予权限", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
         return root
     }
 
@@ -100,6 +80,31 @@ class HomeFragment : Fragment() {
             else -> "民宿公寓"
         }
         }.attach()
+
+        //设置按钮监听
+        view.findViewById<Button>(R.id.button).setOnClickListener {
+            //Navigation.findNavController(it).navigate(R.id.navigation_mine)导航目的地跳转
+            activity?.let { it1 ->
+                ActivityCompat.requestPermissions(
+                    it1,
+                    arrayOf(ACCESS_FINE_LOCATION), REQUEST_PREMISSION
+                )
+            }
+            when(activity?.let { it1 -> ActivityCompat.checkSelfPermission(it1,ACCESS_FINE_LOCATION) } == PackageManager.PERMISSION_GRANTED){
+                true->{
+                    //请求全国全部城市信息
+                    homeViewModel.refresh()
+                }
+                false->{
+                    if(activity?.let { it1 ->
+                            ActivityCompat.shouldShowRequestPermissionRationale(
+                                it1, ACCESS_FINE_LOCATION)
+                        } == false){
+                        Toast.makeText(activity, "请前往应用设置赋予权限", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 }
 

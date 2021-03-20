@@ -76,7 +76,7 @@ object CityPickerInstance {
                         LocatedCity(location.city, location.province, null),
                         LocateState.FAILURE
                     )
-                }, 1000)
+                }, 100)
                 Toast.makeText(
                     HotelBookingApplication.context,
                     location.locationDetail,
