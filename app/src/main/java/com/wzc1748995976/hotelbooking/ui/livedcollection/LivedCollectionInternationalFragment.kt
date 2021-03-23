@@ -8,20 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.wzc1748995976.hotelbooking.R
 
-class LivedCollectionInChinaFragemnt : Fragment() {
+class LivedCollectionInternationalFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = LivedCollectionInChinaFragemnt()
-    }
-
-    private lateinit var viewModel: LivedCollectionInChinaFragemntViewModel
+    private lateinit var viewModel: LivedCollectionInternationalFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.lived_collection_in_china_fragemnt_fragment,
+            R.layout.lived_collection_international_fragment_fragment,
             container,
             false
         )
@@ -29,7 +25,8 @@ class LivedCollectionInChinaFragemnt : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LivedCollectionInChinaFragemntViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this).get(LivedCollectionInternationalFragmentViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

@@ -51,10 +51,10 @@ class PriceRangeViewDelegate: ItemViewDelegate<PriceRange, PriceRangeViewDelegat
         holder.priceView.setOnClickListener {
             mpickPriceCallBack?.getResultToSet(item.minPrice,item.maxPrice)
         }
-        Log.d("ItemViewDelegate API", "position: ${getPosition(holder)}")
-        Log.d("ItemViewDelegate API", "items: $adapterItems")
-        Log.d("ItemViewDelegate API", "adapter: $adapter")
-        Log.d("More", "Context: ${holder.itemView.context}")
+//        Log.d("ItemViewDelegate API", "position: ${getPosition(holder)}")
+//        Log.d("ItemViewDelegate API", "items: $adapterItems")
+//        Log.d("ItemViewDelegate API", "adapter: $adapter")
+//        Log.d("More", "Context: ${holder.itemView.context}")
     }
 }
 

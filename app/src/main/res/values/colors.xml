@@ -36,6 +36,8 @@
     <color name="color_brown">#A52A2A</color>
     <color name="color_magenta">#FF00FF</color>
 
+    <color name="LightPink">#FFB6C1</color>
+    <color name="LavenderBlush">#FFF0F5</color>
     <!--登录按钮-->
     <color name="color_login">#0099FF</color>
 </resources>

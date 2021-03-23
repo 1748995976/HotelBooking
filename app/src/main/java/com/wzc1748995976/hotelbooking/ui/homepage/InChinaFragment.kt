@@ -103,12 +103,14 @@ class InChinaFragment : Fragment() {
         viewModel.inChinaCheckInDate.value = "${year}年${month}月${day}日"
         viewModel.inChinaCheckOutDate.value = "${addYear}年${addMonth}月${addDay}日"
     }
+
+
     // 把选择价格范围的代码封装在一个模块
     private  fun seekBarViewRangePriceShow(){
         //1、使用Dialog、设置style
         val dialog = context?.let { it1 -> Dialog(it1,R.style.DialogTheme) }
         //2、设置布局
-        val seekBarView = View.inflate(context,R.layout.price_star_choose_fragemnt,null)
+        val seekBarView = View.inflate(context,R.layout.price_star_choose_fragment,null)
         dialog?.setContentView(seekBarView)
         seekBarView.findViewById<RangeSeekBar>(R.id.rangeSeekBar).run {
             gravity = RangeSeekBar.Gravity.CENTER
@@ -163,6 +165,8 @@ class InChinaFragment : Fragment() {
         dialog?.show()
         // dialog.dismiss()是让diaglog消失
     }
+
+
     //将展示价格选择的九宫格执行方法封装在一个代码块
     private fun selectRangePriceGridShow(seekBarView: View){
         val adapter = MultiTypeAdapter()

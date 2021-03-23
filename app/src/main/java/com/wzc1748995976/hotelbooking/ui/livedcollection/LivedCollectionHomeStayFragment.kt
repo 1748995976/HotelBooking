@@ -8,11 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.wzc1748995976.hotelbooking.R
 
-class LivedCollectionHomeStayFragemnt : Fragment() {
-
-    companion object {
-        fun newInstance() = LivedCollectionHomeStayFragemnt()
-    }
+class LivedCollectionHomeStayFragment : Fragment() {
 
     private lateinit var viewModel: LivedCollectionHomeStayFragemntViewModel
 
@@ -21,7 +17,7 @@ class LivedCollectionHomeStayFragemnt : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.lived_collection_home_stay_fragemnt_fragment,
+            R.layout.lived_collection_home_stay_fragment_fragment,
             container,
             false
         )

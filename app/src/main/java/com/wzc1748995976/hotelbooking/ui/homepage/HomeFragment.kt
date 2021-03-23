@@ -27,7 +27,7 @@ import com.wzc1748995976.hotelbooking.R
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var demoCollectionAdapter: DemoCollectionAdapter
+    private lateinit var homePageCollectionAdapter: HomePageCollectionAdapter
     private lateinit var viewPager: ViewPager2
 
     companion object{
@@ -67,18 +67,18 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        demoCollectionAdapter = DemoCollectionAdapter(this)
+        homePageCollectionAdapter = HomePageCollectionAdapter(this)
         viewPager = view.findViewById(R.id.home_viewpager)
-        viewPager.adapter = demoCollectionAdapter
+        viewPager.adapter = homePageCollectionAdapter
 
-        val tableLayout:TabLayout = view.findViewById(R.id.tab_layout)
+        val tableLayout:TabLayout = view.findViewById(R.id.home_tab_layout)
         TabLayoutMediator(tableLayout,viewPager){
             tab, position ->  tab.text = when(position){
             0-> "国内"
             1-> "钟点房"
             2-> "国际/港澳台"
             else -> "民宿公寓"
-        }
+            }
         }.attach()
 
         //设置按钮监听
@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
 }
 
 
-class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class HomePageCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 4
 
