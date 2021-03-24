@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="1dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <top.androidman.SuperButton
+        android:id="@+id/testTextView"
+        android:padding="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSize="14sp"
+        app:open_pressed_effect="true"
+        app:corner="4dp"
+        app:border_width="0.5dp"
+        app:border_color="@color/color_red"/>
+
+</LinearLayout>

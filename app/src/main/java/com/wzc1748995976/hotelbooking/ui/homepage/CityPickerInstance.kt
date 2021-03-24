@@ -69,7 +69,7 @@ object CityPickerInstance {
     //设置监听回调
     private var locationSingleListener =
         AMapLocationListener { location ->
-            //Log.d("sss", "*******" + location.toStr())
+            Log.d("sss", "*******" + location.toStr())
             if (location.errorCode != 0) {
                 Handler().postDelayed(Runnable {
                     cityPickerInstance?.locateComplete(
@@ -77,11 +77,6 @@ object CityPickerInstance {
                         LocateState.FAILURE
                     )
                 }, 100)
-                Toast.makeText(
-                    HotelBookingApplication.context,
-                    location.locationDetail,
-                    Toast.LENGTH_SHORT
-                ).show()
                 stopSingleLocation()
             } else {
                 Handler().postDelayed(Runnable {

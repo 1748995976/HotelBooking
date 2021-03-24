@@ -10,4 +10,11 @@ class InChinaViewModel : ViewModel() {
     val inChinaCheckInDate = MutableLiveData<String>("")
     val inChinaCheckOutDate = MutableLiveData<String>("")
     val inChinaCheckGapDate = MutableLiveData<Int>(1)
+    //价格星级选择界面
+    val inChinaMinPrice = MutableLiveData<Int>(0)
+    val inChinaMaxPrice = MutableLiveData<Int>(1050)
+    val inChinaLowStar = MutableLiveData<Boolean>(false)
+    val inChinaThreeStar = MutableLiveData<Boolean>(false)
+    val inChinaFourStar = MutableLiveData<Boolean>(false)
+    val inChinaFiveStar = MutableLiveData<Boolean>(false)
 }

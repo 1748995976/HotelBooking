@@ -35,7 +35,7 @@ class PriceRangeViewDelegate: ItemViewDelegate<PriceRange, PriceRangeViewDelegat
     }
 
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.test, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.price_choose, parent, false)
         return ViewHolder(view)
     }
 
@@ -58,4 +58,20 @@ class PriceRangeViewDelegate: ItemViewDelegate<PriceRange, PriceRangeViewDelegat
     }
 }
 
-// 与星级选择有关代码
+data class InChinaDetailKind(val name: String)
+// 国内 搜索酒店/地名/关键词 界面某一类型信息，例如：高校，热门等
+class InChinaDetailDelegate: ItemViewDelegate<InChinaDetailKind,InChinaDetailDelegate.ViewHolder>(){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val detailView: SuperButton = itemView.findViewById(R.id.detailButton)
+    }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.detail_choose, parent, false)
+        return InChinaDetailDelegate.ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, item: InChinaDetailKind) {
+        holder.detailView.setText(item.name)
+    }
+}
+
