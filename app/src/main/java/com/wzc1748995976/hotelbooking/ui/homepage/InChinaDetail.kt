@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -24,6 +27,14 @@ class InChinaDetail : AppCompatActivity() {
 //        val adcode = intent.getStringExtra("adcode")
 //        Toast.makeText(HotelBookingApplication.context,adcode,Toast.LENGTH_SHORT).show()
 
+        findViewById<ImageView>(R.id.backArrowImg).setOnClickListener {
+            onBackPressed()
+        }
+        // 监听文字输入框的变化
+        findViewById<EditText>(R.id.searchDetail).addTextChangedListener { editable->
+            val content = editable.toString()
+        }
+
         val adapter = MultiTypeAdapter()
         val items = ArrayList<Any>()
         items.add(InChinaDetailKind("北京"))
@@ -33,20 +44,52 @@ class InChinaDetail : AppCompatActivity() {
         items.add(InChinaDetailKind("成都"))
         items.add(InChinaDetailKind("重庆"))
         items.add(InChinaDetailKind("苏州"))
+        items.add(InChinaDetailKind("深圳"))
+        items.add(InChinaDetailKind("成都"))
+        items.add(InChinaDetailKind("重庆"))
+        items.add(InChinaDetailKind("苏州"))
         val recyclerView = findViewById<RecyclerView>(R.id.searchHotRecycler)
-        val flManager = FlexboxLayoutManager(this);
-        flManager.flexWrap = FlexWrap.WRAP;
-        flManager.justifyContent = JustifyContent.CENTER
-        //设置主轴的方向
-        flManager.flexDirection = FlexDirection.ROW;
-        //GridLayoutManager(this, 4)
-        //StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = GridLayoutManager(this, 4)
         val inChinaDetailDelegate = InChinaDetailDelegate()
         adapter.register(inChinaDetailDelegate)
         recyclerView.adapter = adapter
         adapter.items = items
         adapter.notifyDataSetChanged()
+
+
+        val recyclerView_1 = findViewById<RecyclerView>(R.id.searchBrandRecycler)
+        recyclerView_1.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_1.adapter = adapter
+
+        val recyclerView_2 = findViewById<RecyclerView>(R.id.searchBrandRecycler)
+        recyclerView_2.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_2.adapter = adapter
+
+        val recyclerView_3 = findViewById<RecyclerView>(R.id.searchBusinessRecycler)
+        recyclerView_3.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_3.adapter = adapter
+
+        val recyclerView_4 = findViewById<RecyclerView>(R.id.searchSubwayRecycler)
+        recyclerView_4.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_4.adapter = adapter
+
+        val recyclerView_5 = findViewById<RecyclerView>(R.id.searchSceneRecycler)
+        recyclerView_5.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_5.adapter = adapter
+
+        val recyclerView_6 = findViewById<RecyclerView>(R.id.searchSchoolRecycler)
+        recyclerView_6.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_6.adapter = adapter
+
+        val recyclerView_7 = findViewById<RecyclerView>(R.id.searchHospitalRecycler)
+        recyclerView_7.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_7.adapter = adapter
+
+        val recyclerView_8 = findViewById<RecyclerView>(R.id.searchPlaneRecycler)
+        recyclerView_8.layoutManager = GridLayoutManager(this, 4)
+        recyclerView_8.adapter = adapter
+
+
     }
 
 

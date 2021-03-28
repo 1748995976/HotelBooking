@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/roomImage"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/color_orange"/>
+
+    <TextView
+        android:id="@+id/roomName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/color_black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/orderLayout"
+        app:layout_constraintStart_toEndOf="@id/roomImage"
+        app:layout_constraintTop_toTopOf="@id/roomImage"
+        tools:text="北欧精致榻榻米房[入住现场二次放心消毒服务]" />
+
+    <include
+        android:id="@+id/orderLayout"
+        layout="@layout/order_icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/grabLayout"
+        layout="@layout/grab_icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/fullLayout"
+        layout="@layout/full_icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/roomDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/color_gray"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@id/orderLayout"
+        app:layout_constraintStart_toEndOf="@id/roomImage"
+        app:layout_constraintTop_toBottomOf="@id/roomName"
+        tools:text="无早餐 15-18㎡ 单人床 两人入住" />
+
+    <TextView
+        android:id="@+id/roomCancelDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/color_green"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@id/orderLayout"
+        app:layout_constraintStart_toEndOf="@id/roomImage"
+        app:layout_constraintTop_toBottomOf="@id/roomDesc"
+        tools:text="限时取消" />
+
+    <LinearLayout
+        android:id="@+id/roomPriceLinear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@id/orderLayout"
+        app:layout_constraintStart_toEndOf="@id/roomImage"
+        app:layout_constraintTop_toBottomOf="@id/roomCancelDesc">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/color_red"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/roomPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_red"
+            android:textSize="15sp"
+            tools:text="325" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/windowDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="start"
+        android:textColor="@color/color_gray"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@id/orderLayout"
+        app:layout_constraintStart_toEndOf="@id/roomImage"
+        app:layout_constraintTop_toBottomOf="@id/roomPriceLinear"
+        tools:text="部分无窗" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

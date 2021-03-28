@@ -35,6 +35,9 @@
     <color name="color_gold">#FFD700</color>
     <color name="color_brown">#A52A2A</color>
     <color name="color_magenta">#FF00FF</color>
+    <color name="Gainsboro">#DCDCDC</color>
+    <color name="WhiteSmoke">#F5F5F5</color>
+    <color name="OrangeRed">#FF4500</color>
 
     <color name="LightPink">#FFB6C1</color>
     <color name="LavenderBlush">#FFF0F5</color>

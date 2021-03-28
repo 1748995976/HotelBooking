@@ -14,13 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/searchDetail"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:hint="酒店名/地名/关键词" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/backArrowImg"
+                android:paddingVertical="3dp"
+                android:paddingEnd="3dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_arrow_left_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"/>
+
+            <EditText
+                android:id="@+id/searchDetail"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:hint="酒店名/地名/关键词" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/searchHotLinear"

@@ -11,7 +11,7 @@
         android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:textSize="14sp"
+        app:textSize="16sp"
         app:open_pressed_effect="true"
         app:border_width="0.5dp"
         app:border_color="@color/color_black"/>

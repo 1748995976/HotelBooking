@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +11,8 @@
         android:id="@+id/livedCollectionInChina"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_red"
         android:orientation="horizontal"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,6 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="2dp"
             android:background="@drawable/radio_button_1"
             android:button="@null"
             android:checked="true"
@@ -34,6 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="2dp"
             android:background="@drawable/radio_button_1"
             android:button="@null"
             android:gravity="center"
@@ -45,7 +50,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/livedCollectionInChinaRecycler_lived"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/livedCollectionInChina" />
@@ -53,9 +59,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/livedCollectionInChinaRecycler_fav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/livedCollectionInChinaRecycler_lived" />
+        app:layout_constraintTop_toBottomOf="@+id/livedCollectionInChina" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

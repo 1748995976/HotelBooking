@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/facilityTitle"
+        android:layout_marginEnd="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        tools:text="费用政策" />
+
+    <TextView
+        android:id="@+id/facilityDesc"
+        android:layout_marginStart="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/color_black"
+        android:textStyle="bold"
+        tools:text="加床：该房型不可加床\n停车场：有收费停车场" />
+
+</LinearLayout>

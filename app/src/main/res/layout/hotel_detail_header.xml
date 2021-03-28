@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/hotelDetailHeaderImg"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/OrangeRed"/>
+
+    <ImageView
+        android:id="@+id/hotelDetailHeaderMask"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/mask_macth_300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <top.androidman.SuperConstraintLayout
+        android:id="@+id/hotelDetailCons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginEnd="8dp"
+        app:background_normalColor="@color/WhiteSmoke"
+        app:corner="10dp"
+        app:shadow_endColor="@color/white"
+        app:shadow_size="3dp"
+        app:shadow_startColor="#D3D3D3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hotelDetailHeaderImg">
+
+        <TextView
+            android:id="@+id/hotelDetailHeaderText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
+            app:layout_constraintTop_toTopOf="@id/hotelDetailCons"
+            tools:text="幸福小镇创意酒店(华科光谷店华科光谷店华科光谷店)" />
+
+        <TextView
+            android:id="@+id/hDHLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/color_black"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/hotelDetailHeaderText"
+            app:layout_constraintTop_toBottomOf="@id/hotelDetailHeaderText"
+            tools:text="经济型" />
+
+        <ImageView
+            android:id="@+id/hDHLevelImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/hDHLevelText"
+            app:layout_constraintStart_toEndOf="@id/hDHLevelText"
+            app:layout_constraintTop_toTopOf="@id/hDHLevelText"
+            tools:background="@drawable/ic_business_district_24dp" />
+
+        <TextView
+            android:id="@+id/hDHOpenTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_black"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/hotelDetailHeaderText"
+            app:layout_constraintTop_toBottomOf="@+id/hDHLevelImage"
+            tools:text="2019年开业" />
+
+        <TextView
+            android:id="@+id/hDHDecorTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/color_gray"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/hDHOpenTime"
+            app:layout_constraintStart_toEndOf="@id/hDHOpenTime"
+            app:layout_constraintTop_toTopOf="@id/hDHOpenTime"
+            tools:text="2019年装修" />
+
+        <TextView
+            android:id="@+id/hDHAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
+            app:layout_constraintTop_toTopOf="@id/hDHDecorTime"
+            tools:text="华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学" />
+
+        <ImageView
+            android:id="@+id/hDHDistanceImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_place_24dp"
+            app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
+            app:layout_constraintTop_toBottomOf="@id/hDHAddress" />
+
+        <TextView
+            android:id="@+id/hDHDistanceText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintStart_toEndOf="@id/hDHDistanceImage"
+            app:layout_constraintTop_toBottomOf="@id/hDHAddress"
+            tools:text="距您直线1.1公里，驾车2.1公里，约七分钟" />
+
+        <ImageView
+            android:id="@+id/hDHDistanceBusImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_bus_24dp"
+            app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
+            app:layout_constraintTop_toBottomOf="@id/hDHDistanceText" />
+
+        <TextView
+            android:id="@+id/hDHDistanceBusText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintStart_toEndOf="@id/hDHDistanceBusImage"
+            app:layout_constraintTop_toBottomOf="@id/hDHDistanceText"
+            tools:text="距地铁站超级原距离佳园路地铁站距地铁站超级原距离佳园路地铁" />
+
+    </top.androidman.SuperConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

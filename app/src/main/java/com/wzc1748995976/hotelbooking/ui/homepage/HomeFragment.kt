@@ -3,6 +3,7 @@ package com.wzc1748995976.hotelbooking.ui.homepage
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Dialog
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,18 +11,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.youth.banner.Banner
+import com.youth.banner.adapter.BannerAdapter
+import com.youth.banner.config.IndicatorConfig
+import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.util.BannerUtils
+import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class HomeFragment : Fragment() {
@@ -82,28 +92,43 @@ class HomeFragment : Fragment() {
         }.attach()
 
         //设置按钮监听
-        view.findViewById<Button>(R.id.button).setOnClickListener {
-            //Navigation.findNavController(it).navigate(R.id.navigation_mine)导航目的地跳转
-            activity?.let { it1 ->
-                ActivityCompat.requestPermissions(
-                    it1,
-                    arrayOf(ACCESS_FINE_LOCATION), REQUEST_PREMISSION
-                )
-            }
-            when(activity?.let { it1 -> ActivityCompat.checkSelfPermission(it1,ACCESS_FINE_LOCATION) } == PackageManager.PERMISSION_GRANTED){
-                true->{
-                    //请求全国全部城市信息
-                    homeViewModel.refresh()
-                }
-                false->{
-                    if(activity?.let { it1 ->
-                            ActivityCompat.shouldShowRequestPermissionRationale(
-                                it1, ACCESS_FINE_LOCATION)
-                        } == false){
-                        Toast.makeText(activity, "请前往应用设置赋予权限", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+//        view.findViewById<Button>(R.id.button).setOnClickListener {
+//            //Navigation.findNavController(it).navigate(R.id.navigation_mine)导航目的地跳转
+//            activity?.let { it1 ->
+//                ActivityCompat.requestPermissions(
+//                    it1,
+//                    arrayOf(ACCESS_FINE_LOCATION), REQUEST_PREMISSION
+//                )
+//            }
+//            when(activity?.let { it1 -> ActivityCompat.checkSelfPermission(it1,ACCESS_FINE_LOCATION) } == PackageManager.PERMISSION_GRANTED){
+//                true->{
+//                    //请求全国全部城市信息
+//                    homeViewModel.refresh()
+//                }
+//                false->{
+//                    if(activity?.let { it1 ->
+//                            ActivityCompat.shouldShowRequestPermissionRationale(
+//                                it1, ACCESS_FINE_LOCATION)
+//                        } == false){
+//                        Toast.makeText(activity, "请前往应用设置赋予权限", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//        }
+        val imageUrls = listOf(
+            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg"
+        )
+        val adapter = BannerImageAdapter(imageUrls)
+        homeBanner?.let {
+            it.addBannerLifecycleObserver(this)
+            it.indicator = CircleIndicator(activity)
+            it.setBannerRound(20f)
+            it.adapter = adapter
         }
     }
 }
@@ -159,5 +184,6 @@ class HomePageCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragm
 
     }
 }
+
 
 

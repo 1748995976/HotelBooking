@@ -59,29 +59,7 @@ class LivedCollectionFragment : Fragment() {
             else -> "民宿"
         }
         }.attach()
-        val button = view.findViewById<Button>(R.id.button)
-        button.setOnClickListener {
-//            val imageView = view.findViewById<ImageView>(R.id.image_view)
-//            val url = "http://222.20.104.6:3000/photo?pid=1"
-//            Glide.with(activity).load(url).into(imageView)
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://222.20.104.6:3000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            val appService = retrofit.create(AppService::class.java)
-            appService.getAppData().enqueue(object : Callback<App>{
-                override fun onResponse(call: Call<App>, response: Response<App>) {
-                    val list = response.body()
-                    if(list != null){
-                        Toast.makeText(HotelBookingApplication.context,list.version,Toast.LENGTH_SHORT).show()
-                    }
-                }
 
-                override fun onFailure(call: Call<App>, t: Throwable) {
-                    t.printStackTrace()
-                }
-            })
-        }
     }
 }
 

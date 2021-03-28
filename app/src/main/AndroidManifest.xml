@@ -25,8 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="n">
-        <activity android:name=".ui.homepage.InChinaDetail"></activity>
-
+        <activity android:name=".ui.livedcollection.HotelDetail"/>
+        <activity android:name=".ui.homepage.InChinaDetail" />
+        <activity android:name=".ui.livedcollection.RoomDetail"/>
         <service android:name="com.amap.api.location.APSService" />
 
         <meta-data
@@ -35,7 +36,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/DefaultCityPickerTheme">
+            android:theme="@style/MyCityPickerTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
