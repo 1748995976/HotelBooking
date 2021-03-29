@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.commonui.BookRoomDetail">
+    <com.wzc1748995976.hotelbooking.MakePerfect.MyScrollView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Tomato">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/LinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="30sp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_all"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toTopOf="@id/ConstraintLayout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ConstraintLayout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_all"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/startDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/ConstraintLayout_1"
+                        app:layout_constraintTop_toTopOf="@id/ConstraintLayout_1"
+                        tools:text="3月28日" />
+
+                    <top.androidman.SuperLine
+                        android:id="@+id/superLine_1"
+                        android:layout_width="5dp"
+                        android:layout_height="0.5dp"
+                        app:layout_constraintBottom_toBottomOf="@id/startDate"
+                        app:layout_constraintStart_toEndOf="@id/startDate"
+                        app:layout_constraintTop_toTopOf="@id/startDate"
+                        app:line_color="@color/color_gray" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/gapDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        app:border_color="@color/color_gray"
+                        app:border_width="0.5dp"
+                        app:corner="6dp"
+                        app:layout_constraintBottom_toBottomOf="@id/startDate"
+                        app:layout_constraintStart_toEndOf="@id/superLine_1"
+                        app:layout_constraintTop_toTopOf="@id/startDate"
+                        app:textColor="@color/color_gray"
+                        app:textSize="10dp"
+                        tools:text="1晚" />
+
+                    <top.androidman.SuperLine
+                        android:id="@+id/superLine_2"
+                        android:layout_width="5dp"
+                        android:layout_height="0.5dp"
+                        app:layout_constraintBottom_toBottomOf="@id/startDate"
+                        app:layout_constraintStart_toEndOf="@id/gapDate"
+                        app:layout_constraintTop_toTopOf="@id/startDate"
+                        app:line_color="@color/color_gray" />
+
+                    <TextView
+                        android:id="@+id/endDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/startDate"
+                        app:layout_constraintStart_toEndOf="@id/superLine_2"
+                        app:layout_constraintTop_toTopOf="@id/startDate"
+                        tools:text="3月28日" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/roomDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        app:icon="@drawable/ic_arrow_right_blue_24dp"
+                        app:iconOrientation="right"
+                        app:layout_constraintBottom_toBottomOf="@id/startDate"
+                        app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_1"
+                        app:layout_constraintTop_toTopOf="@id/startDate"
+                        app:text="房型详情"
+                        app:textColor="@color/color_blue"
+                        app:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/roomName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/startDate"
+                        app:layout_constraintTop_toBottomOf="@id/startDate"
+                        tools:text="特惠无敌小床房" />
+
+                    <TextView
+                        android:id="@+id/roomDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/color_gray"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@id/startDate"
+                        app:layout_constraintTop_toBottomOf="@id/roomName"
+                        tools:text="大床 · 无早餐 · 2人入住大床 · 无早餐 · 2人入住" />
+
+                    <top.androidman.SuperLine
+                        android:id="@+id/superLine_3"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="@id/startDate"
+                        app:layout_constraintTop_toBottomOf="@id/roomDesc" />
+
+                    <TextView
+                        android:id="@+id/cancelDesc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="15dp"
+                        app:layout_constraintEnd_toStartOf="@id/bookRead"
+                        app:layout_constraintStart_toStartOf="@id/startDate"
+                        app:layout_constraintTop_toBottomOf="@id/superLine_3"
+                        tools:text="晚18点前可免费取消今晚18点前可免费取消" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/bookRead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        app:icon="@drawable/ic_arrow_right_blue_24dp"
+                        app:iconOrientation="right"
+                        app:layout_constraintBottom_toBottomOf="@id/cancelDesc"
+                        app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_1"
+                        app:layout_constraintTop_toTopOf="@id/cancelDesc"
+                        app:text="房型详情"
+                        app:textColor="@color/color_blue"
+                        app:textSize="12sp" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ConstraintLayout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/LinearLayout">
+
+                <TextView
+                    android:id="@+id/roomNumberTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginStart="18dp"
+                    android:paddingEnd="15dp"
+                    android:text="房间数量"
+                    android:textColor="@color/color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toTopOf="@id/ConstraintLayout_2" />
+
+                <TextView
+                    android:id="@+id/roomNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@id/roomNumberTxt"
+                    app:layout_constraintStart_toEndOf="@id/roomNumberTxt"
+                    app:layout_constraintTop_toTopOf="@id/roomNumberTxt"
+                    tools:text="1间(每间最多住2人)" />
+
+                <top.androidman.SuperLine
+                    android:id="@+id/superLine_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/roomNumberTxt"
+                    app:line_color="@color/color_gray" />
+
+                <TextView
+                    android:id="@+id/customerNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginStart="18dp"
+                    android:paddingEnd="15dp"
+                    android:text="住客姓名"
+                    android:textColor="@color/color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/superLine_4" />
+
+                <EditText
+                    android:id="@+id/customerName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="每间填1位住客姓名"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@id/customerNameTxt"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toEndOf="@id/customerNameTxt"
+                    app:layout_constraintTop_toTopOf="@id/customerNameTxt" />
+
+                <top.androidman.SuperLine
+                    android:id="@+id/superLine_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/customerNameTxt"
+                    app:line_color="@color/color_gray" />
+
+                <TextView
+                    android:id="@+id/customerPhoneTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginStart="18dp"
+                    android:paddingEnd="15dp"
+                    android:text="联系手机"
+                    android:textColor="@color/color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/superLine_5" />
+
+                <EditText
+                    android:id="@+id/customerPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="用于接受通知短信"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@id/customerPhoneTxt"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toEndOf="@id/customerPhoneTxt"
+                    app:layout_constraintTop_toTopOf="@id/customerPhoneTxt" />
+
+                <top.androidman.SuperLine
+                    android:id="@+id/superLine_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/customerPhoneTxt"
+                    app:line_color="@color/color_gray" />
+
+                <TextView
+                    android:id="@+id/arriveTimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginStart="18dp"
+                    android:paddingEnd="15dp"
+                    android:text="预计到店"
+                    android:textColor="@color/color_gray"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/superLine_6" />
+
+                <TextView
+                    android:id="@+id/arriveTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@id/arriveTimeTxt"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toEndOf="@id/arriveTimeTxt"
+                    app:layout_constraintTop_toTopOf="@id/arriveTimeTxt"
+                    tools:text="14:00(房间将整晚保留)" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
+                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
+                    app:layout_constraintTop_toBottomOf="@id/arriveTimeTxt" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/View"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/WhiteSmoke"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/ConstraintLayout_2" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/View">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="20dp"
+                        android:text="优惠"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/color_red"
+                        android:textSize="15sp"
+                        tools:text="已经为您选择最大优惠" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/promotionActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="促销活动"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textColor="@color/color_red"
+                        android:textSize="15sp"
+                        tools:text="立减￥43" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_right_24dp" />
+                </LinearLayout>
+
+                <top.androidman.SuperLine
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginVertical="15dp"
+                    app:line_color="@color/color_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="抵用券"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/voucher"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textColor="@color/color_red"
+                        android:textSize="15sp"
+                        tools:text="9折减￥16" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_right_24dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/View_1"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/WhiteSmoke"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/LinearLayout_1" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/View_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本单可享"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="赠送礼包"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/giveGift"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textColor="@color/color_red"
+                        android:textSize="15sp"
+                        tools:text="免费口罩、纯净水" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="支付后返"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/afterPayGive"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textColor="@color/color_red"
+                        android:textSize="15sp"
+                        tools:text="返澳门酒店九折首单券，预订酒店最高减100元" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="美团瓜籽"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/otherGift"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textColor="@color/color_red"
+                        android:textSize="15sp"
+                        tools:text="离店次日赠送酒店积分，详情请看酒店会员中心" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/WhiteSmoke"
+                android:orientation="vertical"
+                android:paddingHorizontal="18sp"
+                android:paddingTop="20dp"
+                android:paddingBottom="100dp"
+                app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/LinearLayout_2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="退款规则"
+                    android:textColor="@color/color_gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/refundRule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_gray"
+                    android:textSize="13dp"
+                    tools:text="根据酒店政策，根据酒店政策根据酒店政策根据酒店政策根
+            据酒店政策根据酒店政策根据酒店政策根据酒店政策根据酒店政策" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="预定说明"
+                    android:textColor="@color/color_gray"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/bookDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_gray"
+                    android:textSize="13dp"
+                    tools:text="根据酒店政策，根据酒店政策根据酒店政策根据酒店政策根
+            据酒店政策根据酒店政策根据酒店政策根据酒店政策根据酒店政策" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.wzc1748995976.hotelbooking.MakePerfect.MyScrollView>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_4"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <top.androidman.SuperLine
+            app:line_color="@color/color_gray"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="18dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/Tomato"
+                android:text="￥"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/submitPrice"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/Tomato"
+                android:gravity="start"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                tools:text="100"/>
+            <top.androidman.SuperButton
+                android:id="@+id/submitButton"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="30dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:text="提交订单"
+                app:textSize="20sp"
+                app:textColor="@color/white"
+                app:background_normalColor="@color/Tomato"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

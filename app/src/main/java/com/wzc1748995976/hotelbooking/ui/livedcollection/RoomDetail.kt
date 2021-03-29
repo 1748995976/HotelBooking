@@ -1,5 +1,6 @@
 package com.wzc1748995976.hotelbooking.ui.livedcollection
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.*
+import com.wzc1748995976.hotelbooking.ui.commonui.BookRoomDetail
 import com.wzc1748995976.hotelbooking.ui.homepage.BannerImageAdapter
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.room_detail.*
@@ -154,7 +156,8 @@ class RoomDetail : AppCompatActivity()  {
         bookPrice.text = "130"
         // 预订按钮点击
         bookButton.setOnClickListener {
-
+            val intent = Intent(this,BookRoomDetail::class.java)
+            startActivity(intent)
         }
     }
 }
