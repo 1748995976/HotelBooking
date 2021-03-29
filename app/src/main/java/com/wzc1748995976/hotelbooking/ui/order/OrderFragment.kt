@@ -71,10 +71,17 @@ class OrderFragment : Fragment() {
         orderItemAdapter.register(waitEvaOrderInfoDelegate)
         orderItemAdapter.register(bookSuccessOrderInfoDelegate)
         recyclerView?.adapter = orderItemAdapter
+
         for (i in 0..1){
-            orderItemAdapterItems.add(FinishUseOrderInfo("影音体验"))
-            orderItemAdapterItems.add(WaitEvaOrderInfo("影音体验"))
-            orderItemAdapterItems.add(BookSuccessOrderInfo("影音体验"))
+            orderItemAdapterItems.add(FinishUseOrderInfo("华中科技大学",
+                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
+            "标准大床房","2021.1.20","2021.1.30","999"))
+            orderItemAdapterItems.add(WaitEvaOrderInfo("武汉大学",
+                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
+                "标准大床房","2021.1.20","2021.1.30","999"))
+            orderItemAdapterItems.add(BookSuccessOrderInfo("清华大学",
+                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
+                "标准大床房","2021.1.20","2021.1.30","999"))
         }
         orderItemAdapter.items = orderItemAdapterItems
         orderItemAdapter.notifyDataSetChanged()

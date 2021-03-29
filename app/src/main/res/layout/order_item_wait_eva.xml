@@ -138,7 +138,7 @@
         android:text="999" />
 
     <top.androidman.SuperButton
-        android:id="@+id/cancelRule"
+        android:id="@+id/evaluation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
