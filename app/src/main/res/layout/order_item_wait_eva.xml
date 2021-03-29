@@ -39,10 +39,11 @@
         android:textColor="@color/color_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="待评价"
         app:layout_constraintTop_toTopOf="@id/hotelIcon"
         app:layout_constraintBottom_toBottomOf="@id/hotelIcon"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="待评价"/>
+        />
     <top.androidman.SuperLine
         android:id="@+id/superLine"
         android:layout_marginTop="12dp"
@@ -162,7 +163,7 @@
         android:layout_height="wrap_content"
         app:textSize="15sp"
         app:textColor="@color/color_gray"
-        app:text="再次预定"
+        app:text="再次预订"
         app:border_width="0.5dp"
         app:corner="6dp"
         app:border_color="@color/color_gray"

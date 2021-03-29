@@ -4,14 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewDelegate
-import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
-import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 
 data class FinishUseOrderInfo(
     val name: String//酒店名称

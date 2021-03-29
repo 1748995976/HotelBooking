@@ -39,10 +39,11 @@
         android:textColor="@color/color_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="已消费"
         app:layout_constraintTop_toTopOf="@id/hotelIcon"
         app:layout_constraintBottom_toBottomOf="@id/hotelIcon"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="已消费"/>
+        />
     <top.androidman.SuperLine
         android:id="@+id/superLine"
         android:layout_marginTop="12dp"

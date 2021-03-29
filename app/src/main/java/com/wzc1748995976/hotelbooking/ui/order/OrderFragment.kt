@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
+import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
-import com.wzc1748995976.hotelbooking.ui.anotherAdapter.FacilityInfo
-import com.wzc1748995976.hotelbooking.ui.anotherAdapter.FacilityInfoDelegate
 
 class OrderFragment : Fragment() {
 
@@ -34,9 +34,42 @@ class OrderFragment : Fragment() {
         val orderItemAdapterItems = ArrayList<Any>()
         recyclerView?.visibility = View.VISIBLE
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        orderItemAdapter.register(FinishUseOrderInfoDelegate())
-        orderItemAdapter.register(WaitEvaOrderInfoDelegate())
-        orderItemAdapter.register(BookSuccessOrderInfoDelegate())
+        val finishUseOrderInfoDelegate = FinishUseOrderInfoDelegate()
+        val waitEvaOrderInfoDelegate = WaitEvaOrderInfoDelegate()
+        val bookSuccessOrderInfoDelegate = BookSuccessOrderInfoDelegate()
+
+        finishUseOrderInfoDelegate.setClickOrderItem(object :
+            FinishUseOrderInfoDelegate.ClickOrderItem {
+            override fun getResultToSet(
+                holder: FinishUseOrderInfoDelegate.ViewHolder,
+                item: FinishUseOrderInfo
+            ) {
+                Toast.makeText(HotelBookingApplication.context,"finishUseOrderInfoDelegate",Toast.LENGTH_SHORT).show()
+            }
+        })
+        waitEvaOrderInfoDelegate.setClickOrderItem(object :
+            WaitEvaOrderInfoDelegate.ClickOrderItem {
+            override fun getResultToSet(
+                holder: WaitEvaOrderInfoDelegate.ViewHolder,
+                item: WaitEvaOrderInfo
+            ) {
+                Toast.makeText(HotelBookingApplication.context,"waitEvaOrderInfoDelegate",Toast.LENGTH_SHORT).show()
+            }
+        })
+        bookSuccessOrderInfoDelegate.setClickOrderItem(object :
+            BookSuccessOrderInfoDelegate.ClickOrderItem{
+            override fun getResultToSet(
+                holder: BookSuccessOrderInfoDelegate.ViewHolder,
+                item: BookSuccessOrderInfo
+            ) {
+                Toast.makeText(HotelBookingApplication.context,"bookSuccessOrderInfoDelegate",Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+        orderItemAdapter.register(finishUseOrderInfoDelegate)
+        orderItemAdapter.register(waitEvaOrderInfoDelegate)
+        orderItemAdapter.register(bookSuccessOrderInfoDelegate)
         recyclerView?.adapter = orderItemAdapter
         for (i in 0..1){
             orderItemAdapterItems.add(FinishUseOrderInfo("影音体验"))
