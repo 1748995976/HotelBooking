@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@color/Tomato"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <top.androidman.SuperButton
+        android:id="@+id/stateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:background_normalColor="#00000000"
+        app:icon="@drawable/ic_arrow_right_white_24dp"
+        app:iconOrientation="right"
+        app:textSize="28sp"
+        app:textColor="@color/white"
+        app:text="待评价"/>
+    <TextView
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您已入住，快来评价吧"/>
+    <top.androidman.SuperButton
+        android:id="@+id/evaluation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingVertical="5dp"
+        app:corner="4dp"
+        app:background_normalColor="@color/color_white"
+        app:icon="@drawable/ic_arrow_right_white_24dp"
+        app:iconOrientation="right"
+        app:textSize="28sp"
+        app:textColor="@color/color_black"
+        app:text="去评价"/>
+</LinearLayout>

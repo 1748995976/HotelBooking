@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wzc1748995976.hotelbooking.MakePerfect.MyScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:background="@color/Tomato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <top.androidman.SuperButton
+                android:id="@+id/stateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:background_normalColor="#00000000"
+                app:icon="@drawable/ic_arrow_right_white_24dp"
+                app:iconOrientation="right"
+                app:textSize="28sp"
+                app:textColor="@color/white"
+                app:text="已取消"/>
+        </LinearLayout>
+        <include layout="@layout/order_item_detail_common"/>
+
+    </LinearLayout>
+
+</com.wzc1748995976.hotelbooking.MakePerfect.MyScrollView>

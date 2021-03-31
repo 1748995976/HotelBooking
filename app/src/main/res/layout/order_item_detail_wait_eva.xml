@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wzc1748995976.hotelbooking.MakePerfect.MyScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/order_item_detail_wait_eva_header"/>
+        <include layout="@layout/order_item_detail_common"/>
+
+    </LinearLayout>
+
+</com.wzc1748995976.hotelbooking.MakePerfect.MyScrollView>
