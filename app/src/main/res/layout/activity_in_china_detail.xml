@@ -66,17 +66,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/hotButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -113,17 +112,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/brandButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -160,17 +158,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/businessButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -207,17 +204,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/subwayButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -254,17 +250,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/sceneButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -301,17 +296,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/schoolButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -348,17 +342,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/hospitalButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -395,17 +388,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <top.androidman.SuperButton
+                    android:id="@+id/planeButton"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="更多" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right_24dp" />
+                    app:text="更多"
+                    app:textSize="16sp"
+                    app:textColor="@color/color_gray"
+                    app:icon="@drawable/ic_arrow_right_24dp"
+                    app:iconOrientation="right"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

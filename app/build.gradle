@@ -85,4 +85,6 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
     // Introduce tools to show image
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
+
+    implementation 'com.github.donkingliang:GroupedRecyclerViewAdapter:2.4.0'
 }

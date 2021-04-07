@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="n">
+        <activity android:name=".ui.homepage.MoreLocationInfo"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +50,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/MyCityPickerTheme">
-        </activity>
+            android:theme="@style/MyCityPickerTheme"></activity>
     </application>
 
 </manifest>

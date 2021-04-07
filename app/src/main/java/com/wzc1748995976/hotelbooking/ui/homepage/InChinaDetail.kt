@@ -19,6 +19,7 @@ import com.google.android.flexbox.JustifyContent
 import com.jaygoo.widget.RangeSeekBar
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import top.androidman.SuperButton
 
 class InChinaDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +61,10 @@ class InChinaDetail : AppCompatActivity() {
         val recyclerView_1 = findViewById<RecyclerView>(R.id.searchBrandRecycler)
         recyclerView_1.layoutManager = GridLayoutManager(this, 4)
         recyclerView_1.adapter = adapter
+        val hotButton = findViewById<SuperButton>(R.id.hotButton).setOnClickListener {
+            val intent = Intent(this,MoreLocationInfo::class.java)
+            startActivity(intent)
+        }
 
         val recyclerView_2 = findViewById<RecyclerView>(R.id.searchBrandRecycler)
         recyclerView_2.layoutManager = GridLayoutManager(this, 4)
