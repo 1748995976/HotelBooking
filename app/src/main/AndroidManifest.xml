@@ -25,7 +25,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="n">
-        <activity android:name=".ui.commonui.BookRoomDetail"/>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.commonui.BookRoomDetail" />
         <activity android:name=".ui.livedcollection.HotelDetail" />
         <activity android:name=".ui.homepage.InChinaDetail" />
         <activity android:name=".ui.livedcollection.RoomDetail" />
@@ -43,11 +50,6 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/MyCityPickerTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

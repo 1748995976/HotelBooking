@@ -81,4 +81,8 @@ dependencies {
     implementation 'com.drakeet.multitype:multitype:4.2.0'
     // Introduce banner
     implementation 'com.youth.banner:banner:2.1.0'
+    // Introduce gif player
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    // Introduce tools to show image
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
 }

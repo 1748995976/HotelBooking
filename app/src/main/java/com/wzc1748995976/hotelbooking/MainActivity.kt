@@ -1,8 +1,13 @@
 package com.wzc1748995976.hotelbooking
 
+import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.wzc1748995976.hotelbooking.HotelBookingApplication.Companion.context
 import com.wzc1748995976.hotelbooking.ui.homepage.HomeFragment
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LivedCollectionFragment
 import com.wzc1748995976.hotelbooking.ui.mine.MineFragment

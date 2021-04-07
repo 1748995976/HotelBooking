@@ -65,4 +65,9 @@
         <item name="cpOverlayTextColor">@android:color/white</item>
         <item name="cpOverlayBackground">@drawable/cp_overlay_bg</item>
     </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/OrangeRed</item>
+        <item name="colorControlActivated">@color/color_green</item>
+    </style>
 </resources>
