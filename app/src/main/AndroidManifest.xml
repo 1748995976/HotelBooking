@@ -25,10 +25,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="n">
-        <activity android:name=".ui.commonui.BookRoomDetail"></activity>
+        <activity android:name=".ui.commonui.BookRoomDetail"/>
         <activity android:name=".ui.livedcollection.HotelDetail" />
         <activity android:name=".ui.homepage.InChinaDetail" />
         <activity android:name=".ui.livedcollection.RoomDetail" />
+        <activity android:name=".ui.order.CancelOrder" />
+        <activity android:name=".ui.order.BookSuccessOrder" />
+        <activity android:name=".ui.order.WaitEvaOrder" />
+        <activity android:name=".ui.order.FinishUseOrder" />
 
         <service android:name="com.amap.api.location.APSService" />
 

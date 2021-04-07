@@ -41,6 +41,16 @@ data class BookSuccessOrderInfo(
     val totalPrice: String//花费总数
 )
 
+data class CancelOrderInfo(
+    val hotelName: String,//酒店名称
+    val hotelImg: String,//酒店图片
+    val roomNumber: String,//房间数量
+    val roomName: String,//房间名称
+    val checkInDate: String,//房间入住日期
+    val checkOutDate: String,//房间离店日期
+    val totalPrice: String//花费总数
+)
+
 class FinishUseOrderInfoDelegate: ItemViewDelegate<FinishUseOrderInfo, FinishUseOrderInfoDelegate.ViewHolder>() {
 
     interface ClickOrderItem{
@@ -163,6 +173,52 @@ class BookSuccessOrderInfoDelegate: ItemViewDelegate<BookSuccessOrderInfo, BookS
 
 
     override fun onBindViewHolder(holder: ViewHolder, item: BookSuccessOrderInfo) {
+        holder.run {
+            hotelName.text = item.hotelName
+            Glide.with(HotelBookingApplication.context)
+                .load(item.hotelImg)
+                .into(holder.hotelImg)
+            roomNumber.text = item.roomNumber
+            roomName.text = item.roomName
+            checkInDate.text = item.checkInDate
+            checkOutDate.text = item.checkOutDate
+            totalPrice.text = item.totalPrice
+        }
+        holder.itemView.setOnClickListener {
+            clickOrderItem?.getResultToSet(holder, item)
+        }
+    }
+}
+
+class CancelOrderInfoDelegate: ItemViewDelegate<CancelOrderInfo, CancelOrderInfoDelegate.ViewHolder>() {
+
+    interface ClickOrderItem{
+        fun getResultToSet(holder: ViewHolder, item: CancelOrderInfo)
+    }
+
+    private var clickOrderItem: ClickOrderItem? = null
+    fun setClickOrderItem(newObject: ClickOrderItem){
+        clickOrderItem = newObject
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val hotelName: TextView = itemView.findViewById(R.id.hotelName)
+        val hotelImg: ImageView = itemView.findViewById(R.id.hotelImg)
+        val roomNumber: TextView = itemView.findViewById(R.id.roomNumber)
+        val roomName: TextView = itemView.findViewById(R.id.roomName)
+        val checkInDate: TextView = itemView.findViewById(R.id.checkInDate)
+        val checkOutDate: TextView = itemView.findViewById(R.id.checkOutDate)
+        val totalPrice: TextView = itemView.findViewById(R.id.totalPrice)
+        val bookAgain: SuperButton = itemView.findViewById(R.id.bookAgain)
+    }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.order_item_cancel_order, parent, false)
+        return ViewHolder(view)
+    }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, item: CancelOrderInfo) {
         holder.run {
             hotelName.text = item.hotelName
             Glide.with(HotelBookingApplication.context)
