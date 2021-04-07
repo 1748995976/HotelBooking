@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.wzc1748995976.hotelbooking.R
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -26,10 +27,15 @@ class MineFragment : Fragment() {
         //实现个人中心头部磨砂布局
         val blurImageView = view.findViewById<ImageView>(R.id.iv_blur);
         val avatarImageView = view.findViewById<ImageView>(R.id.iv_avatar);
-        Glide.with(activity).load("https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg").bitmapTransform(BlurTransformation(activity, 25),
-            CenterCrop(activity)
-        ).into(blurImageView)
-        Glide.with(activity).load("https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg").bitmapTransform(CropCircleTransformation(activity))
+        Glide.with(activity)
+            .load("https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg")
+            .bitmapTransform(BlurTransformation(activity, 25), CenterCrop(activity))
+            .priority(Priority.HIGH)
+            .into(blurImageView)
+        Glide.with(activity)
+            .load("https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg")
+            .bitmapTransform(CropCircleTransformation(activity))
+            .priority(Priority.IMMEDIATE)
             .into(avatarImageView)
         return view
     }

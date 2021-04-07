@@ -20,10 +20,13 @@ class MyLinearLayout(
     defStyleAttr: Int
 ) :
     LinearLayout(context, attrs, defStyleAttr) {
-    private val imageView: ImageView
-    private val textView: TextView
+    private val imageViewLeft: ImageView
+    private val imageViewRight: ImageView
+    private val textViewLeft: TextView
+    private val textViewRight: TextView
     private val bottomView: ImageView
     private var isBottom = true //是否显示底部的下划线
+    private var isShowRightImg = false //是否显示右侧的图标
 
     constructor(context: Context) : this(context, null) {}
     constructor(context: Context, @Nullable attrs: AttributeSet?) : this(context, attrs, -1) {}
@@ -35,6 +38,11 @@ class MyLinearLayout(
         } else {
             bottomView.visibility = View.GONE
         }
+        if(isShowRightImg){
+            imageViewRight.visibility = View.VISIBLE
+        } else {
+            imageViewRight.visibility = View.INVISIBLE
+        }
     }
 
     init {
@@ -44,15 +52,25 @@ class MyLinearLayout(
         val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.mine_item_view)
         //获取控件
         bottomView = findViewById(R.id.item_bottom)
-        imageView = findViewById(R.id.item_img)
-        textView = findViewById(R.id.item_text)
+        imageViewLeft = findViewById(R.id.item_img_left)
+        textViewLeft = findViewById(R.id.item_text_left)
+        imageViewRight = findViewById(R.id.item_img_right)
+        textViewRight = findViewById(R.id.item_text_right)
         //设置属性值
         isBottom = ta.getBoolean(R.styleable.mine_item_view_show_bottom_line, true)
-        textView.text = ta.getString(R.styleable.mine_item_view_show_text)
+        isShowRightImg = ta.getBoolean(R.styleable.mine_item_view_is_show_right_img, false)
+        textViewLeft.text = ta.getString(R.styleable.mine_item_view_show_left_text)
+        textViewRight.text = ta.getString(R.styleable.mine_item_view_show_right_text)
         // R.drawable.ic_circle_hotel是默认值
-        imageView.setBackgroundResource(
+        imageViewLeft.setBackgroundResource(
             ta.getResourceId(
-                R.styleable.mine_item_view_show_Left_img,
+                R.styleable.mine_item_view_show_left_img,
+                R.drawable.ic_circle_hotel
+            )
+        )
+        imageViewRight.setBackgroundResource(
+            ta.getResourceId(
+                R.styleable.mine_item_view_show_right_img,
                 R.drawable.ic_circle_hotel
             )
         )

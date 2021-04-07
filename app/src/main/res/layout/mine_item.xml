@@ -8,18 +8,18 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp">
     <ImageView
-        android:id="@+id/item_img"
+        android:id="@+id/item_img_left"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:background="@drawable/ic_hotel_24dp" />
     <TextView
-        android:id="@+id/item_text"
+        android:id="@+id/item_text_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/item_img"
+        android:layout_toRightOf="@id/item_img_left"
         android:gravity="center_vertical"
         android:text="设置中心"
         android:textColor="#050000"
@@ -28,15 +28,25 @@
         android:id="@+id/item_bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignLeft="@id/item_text"
-        android:layout_below="@id/item_img"
+        android:layout_alignLeft="@id/item_text_left"
+        android:layout_below="@id/item_img_left"
         android:layout_marginTop="10dp"
         android:background="#e9e5e5" />
+    <TextView
+        android:id="@+id/item_text_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@id/item_img_right"
+        android:gravity="center_vertical"
+        android:text="男"
+        android:textColor="#050000"
+        android:textSize="17sp" />
     <ImageView
-        android:id="@+id/item_right"
+        android:id="@+id/item_img_right"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/ic_arrow_right_24dp" />
+        android:layout_centerVertical="true" />
 </RelativeLayout>
