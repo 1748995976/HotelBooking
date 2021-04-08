@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
-import com.google.android.flexbox.*
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
@@ -37,11 +36,23 @@ class InChinaFragment : Fragment() {
     private var minPtmp = 0
     private var maxPtmp = 1050
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(this).get(InChinaViewModel::class.java)
+        val calendar = Calendar.getInstance()//取得当前时间的年月日 时分秒
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        calendar.add(Calendar.DATE, 1)
+        val addYear = calendar.get(Calendar.YEAR)
+        val addMonth = calendar.get(Calendar.MONTH) + 1
+        val addDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+        viewModel.inChinaCheckInDate.value = "${year}年${month}月${day}日"
+        viewModel.inChinaCheckOutDate.value = "${addYear}年${addMonth}月${addDay}日"
         return inflater.inflate(R.layout.in_china_fragment, container, false)
     }
 
@@ -56,10 +67,9 @@ class InChinaFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<SuperButton>(R.id.inChinaWhereButton).setOnClickListener {
+        view.findViewById<SuperButton>(R.id.whereButton).setOnClickListener {
             CityPickerInstance.let {
                 it.setonPickCallBack(object : onPickCallBack {
                     override fun getResultToSet(
@@ -76,7 +86,7 @@ class InChinaFragment : Fragment() {
                 it.getInstance(activity)?.show()
             }
         }
-        view.findViewById<SuperButton>(R.id.inChinaCheckButton).setOnClickListener {
+        view.findViewById<SuperButton>(R.id.checkButton).setOnClickListener {
             activity?.let { it1 ->
                 DatePicker.let {
                     it.setpickDateCallBack(object : pickDateCallBack {
@@ -120,17 +130,6 @@ class InChinaFragment : Fragment() {
 
         }
 
-        val calendar = Calendar.getInstance()//取得当前时间的年月日 时分秒
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        calendar.add(Calendar.DATE, 1)
-        val addYear = calendar.get(Calendar.YEAR)
-        val addMonth = calendar.get(Calendar.MONTH) + 1
-        val addDay = calendar.get(Calendar.DAY_OF_MONTH)
-
-        viewModel.inChinaCheckInDate.value = "${year}年${month}月${day}日"
-        viewModel.inChinaCheckOutDate.value = "${addYear}年${addMonth}月${addDay}日"
     }
 
 

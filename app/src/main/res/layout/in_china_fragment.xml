@@ -18,7 +18,7 @@
         app:line_color="@color/color_lightgrey" />
 
     <top.androidman.SuperButton
-        android:id="@+id/inChinaWhereButton"
+        android:id="@+id/whereButton"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -38,15 +38,15 @@
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@id/inChinaCheckButton"
+        app:layout_constraintBottom_toTopOf="@id/checkButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inChinaWhereButton"
+        app:layout_constraintTop_toBottomOf="@+id/whereButton"
         app:layout_constraintVertical_bias="0.0"
         app:line_color="@color/color_lightgrey" />
 
     <top.androidman.SuperButton
-        android:id="@+id/inChinaCheckButton"
+        android:id="@+id/checkButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inChinaCheckButton"
+        app:layout_constraintTop_toBottomOf="@+id/checkButton"
         app:layout_constraintBottom_toTopOf="@id/inChinaDetailButton"
         app:line_color="@color/color_lightgrey" />
 
@@ -154,11 +154,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_arrow_right_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/inChinaWhereButton"
-        app:layout_constraintEnd_toEndOf="@+id/inChinaWhereButton"
+        app:layout_constraintBottom_toBottomOf="@+id/whereButton"
+        app:layout_constraintEnd_toEndOf="@+id/whereButton"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/inChinaWhereTextView"
-        app:layout_constraintTop_toTopOf="@+id/inChinaWhereButton" />
+        app:layout_constraintTop_toTopOf="@+id/whereButton" />
 
     <TextView
         android:id="@+id/inChinaWhereTextView"
@@ -168,9 +168,9 @@
         android:text="海口"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/inChinaWhereButton"
-        app:layout_constraintStart_toStartOf="@+id/inChinaWhereButton"
-        app:layout_constraintTop_toTopOf="@+id/inChinaWhereButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/whereButton"
+        app:layout_constraintStart_toStartOf="@+id/whereButton"
+        app:layout_constraintTop_toTopOf="@+id/whereButton" />
 
 
     <ImageView
@@ -179,10 +179,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:src="@drawable/ic_arrow_right_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/inChinaCheckButton"
+        app:layout_constraintBottom_toBottomOf="@+id/checkButton"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/inChinaWhereButton" />
+        app:layout_constraintTop_toBottomOf="@+id/whereButton" />
 
     <TextView
         android:id="@+id/textView11"
@@ -207,7 +207,7 @@
         app:layout_constraintBottom_toTopOf="@+id/inChinaCheckOutDateTextView"
         app:layout_constraintEnd_toEndOf="@+id/inChinaCheckOutDateTextView"
         app:layout_constraintStart_toStartOf="@+id/inChinaCheckOutDateTextView"
-        app:layout_constraintTop_toBottomOf="@+id/inChinaWhereButton" />
+        app:layout_constraintTop_toBottomOf="@+id/whereButton" />
 
     <TextView
         android:id="@+id/inChinaCheckInDateTextView"
@@ -217,7 +217,7 @@
         android:text="入住日期"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/inChinaCheckOutDateTextView"
-        app:layout_constraintStart_toStartOf="@+id/inChinaCheckButton" />
+        app:layout_constraintStart_toStartOf="@+id/checkButton" />
 
     <TextView
         android:id="@+id/inChinaCheckOutDateTextView"
@@ -226,7 +226,7 @@
         android:layout_marginBottom="8dp"
         android:text="离店日期"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/inChinaCheckButton"
+        app:layout_constraintBottom_toBottomOf="@+id/checkButton"
         app:layout_constraintEnd_toStartOf="@+id/inChinaCheckGapTextView"
         app:layout_constraintStart_toEndOf="@+id/inChinaCheckInDateTextView" />
 

@@ -1,36 +1,21 @@
 package com.wzc1748995976.hotelbooking.ui.homepage
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.app.Dialog
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
-import com.youth.banner.Banner
-import com.youth.banner.adapter.BannerAdapter
-import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
-import com.youth.banner.util.BannerUtils
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
@@ -51,8 +36,7 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.home_fragment, container, false)
-        return root
+        return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -77,6 +61,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         homePageCollectionAdapter = HomePageCollectionAdapter(this)
         viewPager = view.findViewById(R.id.home_viewpager)
         viewPager.adapter = homePageCollectionAdapter
@@ -149,7 +134,7 @@ class HomePageCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragm
                 fragment
             }
             1->{
-                val fragment = InChinaFragment()
+                val fragment = HourRoomFragment()
                 fragment.arguments = Bundle().apply {
                     // Our object is just an integer :-P
                     putInt("钟点房", position + 1)
