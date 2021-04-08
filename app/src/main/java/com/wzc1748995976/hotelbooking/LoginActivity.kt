@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
 
-        findViewById<Button>(R.id.btn_login).setOnClickListener {
+        findViewById<SuperButton>(R.id.btn_login).setOnClickListener {
             val account = findViewById<EditText>(R.id.et_user_name).text.toString()
             val password = findViewById<EditText>(R.id.et_psw).text.toString()
             if(account.isEmpty() || password.isEmpty()){
