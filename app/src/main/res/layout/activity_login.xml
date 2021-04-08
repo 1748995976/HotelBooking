@@ -26,15 +26,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="35dp">
 
             <top.androidman.SuperButton
                 android:id="@+id/symbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:background_normalColor="#00000000"
                 app:text="登录"
                 app:textSize="26sp"
-                app:icon="@drawable/ic_login"/>
+                app:icon="@drawable/ic_go_online"/>
         </LinearLayout>
         <!--输入框-->
         <EditText
@@ -67,7 +69,7 @@
         <Button
             android:id="@+id/btn_login"
             android:text="登录"
-            android:background="#1E90FF"
+            android:background="@color/color_login"
             android:textSize="24sp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
@@ -78,21 +80,25 @@
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_register"
+            <top.androidman.SuperButton
+                android:id="@+id/register"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新用户注册"/>
+                app:background_normalColor="@color/Transparent"
+                app:textSize="16sp"
+                app:text="新用户注册"/>
             <!--layout_weight="1" layout_width="0dp"实现均分效果-->
-            <TextView
-                android:id="@+id/tv_find_psw"
+            <top.androidman.SuperButton
+                android:id="@+id/find_psw"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="忘记密码？" />
+                app:background_normalColor="@color/Transparent"
+                app:textSize="16sp"
+                app:text="忘记密码？" />
         </RelativeLayout>
         <LinearLayout
             android:orientation="vertical"
@@ -104,11 +110,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <top.androidman.SuperButton
+                    android:id="@+id/articleButton"
                     android:layout_alignParentBottom="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="登录即代表阅读并同意服务条款" />
+                    app:background_normalColor="@color/Transparent"
+                    app:textSize="16sp"
+                    app:text="登录即代表阅读并同意服务条款" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

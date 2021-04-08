@@ -1,6 +1,5 @@
 package com.wzc1748995976.hotelbooking.ui.homepage
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel

@@ -87,4 +87,6 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     // Introduce recyclerView ceiling
     implementation 'com.github.donkingliang:GroupedRecyclerViewAdapter:2.4.0'
+    // Introduce loading indicator
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }
