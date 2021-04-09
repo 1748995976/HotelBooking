@@ -25,7 +25,7 @@ class BannerImageAdapter(imageUrls: List<String>) : BannerAdapter<String, Banner
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
         //通过裁剪实现圆角
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            BannerUtils.setBannerRound(imageView, 20f)
+            BannerUtils.setBannerRound(imageView, 0f)
         }
         return ImageHolder(imageView)
     }
