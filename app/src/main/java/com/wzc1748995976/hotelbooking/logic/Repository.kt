@@ -4,10 +4,7 @@ import android.telecom.Call
 import android.widget.Toast
 import androidx.lifecycle.liveData
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
-import com.wzc1748995976.hotelbooking.logic.model.AdResponse
-import com.wzc1748995976.hotelbooking.logic.model.AdResponseData
-import com.wzc1748995976.hotelbooking.logic.model.Country
-import com.wzc1748995976.hotelbooking.logic.model.LoginResponse
+import com.wzc1748995976.hotelbooking.logic.model.*
 import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
@@ -57,6 +54,21 @@ object Repository {
             }
         }catch (e: Exception){
             Result.failure<List<AdResponseData>>(e)
+        }
+        emit(result)
+    }
+
+    fun inChinaDetail(adcode: String) = liveData(Dispatchers.IO){
+        val result = try {
+            val detailResponse = HotelBookingNetWork.inChinaDetail(adcode)
+            if(detailResponse.status == 0){
+                val result = detailResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${detailResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<InChinaDetailResponseData>>(e)
         }
         emit(result)
     }

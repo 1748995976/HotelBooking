@@ -16,6 +16,7 @@ object HotelBookingNetWork {
     private val myService = MyServiceCreator.create<MyService>()
     suspend fun loginRequest(account: String,password: String) = myService.loginRequest(account,password).await()
     suspend fun homeAdGetAll() = myService.homeAdGetAll().await()
+    suspend fun inChinaDetail(adcode:String) = myService.inChinaDetailGetAll(adcode).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->

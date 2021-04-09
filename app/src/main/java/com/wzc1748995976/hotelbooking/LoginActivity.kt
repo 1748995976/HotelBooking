@@ -56,8 +56,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //获取登录结果
-        viewModel.loginResult.observe(this, Observer { result ->
-            val result = result.getOrNull() as Boolean?
+        viewModel.loginResult.observe(this, Observer { data ->
+            val result = data.getOrNull() as Boolean?
             loading.dismiss()
             if(result == null){
                 Toast.makeText(HotelBookingApplication.context,"登录异常",Toast.LENGTH_SHORT).show()

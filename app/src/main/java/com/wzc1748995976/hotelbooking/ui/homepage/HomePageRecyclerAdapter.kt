@@ -56,8 +56,8 @@ class PriceRangeViewDelegate: ItemViewDelegate<PriceRange, PriceRangeViewDelegat
     }
 }
 
-data class InChinaDetailKind(val name: String)
 // 国内 搜索酒店/地名/关键词 界面某一类型信息，例如：高校，热门等
+data class InChinaDetailKind(val name: String)
 class InChinaDetailDelegate: ItemViewDelegate<InChinaDetailKind,InChinaDetailDelegate.ViewHolder>(){
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val detailView: SuperButton = itemView.findViewById(R.id.detailButton)
