@@ -23,7 +23,7 @@ abstract class LoadingDialog : Dialog {
 
     override fun onBackPressed() {
         cancle()
-        dismiss()
+        //dismiss()
     }
 }
 

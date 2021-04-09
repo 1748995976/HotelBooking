@@ -4,6 +4,8 @@ import android.telecom.Call
 import android.widget.Toast
 import androidx.lifecycle.liveData
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.logic.model.AdResponse
+import com.wzc1748995976.hotelbooking.logic.model.AdResponseData
 import com.wzc1748995976.hotelbooking.logic.model.Country
 import com.wzc1748995976.hotelbooking.logic.model.LoginResponse
 import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
@@ -39,7 +41,22 @@ object Repository {
                 Result.failure(RuntimeException("result is ${loginResponse.result}"))
             }
         }catch (e: Exception){
-            Result.failure<List<Country>>(e)
+            Result.failure<Boolean>(e)
+        }
+        emit(result)
+    }
+
+    fun homeAdGetAll() = liveData(Dispatchers.IO){
+        val result = try {
+            val adResponse = HotelBookingNetWork.homeAdGetAll()
+            if(adResponse.status == 0){
+                val result = adResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${adResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<AdResponseData>>(e)
         }
         emit(result)
     }

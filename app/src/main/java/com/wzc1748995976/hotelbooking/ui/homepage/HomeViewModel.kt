@@ -14,4 +14,12 @@ class HomeViewModel : ViewModel() {
     fun refresh(){
         refreshLiveData.value = refreshLiveData.value
     }
+    //查询首页banner所有的广告图片的imagePath
+    private val homeAdGetLiveData = MutableLiveData<Any?>()
+    val homeAdGetResult = Transformations.switchMap(homeAdGetLiveData){
+        Repository.homeAdGetAll()
+    }
+    fun getHomeAd(){
+        homeAdGetLiveData.value = homeAdGetLiveData.value
+    }
 }

@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.home_fragment.*
 
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
         val allCities = mutableListOf<String>()
         homeViewModel.refreshResult.observe(viewLifecycleOwner, Observer { result->
             val places = result.getOrNull()
@@ -54,6 +57,27 @@ class HomeFragment : Fragment() {
                 Log.d("城市信息",allCities.toString())
             }else{
                 Toast.makeText(activity,"未能查询到任何地点",Toast.LENGTH_SHORT).show()
+                result.exceptionOrNull()?.printStackTrace()
+            }
+        })
+
+        homeViewModel.getHomeAd()
+        homeViewModel.homeAdGetResult.observe(viewLifecycleOwner, Observer { result ->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                val imageUrls = mutableListOf<String>()
+                for (i in data){
+                    imageUrls.add(MyServiceCreator.homeAdPrePath + i.imagePath)
+                }
+                val adapter = BannerImageAdapter(imageUrls)
+                homeBanner?.let {
+                    it.addBannerLifecycleObserver(this)
+                    it.indicator = CircleIndicator(activity)
+                    it.setBannerRound(0f)
+                    it.adapter = adapter
+                }
+            }else{
+                Toast.makeText(activity,"获取首页广告图片失败",Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
         })
@@ -75,6 +99,7 @@ class HomeFragment : Fragment() {
             else -> "民宿公寓"
             }
         }.attach()
+
 
         //设置按钮监听
 //        view.findViewById<Button>(R.id.button).setOnClickListener {
@@ -100,21 +125,6 @@ class HomeFragment : Fragment() {
 //                }
 //            }
 //        }
-        val imageUrls = listOf(
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg"
-        )
-        val adapter = BannerImageAdapter(imageUrls)
-        homeBanner?.let {
-            it.addBannerLifecycleObserver(this)
-            it.indicator = CircleIndicator(activity)
-            it.setBannerRound(20f)
-            it.adapter = adapter
-        }
     }
 }
 

@@ -16,4 +16,5 @@ class LoginViewModel : ViewModel() {
     fun login(account: String,password: String){
         loginLiveData.value = LoginInfo(account,password)
     }
+
 }
