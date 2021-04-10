@@ -17,4 +17,7 @@ class InChinaViewModel : ViewModel() {
     val inChinaThreeStar = MutableLiveData<Boolean>(false)
     val inChinaFourStar = MutableLiveData<Boolean>(false)
     val inChinaFiveStar = MutableLiveData<Boolean>(false)
+    //
+    var detailName = MutableLiveData<String>("")
+    var detailId = MutableLiveData<String>("")
 }

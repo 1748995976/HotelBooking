@@ -251,11 +251,12 @@
 
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/detailTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="搜索酒店/地名/关键词"
+            android:textColor="@color/black"
+            android:hint="搜索酒店/地名/关键词"
             app:layout_constraintBottom_toBottomOf="@id/inChinaDetailButton"
             app:layout_constraintStart_toStartOf="@+id/inChinaDetailButton"
             app:layout_constraintTop_toTopOf="@id/inChinaDetailButton" />
@@ -269,7 +270,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/inChinaDetailButton"
             app:layout_constraintEnd_toEndOf="@+id/inChinaDetailButton"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintStart_toEndOf="@+id/detailTextView"
             app:layout_constraintTop_toTopOf="@id/inChinaDetailButton" />
 
         <TextView
@@ -277,7 +278,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="设置我喜欢的星级/价格"
+            android:hint="设置我喜欢的星级/价格"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/inChinaPreferButton"
             app:layout_constraintStart_toStartOf="@+id/inChinaPreferButton"
             app:layout_constraintTop_toTopOf="@id/inChinaPreferButton" />

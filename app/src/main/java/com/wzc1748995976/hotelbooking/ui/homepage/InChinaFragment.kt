@@ -25,6 +25,7 @@ import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import kotlinx.android.synthetic.main.in_china_fragment.*
 import top.androidman.SuperButton
 
 
@@ -60,9 +61,8 @@ class InChinaFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
             1->if(resultCode == RESULT_OK){
-                val returnBundle = data?.getBundleExtra("bundle")
-                val result = returnBundle?.getSerializable("data_return") as InChinaDetailObject
-                Toast.makeText(HotelBookingApplication.context,result._name,Toast.LENGTH_LONG).show()
+                viewModel.detailName.value = data?.getStringExtra("name")
+                viewModel.detailId.value = data?.getStringExtra("id")
             }
         }
     }
@@ -111,6 +111,8 @@ class InChinaFragment : Fragment() {
         view.findViewById<SuperButton>(R.id.inChinaDetailButton).setOnClickListener {
             val intent = Intent(activity,InChinaDetail::class.java)
             intent.putExtra("adcode",viewModel.inChinaWhereAdCode.value)
+            intent.putExtra("detailName",viewModel.detailName.value)
+            intent.putExtra("detailId",viewModel.detailId.value)
             startActivityForResult(intent,1)
         }
 
@@ -128,9 +130,10 @@ class InChinaFragment : Fragment() {
             inChinaCheckGapDate.observe(viewLifecycleOwner, Observer { value ->
                 view.findViewById<TextView>(R.id.inChinaCheckGapTextView).text = "共${value}晚"
             })
-
         }
-
+        viewModel.detailId.observe(viewLifecycleOwner, Observer {
+            view.findViewById<TextView>(R.id.detailTextView).text = viewModel.detailName.value
+        })
     }
 
 
@@ -270,7 +273,7 @@ class InChinaFragment : Fragment() {
             if (minPtmp == 0 && maxPtmp == 1050 && !(lowStar.isChecked)
                 && !(threeStar.isChecked) && !(fourStar.isChecked) && !(fiveStar.isChecked)
             ) {
-                string = "设置我喜欢的星级/价格"
+                string = ""
             } else {
                 if (seekBarView.findViewById<TextView>(R.id.priceRange).text != "") {
                     string += seekBarView.findViewById<TextView>(R.id.priceRange).text

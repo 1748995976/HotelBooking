@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.donkingliang.groupedadapter.holder.BaseViewHolder
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.logic.model.InChinaDetailResponseData
 import top.androidman.SuperButton
 
 // 与价格范围选择有关的代码
@@ -57,10 +59,19 @@ class PriceRangeViewDelegate: ItemViewDelegate<PriceRange, PriceRangeViewDelegat
 }
 
 // 国内 搜索酒店/地名/关键词 界面某一类型信息，例如：高校，热门等
-data class InChinaDetailKind(val name: String)
+data class InChinaDetailKind(val name: String,val id:String)
+
+interface pickDetailCallBack{
+    fun getResultToSet(item: InChinaDetailKind)
+}
 class InChinaDetailDelegate: ItemViewDelegate<InChinaDetailKind,InChinaDetailDelegate.ViewHolder>(){
+    var mPickDetailCallBack:pickDetailCallBack? = null
+    fun setPickDetailCallBack(newObject: pickDetailCallBack){
+        mPickDetailCallBack = newObject
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val detailView: SuperButton = itemView.findViewById(R.id.detailButton)
+        val detailView: Button = itemView.findViewById(R.id.detailButton)
     }
 
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
@@ -69,17 +80,20 @@ class InChinaDetailDelegate: ItemViewDelegate<InChinaDetailKind,InChinaDetailDel
     }
 
     override fun onBindViewHolder(holder: ViewHolder, item: InChinaDetailKind) {
-        holder.detailView.setText(item.name)
+        holder.detailView.text = item.name
+        holder.detailView.setOnClickListener {
+            mPickDetailCallBack?.getResultToSet(item)
+        }
     }
 }
 
 
 // 国内 搜索酒店/地名/关键词 界面某一类型信息，例如：高校，热门等更多选项按钮
-class ChildEntity(var child: String)
+class ChildEntity(var child: String?,var childId:String?)
 
 class GroupEntity(
-    var header: String,
-    var footer: String,
+    var header: String?,
+    var footer: String?,
     children: ArrayList<ChildEntity>
 ) {
     private var children: ArrayList<ChildEntity>
@@ -97,39 +111,31 @@ class GroupEntity(
     }
 }
 
-object GroupModel {
-    /**
-     * 获取组列表数据
-     *
-     * @param groupCount    组数量
-     * @param childrenCount 每个组里的子项数量
-     * @return
-     */
-    fun getGroups(groupCount: Int, childrenCount: Int): ArrayList<GroupEntity> {
-        val groups: ArrayList<GroupEntity> = ArrayList()
-        for (i in 0 .. groupCount) {
-            val children: ArrayList<ChildEntity> = ArrayList()
-            for (j in 0 .. childrenCount) {
-                children.add(ChildEntity("华中科技大学"))
-                children.add(ChildEntity("武汉大学"))
-                children.add(ChildEntity("武汉理工大学"))
-            }
-            groups.add(
-                GroupEntity(
-                    "洪山区",
-                    "未知", children
-                )
-            )
-            groups.add(
-                GroupEntity(
-                    "武昌区",
-                    "未知", children
-                )
-            )
-        }
-        return groups
-    }
-}
+//object GroupModel {
+//    /**
+//     * 获取组列表数据
+//     *
+//     * @param groupCount    组数量
+//     * @param childrenCount 每个组里的子项数量
+//     * @return
+//     */
+//    fun getGroups(data: List<InChinaDetailResponseData>,type: String?): ArrayList<GroupEntity> {
+//        val groups: ArrayList<GroupEntity> = ArrayList()
+//        for(i in 'A' .. 'Z'){
+//            val children: ArrayList<ChildEntity> = ArrayList()
+//            for (e in data){
+//                if(e.type == type && e.initials!![0] == i)
+//                    children.add(ChildEntity(e.name,e.id))
+//            }
+//            if(children.isNotEmpty()){
+//                groups.add(GroupEntity(
+//                    i.toString(),
+//                    "尾部", children))
+//            }
+//        }
+//        return groups
+//    }
+//}
 class GroupedListAdapter(context: Context?, groups: ArrayList<GroupEntity>?) :
     GroupedRecyclerViewAdapter(context) {
 

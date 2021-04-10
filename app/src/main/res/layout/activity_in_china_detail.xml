@@ -13,397 +13,420 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/backArrowImg"
-                android:paddingVertical="3dp"
-                android:paddingEnd="3dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_arrow_left_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_arrow_left_24dp"
+                android:paddingVertical="3dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="3dp" />
 
             <EditText
                 android:id="@+id/searchDetail"
-                android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:hint="酒店名/地名/关键词" />
+                android:hint="酒店名/地名/关键词"
+                android:maxLines="1"
+                android:singleLine="true" />
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
         <LinearLayout
-            android:id="@+id/searchHotLinear"
-            android:orientation="vertical"
+            android:id="@+id/allRecyclerLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
+                android:id="@+id/searchHotLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_hot_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="热门" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_hot_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="热门"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/hotButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchHotRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchHotRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchBrandLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchBrandLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_brand_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="品牌" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_brand_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="品牌"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/brandButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/brandButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchBrandRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchBrandRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchBusinessLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchBusinessLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_business_district_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="行政区/商圈" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_business_district_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="行政区/商圈"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/businessButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/businessButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchBusinessRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchBusinessRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchSubwayLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchSubwayLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_subway_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="地铁站" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_subway_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="地铁站"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/subwayButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/subwayButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchSubwayRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchSubwayRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchSceneLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchSceneLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_mountain_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="景点" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_mountain_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="景点"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/sceneButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/sceneButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchSceneRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchSceneRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchSchoolLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchSchoolLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_school_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="高校" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_school_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="高校"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/schoolButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/schoolButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchSchoolRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchSchoolRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchHospitalLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchHospitalLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_hospital_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="医院" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_hospital_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="医院"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/hospitalButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/hospitalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchHospitalRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchHospitalRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchPlaneLinear"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/searchPlaneLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_plane_24dp" />
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:text="机场车站" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_plane_24dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="机场车站"
+                        android:textSize="16sp" />
 
-                <top.androidman.SuperButton
-                    android:id="@+id/planeButton"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:text="更多"
-                    app:textSize="16sp"
-                    app:textColor="@color/color_gray"
-                    app:icon="@drawable/ic_arrow_right_24dp"
-                    app:iconOrientation="right"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <top.androidman.SuperButton
+                        android:id="@+id/planeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:icon="@drawable/ic_arrow_right_24dp"
+                        app:iconOrientation="right"
+                        app:text="更多"
+                        app:textColor="@color/color_gray"
+                        app:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchPlaneRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchPlaneRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>

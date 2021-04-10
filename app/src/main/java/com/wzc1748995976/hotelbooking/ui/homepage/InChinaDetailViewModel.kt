@@ -14,4 +14,7 @@ class InChinaDetailViewModel: ViewModel() {
     fun refresh(adcode:String){
         refreshLiveData.value = adcode
     }
+    //点击地标的名字和id
+    var name:String? = null
+    var id:String? = null
 }

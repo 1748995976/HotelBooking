@@ -4,4 +4,4 @@ data class InChinaDetailResponse(val status: Int,val data: List<InChinaDetailRes
 
 data class InChinaDetailResponseData(val id: String?,val adcode: String?,val name:String?,
                                       val lat:String?,val lon:String?,val type:String?,
-                                      val ishot:String?)
+                                      val ishot:String?,val initials:String?)
