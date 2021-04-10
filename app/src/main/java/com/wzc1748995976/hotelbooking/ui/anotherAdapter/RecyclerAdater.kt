@@ -66,7 +66,7 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
 
     override fun onBindViewHolder(holder: ViewHolder, item: HotelDetailInfo) {
         holder.run {
-            hotelLevelImg
+            hotelLevelImg.setImageResource(R.drawable.ic_about_us)
             hotelName.text = item.name
             hotelLevelTxt.text = item.level
             hotelOpenTim.text = item.openTime
@@ -74,6 +74,7 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
             hotelAddress.text = item.address
             hotelDis.text = item.distanceText
             hotelDisBus.text = item.distanceBus
+
             Glide.with(HotelBookingApplication.context)
                 .load(item.image)
                 .into(holder.hotelImage)
