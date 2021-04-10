@@ -88,6 +88,20 @@ object Repository {
         }
         emit(result)
     }
+    fun searchHotelsById(hotelId: String) = liveData(Dispatchers.IO){
+        val result = try {
+            val hotelsResponse = HotelBookingNetWork.searchHotelsById(hotelId)
+            if(hotelsResponse.status == 0){
+                val result = hotelsResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${hotelsResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<SearchHotelsResponseData>>(e)
+        }
+        emit(result)
+    }
 
     fun getLivedHotelsByUserID(userId:String) = liveData(Dispatchers.IO){
         val result = try {

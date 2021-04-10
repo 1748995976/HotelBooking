@@ -39,6 +39,7 @@ class SearchHotels : AppCompatActivity() {
                 item: HotelInfo
             ) {
                 val intent = Intent(this@SearchHotels, HotelDetail::class.java)
+                intent.putExtra("hotelId",item.id)
                 startActivity(intent)
             }
         })

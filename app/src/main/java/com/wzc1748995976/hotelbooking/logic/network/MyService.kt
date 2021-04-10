@@ -21,6 +21,9 @@ interface MyService {
     //获取所有的酒店信息
     @GET("hotels/getAll")
     fun searchHotelsGetAll(): Call<SearchHotelsResponse>
+    //获取某个酒店信息
+    @GET("hotels/getById/{hotelId}")
+    fun searchHotelsById(@Path("hotelId") hotelId:String): Call<SearchHotelsResponse>
     //获取某个用户酒店入住记录
     @GET("lived_record/getByUserId/{userId}")
     fun getLivedHotelsByUserID(@Path("userId") userId:String): Call<SearchHotelsResponse>
