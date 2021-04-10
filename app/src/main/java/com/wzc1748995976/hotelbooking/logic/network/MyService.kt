@@ -3,6 +3,7 @@ package com.wzc1748995976.hotelbooking.logic.network
 import com.wzc1748995976.hotelbooking.logic.model.AdResponse
 import com.wzc1748995976.hotelbooking.logic.model.InChinaDetailResponse
 import com.wzc1748995976.hotelbooking.logic.model.LoginResponse
+import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotelsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,4 +18,6 @@ interface MyService {
     //某地区adcode所有的商业区等
     @GET("adcode_moreinfo/getAll/{adcode}")
     fun inChinaDetailGetAll(@Path("adcode") adcode:String): Call<InChinaDetailResponse>
+    @GET("hotels/getAll")
+    fun searchHotelsGetAll(): Call<SearchHotelsResponse>
 }

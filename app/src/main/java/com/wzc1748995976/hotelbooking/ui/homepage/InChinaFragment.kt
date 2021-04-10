@@ -25,6 +25,7 @@ import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotels
 import kotlinx.android.synthetic.main.in_china_fragment.*
 import top.androidman.SuperButton
 
@@ -114,6 +115,10 @@ class InChinaFragment : Fragment() {
             intent.putExtra("detailName",viewModel.detailName.value)
             intent.putExtra("detailId",viewModel.detailId.value)
             startActivityForResult(intent,1)
+        }
+        view.findViewById<SuperButton>(R.id.inChinaSearchButton).setOnClickListener {
+            val intent = Intent(context,SearchHotels::class.java)
+            startActivity(intent)
         }
 
         // viewModel与视图进行绑定

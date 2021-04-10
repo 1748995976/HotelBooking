@@ -8,6 +8,8 @@ object MyServiceCreator {
 
     const val homeAdPrePath = BASE_URL + "home_advertisement/img/"
 
+    const val hotelsImgPath = BASE_URL + "hotels/img/"
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

@@ -75,7 +75,7 @@ class LivedCollectionInChinaFragment : Fragment() {
         adapter.register(priceRangeViewDelegate)
         recyclerView.adapter = adapter
         for(i in 0..19){
-            items.add(HotelInfo("北京酒店",
+            items.add(HotelInfo("1","北京酒店",
                 "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
             "经济型","4.8",
                 "非常好",
@@ -106,7 +106,7 @@ class LivedCollectionInChinaFragment : Fragment() {
         adapter.register(priceRangeViewDelegate)
         recyclerView.adapter = adapter
         for(i in 0..19){
-            items.add(HotelInfo("北京酒店",
+            items.add(HotelInfo("1","北京酒店",
                 "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
                 "经济型","4.8",
                 "非常好",

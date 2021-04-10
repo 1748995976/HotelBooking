@@ -6,6 +6,7 @@ import androidx.lifecycle.liveData
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.logic.model.*
 import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
+import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotelsResponseData
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 import java.lang.Exception
@@ -69,6 +70,21 @@ object Repository {
             }
         }catch (e: Exception){
             Result.failure<List<InChinaDetailResponseData>>(e)
+        }
+        emit(result)
+    }
+
+    fun searchHotelsGetAll() = liveData(Dispatchers.IO){
+        val result = try {
+            val hotelsResponse = HotelBookingNetWork.searchHotelsGetAll()
+            if(hotelsResponse.status == 0){
+                val result = hotelsResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${hotelsResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<SearchHotelsResponseData>>(e)
         }
         emit(result)
     }
