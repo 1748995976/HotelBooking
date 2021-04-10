@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
             if(result == null){
                 Toast.makeText(HotelBookingApplication.context,"登录异常",Toast.LENGTH_SHORT).show()
             }else if(result == true){
+                HotelBookingApplication.account = findViewById<EditText>(R.id.et_user_name).text.toString()
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
                 finish()

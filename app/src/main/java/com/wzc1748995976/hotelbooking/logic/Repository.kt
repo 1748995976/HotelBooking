@@ -89,6 +89,35 @@ object Repository {
         emit(result)
     }
 
+    fun getLivedHotelsByUserID(userId:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val hotelsResponse = HotelBookingNetWork.getLivedHotelsByUserID(userId)
+            if(hotelsResponse.status == 0){
+                val result = hotelsResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${hotelsResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<SearchHotelsResponseData>>(e)
+        }
+        emit(result)
+    }
+    fun getFavHotelsByUserID(userId:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val hotelsResponse = HotelBookingNetWork.getFavHotelsByUserID(userId)
+            if(hotelsResponse.status == 0){
+                val result = hotelsResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${hotelsResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<SearchHotelsResponseData>>(e)
+        }
+        emit(result)
+    }
+
 }
 
 //    fun loginRequest(account: String,password: String){

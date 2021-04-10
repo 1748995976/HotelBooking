@@ -9,6 +9,7 @@ class HotelBookingApplication : Application() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         const val GD_WEB_TOKEN = "dc30468d1abbd655f077d0d14ae21396"
+        var account:String? = null
     }
     override fun onCreate() {
         super.onCreate()

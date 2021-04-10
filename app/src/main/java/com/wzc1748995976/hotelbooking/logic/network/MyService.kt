@@ -18,6 +18,13 @@ interface MyService {
     //某地区adcode所有的商业区等
     @GET("adcode_moreinfo/getAll/{adcode}")
     fun inChinaDetailGetAll(@Path("adcode") adcode:String): Call<InChinaDetailResponse>
+    //获取所有的酒店信息
     @GET("hotels/getAll")
     fun searchHotelsGetAll(): Call<SearchHotelsResponse>
+    //获取某个用户酒店入住记录
+    @GET("lived_record/getByUserId/{userId}")
+    fun getLivedHotelsByUserID(@Path("userId") userId:String): Call<SearchHotelsResponse>
+    //获取某个用户收藏的酒店记录
+    @GET("fav_record/getByUserId/{userId}")
+    fun getFavHotelsByUserID(@Path("userId") userId:String): Call<SearchHotelsResponse>
 }

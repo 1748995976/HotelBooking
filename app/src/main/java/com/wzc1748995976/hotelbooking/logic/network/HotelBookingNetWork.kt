@@ -18,6 +18,8 @@ object HotelBookingNetWork {
     suspend fun homeAdGetAll() = myService.homeAdGetAll().await()
     suspend fun inChinaDetail(adcode:String) = myService.inChinaDetailGetAll(adcode).await()
     suspend fun searchHotelsGetAll() = myService.searchHotelsGetAll().await()
+    suspend fun getLivedHotelsByUserID(userId:String) = myService.getLivedHotelsByUserID(userId).await()
+    suspend fun getFavHotelsByUserID(userId: String) = myService.getFavHotelsByUserID(userId).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->
