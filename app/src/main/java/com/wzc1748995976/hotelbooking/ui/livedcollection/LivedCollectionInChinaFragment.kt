@@ -3,7 +3,6 @@ package com.wzc1748995976.hotelbooking.ui.livedcollection
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +15,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
-import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotelsResponseData
-import com.wzc1748995976.hotelbooking.ui.homepage.pickPriceCallBack
+import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
 
 class LivedCollectionInChinaFragment : Fragment() {
 

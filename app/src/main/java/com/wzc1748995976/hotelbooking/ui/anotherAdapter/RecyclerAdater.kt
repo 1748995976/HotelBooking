@@ -20,25 +20,25 @@ import top.androidman.SuperButton
 // 点进酒店详情界面的多类型RecyclerView
 
 data class HotelDetailInfo(
-    val name: String,//酒店名称
-    val image: String,//酒店封面图片url
-    val level: String,//酒店类型
-    val score: String,//酒店评分
-    val scoreDec: String,//酒店评分描述
-    val address: String,//酒店地址
-    val openTime: String,//开业时间描述
-    val decorateTime: String,//装修时间描述
-    val distanceText: String,//酒店位置描述
-    val distanceBus: String//酒店位置地铁或者公交描述
+    val name: String?,//酒店名称
+    val image: String?,//酒店封面图片url
+    val level: String?,//酒店类型
+    val score: String?,//酒店评分
+    val scoreDec: String?,//酒店评分描述
+    val address: String?,//酒店地址
+    val openTime: String?,//开业时间描述
+    val decorateTime: String?,//装修时间描述
+    val distanceText: String?,//酒店位置描述
+    val distanceBus: String?//酒店位置地铁或者公交描述
 )
 
 data class RoomInfo(
-    val name: String,//房间名称
-    val image: String,//房间图片url
-    val roomDesc: String,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
-    val roomCancelDesc: String,//房间取消时间描述
-    val roomPrice: String,//房间价格
-    val windowDesc: String,//房间窗户描述
+    val name: String?,//房间名称
+    val image: String?,//房间图片url
+    val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
+    val roomCancelDesc: String?,//房间取消时间描述
+    val roomPrice: String?,//房间价格
+    val windowDesc: String?,//房间窗户描述
     val count: Int,//房间剩余数量
     val isGrab: Boolean//是否抢房间
 )
@@ -49,6 +49,8 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val hotelName: TextView = itemView.findViewById(R.id.hotelDetailHeaderText)
         val hotelImage: ImageView = itemView.findViewById(R.id.hotelDetailHeaderImg)
+        val hotelScore: TextView = itemView.findViewById(R.id.scoreText)
+        val hotelScoreDec: TextView = itemView.findViewById(R.id.scoreDec)
         val hotelLevelTxt: TextView = itemView.findViewById(R.id.hDHLevelText)
         val hotelLevelImg: ImageView = itemView.findViewById(R.id.hDHLevelImage)
         val hotelOpenTim: TextView = itemView.findViewById(R.id.hDHOpenTime)
@@ -66,8 +68,16 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
 
     override fun onBindViewHolder(holder: ViewHolder, item: HotelDetailInfo) {
         holder.run {
-            hotelLevelImg.setImageResource(R.drawable.ic_about_us)
+            when(item.level){
+                "经济型"->hotelLevelImg.setImageResource(R.drawable.ic_crown_first_15dp)
+                "舒适/三星"->hotelLevelImg.setImageResource(R.drawable.ic_crown_second_15dp)
+                "高档/四星"->hotelLevelImg.setImageResource(R.drawable.ic_crown_third_15dp)
+                "豪华/五星"->hotelLevelImg.setImageResource(R.drawable.ic_crown_fourth_15dp)
+                else->hotelLevelImg.setImageResource(R.drawable.ic_crown_15dp)
+            }
             hotelName.text = item.name
+            hotelScore.text = item.score
+            hotelScoreDec.text = item.scoreDec
             hotelLevelTxt.text = item.level
             hotelOpenTim.text = item.openTime
             hotelDecorTim.text = item.decorateTime

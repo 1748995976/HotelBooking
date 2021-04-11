@@ -12,19 +12,64 @@
         android:id="@+id/hotelDetailHeaderImg"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/OrangeRed"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/hotelDetailHeaderMask"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="100dp"
         android:src="@drawable/mask_macth_300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/hotelDetailCons" />
+
+    <LinearLayout
+        android:id="@+id/scoreLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/transparent_black50_all"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/hotelDetailCons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="7dp"
+            android:textColor="@color/color_orange"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:text="4.7" />
+
+        <top.androidman.SuperLine
+            android:layout_width="0.3dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            app:line_color="@color/color_white" />
+
+        <TextView
+            android:id="@+id/scoreDec"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="7dp"
+            android:ellipsize="end"
+            android:minLines="2"
+            android:textColor="@color/color_orange"
+            android:textSize="15dp"
+            tools:text="很棒 出行很方便" />
+    </LinearLayout>
 
     <top.androidman.SuperConstraintLayout
         android:id="@+id/hotelDetailCons"
@@ -63,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/color_black"
-            android:textSize="13sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/hotelDetailHeaderText"
             app:layout_constraintTop_toBottomOf="@id/hotelDetailHeaderText"
             tools:text="经济型" />
@@ -72,7 +117,7 @@
             android:id="@+id/hDHLevelImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             app:layout_constraintBottom_toBottomOf="@id/hDHLevelText"
             app:layout_constraintStart_toEndOf="@id/hDHLevelText"
             app:layout_constraintTop_toTopOf="@id/hDHLevelText"
@@ -82,9 +127,9 @@
             android:id="@+id/hDHOpenTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:textColor="@color/color_black"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/hotelDetailHeaderText"
             app:layout_constraintTop_toBottomOf="@+id/hDHLevelImage"
             tools:text="2019年开业" />
@@ -95,25 +140,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textColor="@color/color_gray"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/hDHOpenTime"
             app:layout_constraintStart_toEndOf="@id/hDHOpenTime"
             app:layout_constraintTop_toTopOf="@id/hDHOpenTime"
             tools:text="2019年装修" />
+        <top.androidman.SuperLine
+            android:id="@+id/superLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginTop="10dp"
+            app:line_color="@color/color_gray"
+            app:layout_constraintTop_toBottomOf="@id/hDHOpenTime"/>
 
         <TextView
             android:id="@+id/hDHAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
             app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
-            app:layout_constraintTop_toTopOf="@id/hDHDecorTime"
+            app:layout_constraintTop_toBottomOf="@id/superLine"
             tools:text="华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学" />
 
         <ImageView

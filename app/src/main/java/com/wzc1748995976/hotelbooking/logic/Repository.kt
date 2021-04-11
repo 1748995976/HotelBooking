@@ -1,17 +1,12 @@
 package com.wzc1748995976.hotelbooking.logic
 
-import android.telecom.Call
-import android.widget.Toast
 import androidx.lifecycle.liveData
-import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.logic.model.*
 import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
-import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotelsResponseData
+import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
 import kotlinx.coroutines.Dispatchers
-import retrofit2.Response
 import java.lang.Exception
 import java.lang.RuntimeException
-import javax.security.auth.callback.Callback
 
 object Repository {
     fun searchAllCities() = liveData(Dispatchers.IO){

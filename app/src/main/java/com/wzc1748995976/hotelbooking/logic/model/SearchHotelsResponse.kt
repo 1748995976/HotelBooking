@@ -1,4 +1,4 @@
-package com.wzc1748995976.hotelbooking.ui.commonui
+package com.wzc1748995976.hotelbooking.logic.model
 
 data class SearchHotelsResponse(val status:Int?,val data:List<SearchHotelsResponseData>?)
 data class SearchHotelsResponseData(val id:String?, val name:String?, val adcode:String?,

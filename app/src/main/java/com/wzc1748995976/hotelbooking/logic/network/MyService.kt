@@ -3,7 +3,7 @@ package com.wzc1748995976.hotelbooking.logic.network
 import com.wzc1748995976.hotelbooking.logic.model.AdResponse
 import com.wzc1748995976.hotelbooking.logic.model.InChinaDetailResponse
 import com.wzc1748995976.hotelbooking.logic.model.LoginResponse
-import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotelsResponse
+import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
