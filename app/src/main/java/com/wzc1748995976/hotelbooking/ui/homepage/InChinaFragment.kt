@@ -24,6 +24,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.MainActivity
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotels
 import kotlinx.android.synthetic.main.in_china_fragment.*
@@ -31,8 +32,6 @@ import top.androidman.SuperButton
 
 
 class InChinaFragment : Fragment() {
-
-    private lateinit var viewModel: InChinaViewModel
 
     //暂存选择价格范围的变化，点击完成按钮再填入viewModel
     private var minPtmp = 0
@@ -43,7 +42,6 @@ class InChinaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(InChinaViewModel::class.java)
         val calendar = Calendar.getInstance()//取得当前时间的年月日 时分秒
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
@@ -53,8 +51,8 @@ class InChinaFragment : Fragment() {
         val addMonth = calendar.get(Calendar.MONTH) + 1
         val addDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-        viewModel.inChinaCheckInDate.value = "${year}年${month}月${day}日"
-        viewModel.inChinaCheckOutDate.value = "${addYear}年${addMonth}月${addDay}日"
+        MainActivity.viewModel.inChinaCheckInDate.value = "${year}年${month}月${day}日"
+        MainActivity.viewModel.inChinaCheckOutDate.value = "${addYear}年${addMonth}月${addDay}日"
         return inflater.inflate(R.layout.in_china_fragment, container, false)
     }
 
@@ -62,8 +60,8 @@ class InChinaFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
             1->if(resultCode == RESULT_OK){
-                viewModel.detailName.value = data?.getStringExtra("name")
-                viewModel.detailId.value = data?.getStringExtra("id")
+                MainActivity.viewModel.detailName.value = data?.getStringExtra("name")
+                MainActivity.viewModel.detailId.value = data?.getStringExtra("id")
             }
         }
     }
@@ -80,9 +78,9 @@ class InChinaFragment : Fragment() {
                         cityCode: String,
                         pinyin: String
                     ) {
-                        viewModel.inChinaWhereName.value = cityName
-                        viewModel.inChinaWhereAdCode.value = adCode
-                        viewModel.inChinaWhereCityCode.value = cityCode
+                        MainActivity.viewModel.inChinaWhereName.value = cityName
+                        MainActivity.viewModel.inChinaWhereAdCode.value = adCode
+                        MainActivity.viewModel.inChinaWhereCityCode.value = cityCode
                     }
                 })
                 it.getInstance(activity)?.show()
@@ -97,9 +95,9 @@ class InChinaFragment : Fragment() {
                             mEndTime: String,
                             daysOffset: Int
                         ) {
-                            viewModel.inChinaCheckInDate.value = mStartTime
-                            viewModel.inChinaCheckOutDate.value = mEndTime
-                            viewModel.inChinaCheckGapDate.value = daysOffset
+                            MainActivity.viewModel.inChinaCheckInDate.value = mStartTime
+                            MainActivity.viewModel.inChinaCheckOutDate.value = mEndTime
+                            MainActivity.viewModel.inChinaCheckGapDate.value = daysOffset
                         }
                     })
                     it.show(it1, view)
@@ -111,9 +109,9 @@ class InChinaFragment : Fragment() {
         }
         view.findViewById<SuperButton>(R.id.inChinaDetailButton).setOnClickListener {
             val intent = Intent(activity,InChinaDetail::class.java)
-            intent.putExtra("adcode",viewModel.inChinaWhereAdCode.value)
-            intent.putExtra("detailName",viewModel.detailName.value)
-            intent.putExtra("detailId",viewModel.detailId.value)
+            intent.putExtra("adcode",MainActivity.viewModel.inChinaWhereAdCode.value)
+            intent.putExtra("detailName",MainActivity.viewModel.detailName.value)
+            intent.putExtra("detailId",MainActivity.viewModel.detailId.value)
             startActivityForResult(intent,1)
         }
         view.findViewById<SuperButton>(R.id.inChinaSearchButton).setOnClickListener {
@@ -122,10 +120,10 @@ class InChinaFragment : Fragment() {
         }
 
         // viewModel与视图进行绑定
-        viewModel.inChinaWhereName.observe(viewLifecycleOwner, Observer { value ->
+        MainActivity.viewModel.inChinaWhereName.observe(viewLifecycleOwner, Observer { value ->
             view.findViewById<TextView>(R.id.inChinaWhereTextView).text = value
         })
-        viewModel.run {
+        MainActivity.viewModel.run {
             inChinaCheckInDate.observe(viewLifecycleOwner, Observer { value ->
                 view.findViewById<TextView>(R.id.inChinaCheckInDateTextView).text = value
             })
@@ -136,8 +134,8 @@ class InChinaFragment : Fragment() {
                 view.findViewById<TextView>(R.id.inChinaCheckGapTextView).text = "共${value}晚"
             })
         }
-        viewModel.detailId.observe(viewLifecycleOwner, Observer {
-            view.findViewById<TextView>(R.id.detailTextView).text = viewModel.detailName.value
+        MainActivity.viewModel.detailId.observe(viewLifecycleOwner, Observer {
+            view.findViewById<TextView>(R.id.detailTextView).text = MainActivity.viewModel.detailName.value
         })
     }
 
@@ -268,12 +266,12 @@ class InChinaFragment : Fragment() {
         val fourStar = seekBarView.findViewById<CheckBox>(R.id.four_star)
         val fiveStar = seekBarView.findViewById<CheckBox>(R.id.five_star)
         seekBarView.findViewById<SuperButton>(R.id.finishButton_1).setOnClickListener {
-            viewModel.inChinaMinPrice.value = minPtmp
-            viewModel.inChinaMaxPrice.value = maxPtmp
-            viewModel.inChinaLowStar.value = lowStar.isChecked
-            viewModel.inChinaThreeStar.value = threeStar.isChecked
-            viewModel.inChinaFourStar.value = fourStar.isChecked
-            viewModel.inChinaFiveStar.value = fiveStar.isChecked
+            MainActivity.viewModel.inChinaMinPrice.value = minPtmp
+            MainActivity.viewModel.inChinaMaxPrice.value = maxPtmp
+            MainActivity.viewModel.inChinaLowStar.value = lowStar.isChecked
+            MainActivity.viewModel.inChinaThreeStar.value = threeStar.isChecked
+            MainActivity.viewModel.inChinaFourStar.value = fourStar.isChecked
+            MainActivity.viewModel.inChinaFiveStar.value = fiveStar.isChecked
             var string: String = ""
             if (minPtmp == 0 && maxPtmp == 1050 && !(lowStar.isChecked)
                 && !(threeStar.isChecked) && !(fourStar.isChecked) && !(fiveStar.isChecked)
@@ -313,18 +311,18 @@ class InChinaFragment : Fragment() {
         val threeStar = seekBarView.findViewById<CheckBox>(R.id.three_star)
         val fourStar = seekBarView.findViewById<CheckBox>(R.id.four_star)
         val fiveStar = seekBarView.findViewById<CheckBox>(R.id.five_star)
-        (viewModel.inChinaMinPrice.value)?.toFloat()?.let { it1 ->
-            viewModel.inChinaMaxPrice.value?.toFloat()?.let { it2 ->
+        (MainActivity.viewModel.inChinaMinPrice.value)?.toFloat()?.let { it1 ->
+            MainActivity.viewModel.inChinaMaxPrice.value?.toFloat()?.let { it2 ->
                 priceSeek.setProgress(
                     it1,
                     it2
                 )
             }
         }
-        lowStar.isChecked = viewModel.inChinaLowStar.value!!
-        threeStar.isChecked = viewModel.inChinaThreeStar.value!!
-        fourStar.isChecked = viewModel.inChinaFourStar.value!!
-        fiveStar.isChecked = viewModel.inChinaFiveStar.value!!
+        lowStar.isChecked = MainActivity.viewModel.inChinaLowStar.value!!
+        threeStar.isChecked = MainActivity.viewModel.inChinaThreeStar.value!!
+        fourStar.isChecked = MainActivity.viewModel.inChinaFourStar.value!!
+        fiveStar.isChecked = MainActivity.viewModel.inChinaFiveStar.value!!
     }
 
 }

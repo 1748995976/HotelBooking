@@ -1,21 +1,10 @@
 package com.wzc1748995976.hotelbooking
 
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.wzc1748995976.hotelbooking.HotelBookingApplication.Companion.context
+import androidx.lifecycle.ViewModelProvider
 import com.wzc1748995976.hotelbooking.ui.homepage.HomeFragment
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LivedCollectionFragment
 import com.wzc1748995976.hotelbooking.ui.mine.MineFragment
@@ -38,11 +27,15 @@ class MainActivity : AppCompatActivity() {
 //    }
     private var lastIndex = 0
     private var mFragments = mutableListOf<Fragment>()
+    companion object{
+        lateinit var viewModel: MainActivityViewModel
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         initData()
         initBottomNavigation()
     }

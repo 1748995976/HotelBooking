@@ -3,7 +3,6 @@ package com.wzc1748995976.hotelbooking.ui.commonui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
-import com.wzc1748995976.hotelbooking.ui.homepage.InChinaViewModel
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelDetail
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LCInChinaLInfoDelegate
