@@ -126,6 +126,35 @@ object Repository {
         }
         emit(result)
     }
+    fun getAllRoomInfoByHotelId(hotelId:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val allRoomResponse = HotelBookingNetWork.getAllRoomInfoByHotelId(hotelId)
+            if(allRoomResponse.status == 0){
+                val result = allRoomResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${allRoomResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<HotelRoomInfoResponseData>>(e)
+        }
+        emit(result)
+    }
+
+    fun getRoomInfoByHotelIdEidDate(hotelId:String,eid:String,sdate:String,edate:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val roomResponse = HotelBookingNetWork.getRoomInfoByHotelIdEidDate(hotelId,eid,sdate,edate)
+            if(roomResponse.status == 0){
+                val result = roomResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${roomResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<RoomInfoByHotelIdEidDateResponseData>>(e)
+        }
+        emit(result)
+    }
 
 }
 

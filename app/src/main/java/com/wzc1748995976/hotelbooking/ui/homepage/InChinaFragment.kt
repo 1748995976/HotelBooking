@@ -51,8 +51,8 @@ class InChinaFragment : Fragment() {
         val addMonth = calendar.get(Calendar.MONTH) + 1
         val addDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-        MainActivity.viewModel.inChinaCheckInDate.value = "${year}年${month}月${day}日"
-        MainActivity.viewModel.inChinaCheckOutDate.value = "${addYear}年${addMonth}月${addDay}日"
+        MainActivity.viewModel.inChinaCheckInDate.value = "${year}-${month}-${day}"
+        MainActivity.viewModel.inChinaCheckOutDate.value = "${addYear}-${addMonth}-${addDay}"
         return inflater.inflate(R.layout.in_china_fragment, container, false)
     }
 
@@ -93,10 +93,12 @@ class InChinaFragment : Fragment() {
                         override fun getResultToSet(
                             mStartTime: String,
                             mEndTime: String,
+                            _mStartTime: String,
+                            _mEndTime: String,
                             daysOffset: Int
                         ) {
-                            MainActivity.viewModel.inChinaCheckInDate.value = mStartTime
-                            MainActivity.viewModel.inChinaCheckOutDate.value = mEndTime
+                            MainActivity.viewModel.inChinaCheckInDate.value = _mStartTime
+                            MainActivity.viewModel.inChinaCheckOutDate.value = _mEndTime
                             MainActivity.viewModel.inChinaCheckGapDate.value = daysOffset
                         }
                     })

@@ -10,9 +10,10 @@ import androidx.fragment.app.FragmentActivity
 import com.atuan.datepickerlibrary.CalendarUtil
 import com.atuan.datepickerlibrary.DatePopupWindow
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import java.text.SimpleDateFormat
 
 interface pickDateCallBack{
-    fun getResultToSet(mStartTime: String,mEndTime: String,daysOffset: Int)
+    fun getResultToSet(mStartTime: String,mEndTime: String,_mStartTime: String,_mEndTime: String,daysOffset: Int)
 }
 
 
@@ -43,7 +44,27 @@ object DatePicker {
                 val mStartTime = CalendarUtil.FormatDateYMD(startDate)
                 val mEndTime = CalendarUtil.FormatDateYMD(endDate)
                 val daysOffset = CalendarUtil.getTwoDay(endDate, startDate).toInt()
-                mpickDateCallBack?.getResultToSet(mStartTime,mEndTime,daysOffset)
+                var _mStartTime = ""
+                var _mEndTime = ""
+                for (i in mStartTime){
+                    if(i == '年' || i == '月'){
+                        _mStartTime += "-"
+                    }else if(i == '日'){
+                        _mStartTime += ""
+                    }else{
+                        _mStartTime += i
+                    }
+                }
+                for (i in mEndTime){
+                    if(i == '年' || i == '月'){
+                        _mEndTime += "-"
+                    }else if(i == '日'){
+                        _mEndTime += ""
+                    }else{
+                        _mEndTime += i
+                    }
+                }
+                mpickDateCallBack?.getResultToSet(mStartTime,mEndTime,_mStartTime,_mEndTime,daysOffset)
                 Toast.makeText(HotelBookingApplication.context,"您选择了：" + mStartTime + "到" + mEndTime, Toast.LENGTH_SHORT).show()
             }.builder()
     }

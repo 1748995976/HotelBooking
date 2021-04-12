@@ -1,9 +1,6 @@
 package com.wzc1748995976.hotelbooking.logic.network
 
-import com.wzc1748995976.hotelbooking.logic.model.AdResponse
-import com.wzc1748995976.hotelbooking.logic.model.InChinaDetailResponse
-import com.wzc1748995976.hotelbooking.logic.model.LoginResponse
-import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponse
+import com.wzc1748995976.hotelbooking.logic.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,4 +27,13 @@ interface MyService {
     //获取某个用户收藏的酒店记录
     @GET("fav_record/getByUserId/{userId}")
     fun getFavHotelsByUserID(@Path("userId") userId:String): Call<SearchHotelsResponse>
+    //获取某个酒店所有房间的部分数据(同下面请求构成完整的房间数据)
+    @GET("hotel_room/getAllRoomByHotelId/{hotelId}")
+    fun getAllRoomInfoByHotelId(@Path("hotelId") hotelId:String): Call<HotelRoomInfoResponse>
+    //获取指定酒店指定房间指定日期的部分数据
+    @GET("room_state/getRoomInfoByHotelIdEidDate/{hotelId}/{eid}/{sdate}/{edate}")
+    fun getRoomInfoByHotelIdEidDate(@Path("hotelId") hotelId:String,
+                                 @Path("eid") eid:String,
+                                 @Path("sdate") sdate:String,
+                                 @Path("edate") edate:String): Call<RoomInfoByHotelIdEidDateResponse>
 }

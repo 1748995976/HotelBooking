@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.MainActivity
+import com.wzc1748995976.hotelbooking.MainActivityViewModel
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.HotelDetailInfo
@@ -27,39 +29,41 @@ import kotlinx.android.synthetic.main.home_fragment.*
 class HotelDetail : AppCompatActivity() {
 
     private lateinit var viewModel: HotelDetailViewModel
+    private val items = ArrayList<Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hotel_detail)
 
         val hotelId = intent.getStringExtra("hotelId")
-        Toast.makeText(HotelBookingApplication.context,hotelId,Toast.LENGTH_SHORT).show()
+        //适配RecyclerView
+        val adapter = MultiTypeAdapter()
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.visibility = View.VISIBLE
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        //adapter注册
+        adapter.register(HotelDetailInfoDelegate())
+        val roomInfoDelegate = RoomInfoDelegate()
+        roomInfoDelegate.setClickHotelItem(object :RoomInfoDelegate.ClickRoomItem{
+            override fun getResultToSet(holder: RoomInfoDelegate.ViewHolder, item: RoomInfo) {
+                //在这里弹起酒店预订界面，即Roomdetail，应该是popwindow
+                Toast.makeText(HotelBookingApplication.context,"you click item", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@HotelDetail,RoomDetail::class.java)
+                startActivity(intent)
+            }
+        })
+        adapter.register(roomInfoDelegate)
+        recyclerView.adapter = adapter
 
+        //viewModel请求网络
         viewModel = ViewModelProvider(this).get(HotelDetailViewModel::class.java)
         viewModel.refreshHotel(hotelId ?: "未知酒店ID")
         viewModel.refreshHotelResult.observe(this, Observer { result->
             val data = result.getOrNull()
             if(data != null && data.isNotEmpty() && data.size == 1){
-                //昨天进行到这里
-                val adapter = MultiTypeAdapter()
-                val items = ArrayList<Any>()
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-                recyclerView.visibility = View.VISIBLE
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                //adapter注册
-                adapter.register(HotelDetailInfoDelegate())
-                val roomInfoDelegate = RoomInfoDelegate()
-                roomInfoDelegate.setClickHotelItem(object :RoomInfoDelegate.ClickRoomItem{
-                    override fun getResultToSet(holder: RoomInfoDelegate.ViewHolder, item: RoomInfo) {
-                        //在这里弹起酒店预订界面，即Roomdetail，应该是popwindow
-                        Toast.makeText(HotelBookingApplication.context,"you click item", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@HotelDetail,RoomDetail::class.java)
-                        startActivity(intent)
-                    }
-                })
-                adapter.register(roomInfoDelegate)
-                recyclerView.adapter = adapter
-                //向数组中添加元素
+                //获取指定酒店所有房间的数据
+                viewModel.refreshRoom(hotelId ?: "未知酒店ID")
+                //向数组中酒店信息
                 items.add(
                     HotelDetailInfo(data[0].name,
                         MyServiceCreator.hotelsImgPath+data[0].photo1,
@@ -71,46 +75,59 @@ class HotelDetail : AppCompatActivity() {
                         data[0].distanceText,
                         data[0].distanceBus)
                 )
-                for (i in 0..4){
-                    items.add(
-                        RoomInfo("山东房间",
-                            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-                            "无早餐 15-18㎡ 单人床 两人入住",
-                            "15分钟内可免费取消",
-                            "209",
-                            "有窗",
-                            10,
-                            false)
-                    )
-                    items.add(
-                        RoomInfo("山东房间",
-                            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-                            "无早餐 15-18㎡ 单人床 两人入住",
-                            "15分钟内可免费取消",
-                            "209",
-                            "有窗",
-                            10,
-                            true)
-                    )
-                    items.add(
-                        RoomInfo("山东房间",
-                            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-                            "无早餐 15-18㎡ 单人床 两人入住",
-                            "15分钟内可免费取消",
-                            "209",
-                            "有窗",
-                            0,
-                            false)
+            }
+        })
+        //获取指定酒店所有房间的数据
+        viewModel.refreshRoomResult.observe(this, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                viewModel.roomInfoList = data
+                //获取指定酒店指定房间指定日期的数据
+                for (i in data){
+                    viewModel.refreshDateRoom(hotelId,i.eid,
+                        MainActivity.viewModel.inChinaCheckInDate.value,
+                        MainActivity.viewModel.inChinaCheckOutDate.value)
+                }
+            }
+        })
+        viewModel.refreshDateRoomResult.observe(this, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                //data数据集只能大小为1
+                for (i in data){
+                    val count = viewModel.count
+                    val roomInfo = viewModel.roomInfoList?.get(count)
+                    val roomDesc = roomInfo?.breakfast + " " + roomInfo?.roomarea + " " + roomInfo?.beddesc + " " + roomInfo?.peopledesc
+                    items.add(RoomInfo(roomInfo?.roomname,
+                        "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+                        roomDesc,
+                        "15分钟内可免费取消",
+                        i.price.toString(),
+                        roomInfo?.windowdesc,
+                        i.state)
                     )
                 }
+                viewModel.count = (viewModel.count+1)%(viewModel.roomInfoList?.size ?:(viewModel.count+1))
                 //将数组赋予给适配器
                 adapter.items = items
                 adapter.notifyDataSetChanged()
-                Log.d("2222222222",data[0].toString())
             }
         })
     }
 }
+
+//for (i in data){
+//    items.add(
+//        RoomInfo("山东房间",
+//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
+//            "无早餐 15-18㎡ 单人床 两人入住",
+//            "15分钟内可免费取消",
+//            "209",
+//            "有窗",
+//            "订")
+//    )
+//}
+
 
 //        val imageUrls = listOf(
 //            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",

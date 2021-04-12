@@ -37,7 +37,7 @@ class HourRoomFragment : Fragment() {
         val month = calendar.get(android.icu.util.Calendar.MONTH) + 1
         val day = calendar.get(android.icu.util.Calendar.DAY_OF_MONTH)
 
-        viewModel.checkInDate.value = "${year}年${month}月${day}日"
+        viewModel.checkInDate.value = "${year}-${month}-${day}"
         viewModel.checkInDateYear.value = year
         viewModel.checkInDateMonth.value = month
         viewModel.checkInDateDay.value = day
@@ -86,10 +86,10 @@ class HourRoomFragment : Fragment() {
                         dayOfMonth: Int
                     ) {
                         calendar.set(year, month, dayOfMonth)
-                        val format = SimpleDateFormat("yyyy年MM月dd日")
+                        val format = SimpleDateFormat("yyyy-MM-dd")
                         Toast.makeText(HotelBookingApplication.context,
                             format.format(calendar.time),Toast.LENGTH_SHORT).show()
-                        viewModel.checkInDate.value = "${year}年${month+1}月${dayOfMonth}日"
+                        viewModel.checkInDate.value = "${year}-${month+1}-${dayOfMonth}"
                         viewModel.checkInDateYear.value = year
                         viewModel.checkInDateMonth.value = month+1
                         viewModel.checkInDateDay.value = dayOfMonth

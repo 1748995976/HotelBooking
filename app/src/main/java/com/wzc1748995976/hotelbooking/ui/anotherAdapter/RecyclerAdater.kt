@@ -39,8 +39,7 @@ data class RoomInfo(
     val roomCancelDesc: String?,//房间取消时间描述
     val roomPrice: String?,//房间价格
     val windowDesc: String?,//房间窗户描述
-    val count: Int,//房间剩余数量
-    val isGrab: Boolean//是否抢房间
+    val state: String?//房间状态
 )
 
 
@@ -127,15 +126,15 @@ class RoomInfoDelegate: ItemViewDelegate<RoomInfo, RoomInfoDelegate.ViewHolder>(
 
     override fun onBindViewHolder(holder: ViewHolder, item: RoomInfo) {
         holder.run {
-            if(item.count == 0){
+            if(item.state == "无"){
                 orderLay.visibility = View.GONE
                 grabLay.visibility = View.GONE
                 fullLay.visibility = View.VISIBLE
-            }else if(item.count>0 && item.isGrab){
+            }else if(item.state == "抢"){
                 orderLay.visibility = View.GONE
                 grabLay.visibility = View.VISIBLE
                 fullLay.visibility = View.GONE
-            }else{
+            }else if(item.state == "订"){
                 orderLay.visibility = View.VISIBLE
                 grabLay.visibility = View.GONE
                 fullLay.visibility = View.GONE
