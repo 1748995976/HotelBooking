@@ -4,6 +4,7 @@ import androidx.lifecycle.liveData
 import com.wzc1748995976.hotelbooking.logic.model.*
 import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
 import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
+import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelDetailViewModel
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 import java.lang.RuntimeException
@@ -141,14 +142,21 @@ object Repository {
         emit(result)
     }
 
-    fun getRoomInfoByHotelIdEidDate(hotelId:String,eid:String,sdate:String,edate:String) = liveData(Dispatchers.IO){
+    //需要注意的是，这个请求方法与其他的请求方法不同，这里接受的参数是一个数组
+    //在这个方法中将参数中的每个元素依次拿出来然后进行诸葛网络请求，最后将返回的结果封装在一个list当中
+    fun getRoomInfoByHotelIdEidDate(request:List<HotelDetailViewModel.DateRoomInfoRequest>) = liveData(Dispatchers.IO){
         val result = try {
-            val roomResponse = HotelBookingNetWork.getRoomInfoByHotelIdEidDate(hotelId,eid,sdate,edate)
-            if(roomResponse.status == 0){
-                val result = roomResponse.data
-                Result.success(result)
+            val data = ArrayList<RoomInfoByHotelIdEidDateResponseData>()
+            for (i in request){
+                val roomResponse = HotelBookingNetWork.getRoomInfoByHotelIdEidDate(i.hotelId,i.eid,i.sdate,i.edate)
+                if(roomResponse.status == 0){
+                    roomResponse.data?.get(0)?.let { data.add(it) }
+                }
+            }
+            if(data.isNotEmpty()){
+                Result.success(data)
             }else{
-                Result.failure(RuntimeException("result is ${roomResponse.data}"))
+                Result.failure(RuntimeException("result is $data"))
             }
         }catch (e: Exception){
             Result.failure<List<RoomInfoByHotelIdEidDateResponseData>>(e)

@@ -81,40 +81,43 @@ class HotelDetail : AppCompatActivity() {
         viewModel.refreshRoomResult.observe(this, Observer { result->
             val data = result.getOrNull()
             if(data != null && data.isNotEmpty()){
-                //获取指定酒店指定房间指定日期的数据
+                val requestList = ArrayList<HotelDetailViewModel.DateRoomInfoRequest>()
                 for (i in data){
-                    viewModel.refreshDateRoom(hotelId,i.eid,
-                        MainActivity.viewModel.inChinaCheckInDate.value,
-                        MainActivity.viewModel.inChinaCheckOutDate.value)
-                    //这里为了解决丢值问题，每次都重新添加一个Observer，这样上一个Observer会被自动移除
-                    viewModel.refreshDateRoomResult.observe(this, Observer { resultA->
-                        val dataA = resultA.getOrNull()
-                        if(dataA != null && dataA.isNotEmpty()){
-                            //data数据集只能大小为1
-                            for (j in dataA){
-                                val roomDesc = i.breakfast + " " + i.roomarea + " " + i.beddesc + " " + i.peopledesc
-                                items.add(RoomInfo(i.roomname,
-                                    MyServiceCreator.hotelsImgPath+i.photo1,
+                    requestList.add(HotelDetailViewModel.DateRoomInfoRequest(hotelId ?: "未知hotelId",
+                        i.eid ?: "未知eid",
+                        MainActivity.viewModel.inChinaCheckInDate.value ?: "未知sdate",
+                        MainActivity.viewModel.inChinaCheckOutDate.value ?: "未知edate"))
+                }
+                //获取指定酒店所有指定房间指定日期的数据，得到的数据是一个数组
+                viewModel.refreshDateRoom(requestList)
+                viewModel.refreshDateRoomResult.observe(this, Observer { resultA ->
+                    val dataA = resultA.getOrNull()
+                    if (dataA != null && dataA.isNotEmpty()) {
+                        //data数据集只能大小为1
+                        for (index in data.indices) {
+                            val roomDesc =
+                                data[index].breakfast + " " + data[index].roomarea + " " + data[index].beddesc + " " + data[index].peopledesc
+                            items.add(
+                                RoomInfo(
+                                    data[index].roomname,
+                                    MyServiceCreator.hotelsImgPath + data[index].photo1,
                                     roomDesc,
                                     "15分钟内可免费取消",
-                                    j.price.toString(),
-                                    i.windowdesc,
-                                    j.state)
+                                    dataA[index].price.toString(),
+                                    data[index].windowdesc,
+                                    dataA[index].state
                                 )
-                            }
+                            )
                         }
-                    })
-                    //将数组赋予给适配器
-                    adapter.items = items
-                    adapter.notifyDataSetChanged()
-                }
+                        //将数组赋予给适配器
+                        adapter.items = items
+                        adapter.notifyDataSetChanged()
+                    }
+                })
             }
         })
-
     }
 }
-
-
 
 //        val imageUrls = listOf(
 //            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
