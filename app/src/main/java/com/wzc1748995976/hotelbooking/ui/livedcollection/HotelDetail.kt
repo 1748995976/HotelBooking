@@ -118,37 +118,3 @@ class HotelDetail : AppCompatActivity() {
         })
     }
 }
-
-//        val imageUrls = listOf(
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg"
-//        )
-//        val bannerAdapter = BannerImageAdapter(imageUrls)
-//        homeBanner?.let {
-//            it.addBannerLifecycleObserver(this)
-//            it.indicator = CircleIndicator(this)
-//            it.setBannerRound(20f)
-//            it.adapter = bannerAdapter
-//            //it.setIndicator(null,false)
-//        }
-
-//val textView = findViewById<TextView>(R.id.hotelDetailText)
-//        findViewById<MyScrollView>(R.id.hotelDetailScroll).setOnMyScrollListener(object :
-//            MyScrollView.MyScrollViewListener {
-//            override fun onMyScrollView(t: Int, oldt: Int, isUp: Boolean) {
-//                val height = findViewById<TextView>(R.id.hotelDetailText).height
-//
-//                if (t <= height) {
-//                    //根据滑动设置渐变透明度
-//                    textView.text = "111111"
-//                } else if (t > height && isUp) {//防止快速滑动导致透明度问题  向上
-//                    //快速滑动就直接设置不透明
-//                    textView.text = "222222"
-//                }
-//
-//            }
-//        })
