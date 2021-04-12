@@ -34,7 +34,10 @@ data class HotelDetailInfo(
 
 data class RoomInfo(
     val name: String?,//房间名称
-    val image: String?,//房间图片url
+    val image_1: String?,//房间图片url
+    val image_2: String?,//房间图片url
+    val image_3: String?,//房间图片url
+    val image_4: String?,//房间图片url
     val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
     val roomCancelDesc: String?,//房间取消时间描述
     val roomPrice: String?,//房间价格
@@ -145,7 +148,7 @@ class RoomInfoDelegate: ItemViewDelegate<RoomInfo, RoomInfoDelegate.ViewHolder>(
             roomPrice.text = item.roomPrice
             windowDesc.text = item.windowDesc
             Glide.with(HotelBookingApplication.context)
-                .load(item.image)
+                .load(item.image_1)
                 .into(holder.roomImg)
         }
         holder.itemView.setOnClickListener {

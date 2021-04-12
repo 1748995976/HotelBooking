@@ -35,7 +35,7 @@ class RoomDetail : AppCompatActivity()  {
         roomImageBanner?.let {
             it.addBannerLifecycleObserver(this)
             it.indicator = CircleIndicator(this)
-            it.setBannerRound(20f)
+            it.setBannerRound(0f)
             it.adapter = bannerAdapter
             //it.setIndicator(null,false)
         }
