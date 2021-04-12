@@ -81,52 +81,39 @@ class HotelDetail : AppCompatActivity() {
         viewModel.refreshRoomResult.observe(this, Observer { result->
             val data = result.getOrNull()
             if(data != null && data.isNotEmpty()){
-                viewModel.roomInfoList = data
                 //获取指定酒店指定房间指定日期的数据
                 for (i in data){
                     viewModel.refreshDateRoom(hotelId,i.eid,
                         MainActivity.viewModel.inChinaCheckInDate.value,
                         MainActivity.viewModel.inChinaCheckOutDate.value)
+                    //这里为了解决丢值问题，每次都重新添加一个Observer，这样上一个Observer会被自动移除
+                    viewModel.refreshDateRoomResult.observe(this, Observer { resultA->
+                        val dataA = resultA.getOrNull()
+                        if(dataA != null && dataA.isNotEmpty()){
+                            //data数据集只能大小为1
+                            for (j in dataA){
+                                val roomDesc = i.breakfast + " " + i.roomarea + " " + i.beddesc + " " + i.peopledesc
+                                items.add(RoomInfo(i.roomname,
+                                    MyServiceCreator.hotelsImgPath+i.photo1,
+                                    roomDesc,
+                                    "15分钟内可免费取消",
+                                    j.price.toString(),
+                                    i.windowdesc,
+                                    j.state)
+                                )
+                            }
+                        }
+                    })
+                    //将数组赋予给适配器
+                    adapter.items = items
+                    adapter.notifyDataSetChanged()
                 }
             }
         })
-        viewModel.refreshDateRoomResult.observe(this, Observer { result->
-            val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
-                //data数据集只能大小为1
-                for (i in data){
-                    val count = viewModel.count
-                    val roomInfo = viewModel.roomInfoList?.get(count)
-                    val roomDesc = roomInfo?.breakfast + " " + roomInfo?.roomarea + " " + roomInfo?.beddesc + " " + roomInfo?.peopledesc
-                    items.add(RoomInfo(roomInfo?.roomname,
-                        "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-                        roomDesc,
-                        "15分钟内可免费取消",
-                        i.price.toString(),
-                        roomInfo?.windowdesc,
-                        i.state)
-                    )
-                }
-                viewModel.count = (viewModel.count+1)%(viewModel.roomInfoList?.size ?:(viewModel.count+1))
-                //将数组赋予给适配器
-                adapter.items = items
-                adapter.notifyDataSetChanged()
-            }
-        })
+
     }
 }
 
-//for (i in data){
-//    items.add(
-//        RoomInfo("山东房间",
-//            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-//            "无早餐 15-18㎡ 单人床 两人入住",
-//            "15分钟内可免费取消",
-//            "209",
-//            "有窗",
-//            "订")
-//    )
-//}
 
 
 //        val imageUrls = listOf(

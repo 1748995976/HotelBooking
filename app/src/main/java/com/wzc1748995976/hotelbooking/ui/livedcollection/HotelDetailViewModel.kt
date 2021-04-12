@@ -17,8 +17,6 @@ class HotelDetailViewModel : ViewModel() {
         refreshHotelLiveData.value = hotelId
     }
     //获取指定酒店所有房间的数据
-    var roomInfoList:List<HotelRoomInfoResponseData>? = null
-    var count = 0
     private val refreshRoomLiveData = MutableLiveData<String?>()
     val refreshRoomResult = Transformations.switchMap(refreshRoomLiveData){
         Repository.getAllRoomInfoByHotelId(refreshHotelLiveData.value ?: "未知酒店ID")
@@ -31,10 +29,6 @@ class HotelDetailViewModel : ViewModel() {
     private val refreshDateRoomLiveData = MutableLiveData<DateRoomInfoRequest?>()
 
     val refreshDateRoomResult = Transformations.switchMap(refreshDateRoomLiveData){
-        Log.d("22",refreshDateRoomLiveData.value?.hotelId  +
-            refreshDateRoomLiveData.value?.eid +
-            refreshDateRoomLiveData.value?.sdate +
-            refreshDateRoomLiveData.value?.edate  +"##################")
         Repository.getRoomInfoByHotelIdEidDate(
             refreshDateRoomLiveData.value?.hotelId ?: "未知ID",
             refreshDateRoomLiveData.value?.eid ?: "未知eid",
