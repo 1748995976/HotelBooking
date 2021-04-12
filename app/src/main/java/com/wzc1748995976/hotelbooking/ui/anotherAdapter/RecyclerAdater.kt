@@ -38,11 +38,27 @@ data class RoomInfo(
     val image_2: String?,//房间图片url
     val image_3: String?,//房间图片url
     val image_4: String?,//房间图片url
+    val bedDetail:String?,//床详细描述
+    val roomArea: String?,//房间面积描述
+    val floorDesc: String?,//楼层描述
+    val smokeDesc: String?,//吸烟描述
+    val wifiDesc: String?,//无线上网描述
+    val internetDesc: String?,//有线上网描述
+    val peopleDesc: String?,//人员描述
+    val breakfast: String?,//早餐描述
     val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
     val roomCancelDesc: String?,//房间取消时间描述
     val roomPrice: String?,//房间价格
     val windowDesc: String?,//房间窗户描述
-    val state: String?//房间状态
+    val state: String?,//房间状态
+
+    val costPolicy:String?,//费用政策
+    val easyFacility:String?,//便利设施
+    val mediaTech:String?,//媒体科技
+    val bathroomMatch:String?,//浴室配套
+    val foodDrink:String?,//食品饮品
+    val outerDoor:String?,//室外景观
+    val otherFacility:String?//其它设施
 )
 
 

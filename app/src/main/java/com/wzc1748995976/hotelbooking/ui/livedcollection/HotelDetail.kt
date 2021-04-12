@@ -106,11 +106,26 @@ class HotelDetail : AppCompatActivity() {
                                     MyServiceCreator.hotelsImgPath + data[index].photo2,
                                     MyServiceCreator.hotelsImgPath + data[index].photo3,
                                     MyServiceCreator.hotelsImgPath + data[index].photo4,
-                                    roomDesc,
+                                    data[index].beddetail,
+                                    data[index].roomarea,
+                                    data[index].floordesc,
+                                    data[index].smokedesc,
+                                    data[index].wifidesc,
+                                    data[index].internetdesc,
+                                    data[index].peopledesc,
+                                    data[index].breakfast, roomDesc,
                                     "15分钟内可免费取消",
                                     dataA[index].price.toString(),
                                     data[index].windowdesc,
-                                    dataA[index].state
+                                    dataA[index].state,
+
+                                    data[index].costpolicy,
+                                    data[index].easyfacility,
+                                    data[index].mediatech,
+                                    data[index].bathroommatch,
+                                    data[index].fooddrink,
+                                    data[index].outerdoor,
+                                    data[index].otherfacility
                                 )
                             )
                         }
@@ -186,17 +201,17 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         val servicePolicyRoomDesc = findViewById<RecyclerView>(R.id.servicePolicyRoomDesc)
         val bookPrice = findViewById<TextView>(R.id.bookPrice)
         val bookButton = findViewById<SuperButton>(R.id.bookButton)
-
-        roomName.text = "超级无敌特惠小床房"
-        bedDesc.text = "1张大床1.5米"
-        areaDesc.text = "12-15㎡"
-        floorDesc.text = "9-15层"
-        windowDesc.text = "窗户位于走廊/窗户较小"
-        wifiDesc.text = "WiFi"
-        routerDesc.text = "无有线上网"
-        smokeDesc.text = "禁止吸烟"
-        peopleDesc.text = "2人"
-        breakFastDesc.text = "无早餐"
+        //房间描述
+        roomName.text = roomInfo.name
+        bedDesc.text = roomInfo.bedDetail
+        areaDesc.text = roomInfo.roomArea
+        floorDesc.text = roomInfo.floorDesc
+        windowDesc.text = roomInfo.windowDesc
+        wifiDesc.text = roomInfo.wifiDesc
+        routerDesc.text = roomInfo.internetDesc
+        smokeDesc.text = roomInfo.smokeDesc
+        peopleDesc.text = roomInfo.peopleDesc
+        breakFastDesc.text = roomInfo.breakfast
         // 房型设施
         val facilityAdapter = MultiTypeAdapter()
         val facilityAdapterItems = ArrayList<Any>()
