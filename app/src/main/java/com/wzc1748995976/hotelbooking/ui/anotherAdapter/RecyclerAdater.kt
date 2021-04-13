@@ -2,6 +2,7 @@ package com.wzc1748995976.hotelbooking.ui.anotherAdapter
 
 import android.content.Context
 import android.opengl.Visibility
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LCInChinaLInfoDelegate
+import kotlinx.android.parcel.Parcelize
 import top.androidman.SuperButton
 
 // 点进酒店详情界面的多类型RecyclerView
@@ -31,7 +33,7 @@ data class HotelDetailInfo(
     val distanceText: String?,//酒店位置描述
     val distanceBus: String?//酒店位置地铁或者公交描述
 )
-
+@Parcelize
 data class RoomInfo(
     val name: String?,//房间名称
     val image_1: String?,//房间图片url
@@ -51,6 +53,7 @@ data class RoomInfo(
     val roomPrice: String?,//房间价格
     val windowDesc: String?,//房间窗户描述
     val state: String?,//房间状态
+    val remaining: Int,//剩余房间数量
 
     val costPolicy:String?,//费用政策
     val easyFacility:String?,//便利设施
@@ -59,7 +62,7 @@ data class RoomInfo(
     val foodDrink:String?,//食品饮品
     val outerDoor:String?,//室外景观
     val otherFacility:String?//其它设施
-)
+) : Parcelable
 
 
 class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfoDelegate.ViewHolder>() {

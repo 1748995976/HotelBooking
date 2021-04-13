@@ -119,6 +119,7 @@ class HotelDetail : AppCompatActivity() {
                                     dataA[index].price.toString(),
                                     data[index].windowdesc,
                                     dataA[index].state,
+                                    dataA[index].remaining ?: 0,
 
                                     data[index].costpolicy,
                                     data[index].easyfacility,
@@ -340,11 +341,17 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         })
         // 预订价格
         bookPrice.text = roomInfo.roomPrice
-        // 预订按钮点击
-        bookButton.setOnClickListener {
-            val intent = Intent(context, BookRoomDetail::class.java)
-            context.startActivity(intent)
-            dialog.dismiss()
+        if(roomInfo.remaining == 0){
+            bookButton.setNormalColor(resources.getColor(R.color.color_gray))
+        }else{
+            bookButton.setNormalColor(resources.getColor(R.color.color_red))
+            // 预订按钮点击
+            bookButton.setOnClickListener {
+                val intent = Intent(context, BookRoomDetail::class.java)
+                intent.putExtra("roomInfo",roomInfo)
+                context.startActivity(intent)
+                dialog.dismiss()
+            }
         }
     }
 

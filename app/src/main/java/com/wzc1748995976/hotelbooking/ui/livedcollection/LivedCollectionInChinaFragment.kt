@@ -93,6 +93,7 @@ class LivedCollectionInChinaFragment : Fragment() {
                 item: HotelInfo
             ) {
                 val intent = Intent(activity,HotelDetail::class.java)
+                intent.putExtra("hotelId",item.id)
                 startActivity(intent)
             }
         })
