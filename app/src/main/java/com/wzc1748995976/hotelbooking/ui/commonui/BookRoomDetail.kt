@@ -19,6 +19,7 @@ import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumberDelegate
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.pickNumberCallBack
 import kotlinx.android.synthetic.main.activity_book_room_detail.*
 import kotlinx.android.synthetic.main.room_item.*
+import org.w3c.dom.Text
 import top.androidman.SuperLine
 
 class BookRoomDetail : AppCompatActivity() {
@@ -52,6 +53,7 @@ class BookRoomDetail : AppCompatActivity() {
         val roomDesc = findViewById<TextView>(R.id.roomDesc)
         val cancelDesc = findViewById<TextView>(R.id.cancelDesc)
         val superLine_4 = findViewById<SuperLine>(R.id.superLine_4)
+        val submitPrice = findViewById<TextView>(R.id.submitPrice)
 
         val roomNumberLinear = findViewById<LinearLayout>(R.id.roomNumberLinear)
         val roomNumber = findViewById<TextView>(R.id.roomNumber)
@@ -69,6 +71,7 @@ class BookRoomDetail : AppCompatActivity() {
                 clickHideNumber()
             }
         }
+        //viewModel监听
         viewModel.chooseNumber.observe(this, Observer { value->
             roomNumber.text = "${value}间（每间最多住${roomInfo?.peopleDesc}）"
         })
@@ -79,6 +82,8 @@ class BookRoomDetail : AppCompatActivity() {
         roomName.text = roomInfo?.name
         roomDesc.text = roomInfo?.roomDesc
         cancelDesc.text = roomInfo?.roomCancelDesc
+        //其它地方添加内容
+        submitPrice.text = roomInfo?.roomPrice
 
         // 用于处理选择房间下的RecyclerView列表
         val adapter = MultiTypeAdapter()
