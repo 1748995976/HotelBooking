@@ -6,6 +6,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.ui.homepage.InChinaDetailKind
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LCInChinaLInfoDelegate
 import kotlinx.android.parcel.Parcelize
@@ -251,6 +253,34 @@ class PolicyServiceInfoDelegate: ItemViewDelegate<PolicyServiceInfo, PolicyServi
     override fun onBindViewHolder(holder: ViewHolder, item: PolicyServiceInfo) {
         holder.run {
             serviceDesc.text = item.serviceDesc
+        }
+    }
+}
+// 房间详情界面房间数量的adapter
+data class RoomNumber(val number: Int)
+
+interface pickNumberCallBack{
+    fun getResultToSet(item: RoomNumber)
+}
+class RoomNumberDelegate: ItemViewDelegate<RoomNumber,RoomNumberDelegate.ViewHolder>(){
+    var mPickNumberCallBack:pickNumberCallBack? = null
+    fun setPickNumberCallBack(newObject: pickNumberCallBack){
+        mPickNumberCallBack = newObject
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val detailView: SuperButton = itemView.findViewById(R.id.detailButton)
+    }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.detail_choose_room_number, parent, false)
+        return RoomNumberDelegate.ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, item: RoomNumber) {
+        holder.detailView.setText(item.number.toString())
+        holder.detailView.setOnClickListener {
+            mPickNumberCallBack?.getResultToSet(item)
         }
     }
 }

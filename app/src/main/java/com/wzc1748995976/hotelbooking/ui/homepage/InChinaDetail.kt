@@ -302,31 +302,31 @@ class InChinaDetail : AppCompatActivity() {
         }
         if(i.type == "飞机场/火车站"){
             planeNumber++
-            if(planeNumber <= 6)
+            if(planeNumber <= 8)
                 itemsPlane.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }else if(i.type == "医院"){
             hospitalNumber++
-            if(hospitalNumber <= 6)
+            if(hospitalNumber <= 8)
                 itemsHospital.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }else if(i.type == "景点"){
             sceneNumber++
-            if(sceneNumber <= 6)
+            if(sceneNumber <= 8)
                 itemsScene.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }else if(i.type == "行政区/商圈"){
             businessNumber++
-            if(businessNumber <= 6)
+            if(businessNumber <= 8)
                 itemsBusiness.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }else if(i.type == "学校"){
             schoolNumber++
-            if(schoolNumber <= 6)
+            if(schoolNumber <= 8)
                 itemsSchool.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }else if(i.type == "品牌"){
             brandNumber++
-            if(brandNumber <= 6)
+            if(brandNumber <= 8)
                 itemsBrand.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }else if(i.type == "地铁"){
             subwayNumber++
-            if(subwayNumber <= 6)
+            if(subwayNumber <= 8)
                 itemsBrand.add(InChinaDetailKind(i.name.toString(),i.id.toString()))
         }
     }
@@ -335,37 +335,37 @@ class InChinaDetail : AppCompatActivity() {
         it.run {
             if(brandNumber == 0){
                 findViewById<LinearLayout>(R.id.searchBrandLinear).visibility = View.GONE
-            }else if(brandNumber <= 6){
+            }else if(brandNumber <= 8){
                 findViewById<SuperButton>(R.id.brandButton).visibility = View.GONE
             }
             if(businessNumber == 0){
                 findViewById<LinearLayout>(R.id.searchBusinessLinear).visibility = View.GONE
-            }else if(businessNumber <= 6){
+            }else if(businessNumber <= 8){
                 findViewById<SuperButton>(R.id.businessButton).visibility = View.GONE
             }
             if(subwayNumber == 0){
                 findViewById<LinearLayout>(R.id.searchSubwayLinear).visibility = View.GONE
-            }else if(subwayNumber <= 6){
+            }else if(subwayNumber <= 8){
                 findViewById<SuperButton>(R.id.subwayButton).visibility = View.GONE
             }
             if(sceneNumber == 0){
                 findViewById<LinearLayout>(R.id.searchSceneLinear).visibility = View.GONE
-            }else if(sceneNumber <= 6){
+            }else if(sceneNumber <= 8){
                 findViewById<SuperButton>(R.id.sceneButton).visibility = View.GONE
             }
             if(schoolNumber == 0){
                 findViewById<LinearLayout>(R.id.searchSchoolLinear).visibility = View.GONE
-            }else if(schoolNumber <= 6){
+            }else if(schoolNumber <= 8){
                 findViewById<SuperButton>(R.id.schoolButton).visibility = View.GONE
             }
             if(hospitalNumber == 0){
                 findViewById<LinearLayout>(R.id.searchHospitalLinear).visibility = View.GONE
-            }else if(hospitalNumber <= 6){
+            }else if(hospitalNumber <= 8){
                 findViewById<SuperButton>(R.id.hospitalButton).visibility = View.GONE
             }
             if(planeNumber == 0){
                 findViewById<LinearLayout>(R.id.searchPlaneLinear).visibility = View.GONE
-            }else if(planeNumber <= 6){
+            }else if(planeNumber <= 8){
                 findViewById<SuperButton>(R.id.planeButton).visibility = View.GONE
             }
         }

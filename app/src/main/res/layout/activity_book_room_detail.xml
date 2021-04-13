@@ -170,8 +170,9 @@
 
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ConstraintLayout_2"
+            <LinearLayout
+                android:id="@+id/customerInfo"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
@@ -179,153 +180,163 @@
                 app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
                 app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
                 app:layout_constraintTop_toBottomOf="@id/LinearLayout">
-
-                <TextView
-                    android:id="@+id/roomNumberTxt"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/roomNumberLinear"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:layout_marginStart="18dp"
-                    android:paddingEnd="15dp"
-                    android:text="房间数量"
-                    android:textColor="@color/color_gray"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toTopOf="@id/ConstraintLayout_2" />
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginStart="18dp"
+                        android:paddingEnd="15dp"
+                        android:text="房间数量"
+                        android:textColor="@color/color_gray"
+                        android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/roomNumber"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/roomNumber"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        tools:text="1间(每间最多住2人)" />
+                    <ImageView
+                        android:id="@+id/roomNumberImg"
+                        android:src="@drawable/ic_arrow_more_24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/roomNumberRecycler"
+                    android:background="@color/WhiteSmoke"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@id/roomNumberTxt"
-                    app:layout_constraintStart_toEndOf="@id/roomNumberTxt"
-                    app:layout_constraintTop_toTopOf="@id/roomNumberTxt"
-                    tools:text="1间(每间最多住2人)" />
+                    android:visibility="gone"/>
+
 
                 <top.androidman.SuperLine
                     android:id="@+id/superLine_4"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginHorizontal="18dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/roomNumberTxt"
                     app:line_color="@color/color_gray" />
 
-                <TextView
-                    android:id="@+id/customerNameTxt"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/customerNameLinear"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:layout_marginStart="18dp"
-                    android:paddingEnd="15dp"
-                    android:text="住客姓名"
-                    android:textColor="@color/color_gray"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/superLine_4" />
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/superLine_4"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginStart="18dp"
+                        android:paddingEnd="15dp"
+                        android:text="住客姓名"
+                        android:textColor="@color/color_gray"
+                        android:textSize="15sp" />
 
-                <EditText
-                    android:id="@+id/customerName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="每间填1位住客姓名"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/color_gray"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@id/customerNameTxt"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toEndOf="@id/customerNameTxt"
-                    app:layout_constraintTop_toTopOf="@id/customerNameTxt" />
+                    <EditText
+                        android:id="@+id/customerName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="每间填1位住客姓名"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/color_gray"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
 
                 <top.androidman.SuperLine
                     android:id="@+id/superLine_5"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginHorizontal="18dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/customerNameTxt"
                     app:line_color="@color/color_gray" />
 
-                <TextView
-                    android:id="@+id/customerPhoneTxt"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/customerPhoneLinear"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:layout_marginStart="18dp"
-                    android:paddingEnd="15dp"
-                    android:text="联系手机"
-                    android:textColor="@color/color_gray"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/superLine_5" />
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/superLine_5"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginStart="18dp"
+                        android:paddingEnd="15dp"
+                        android:text="联系手机"
+                        android:textColor="@color/color_gray"
+                        android:textSize="15sp" />
 
-                <EditText
-                    android:id="@+id/customerPhone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="用于接受通知短信"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/color_gray"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@id/customerPhoneTxt"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toEndOf="@id/customerPhoneTxt"
-                    app:layout_constraintTop_toTopOf="@id/customerPhoneTxt" />
+                    <EditText
+                        android:id="@+id/customerPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="用于接受通知短信"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/color_gray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
 
                 <top.androidman.SuperLine
                     android:id="@+id/superLine_6"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginHorizontal="18dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/customerPhoneTxt"
                     app:line_color="@color/color_gray" />
 
-                <TextView
-                    android:id="@+id/arriveTimeTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:layout_marginStart="18dp"
-                    android:paddingEnd="15dp"
-                    android:text="预计到店"
-                    android:textColor="@color/color_gray"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/superLine_6" />
-
-                <TextView
-                    android:id="@+id/arriveTime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@id/arriveTimeTxt"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toEndOf="@id/arriveTimeTxt"
-                    app:layout_constraintTop_toTopOf="@id/arriveTimeTxt"
-                    tools:text="14:00(房间将整晚保留)" />
-
-                <View
+                <LinearLayout
+                    android:id="@+id/arriveTimeLinear"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/white"
-                    app:layout_constraintEnd_toEndOf="@id/ConstraintLayout_2"
-                    app:layout_constraintStart_toStartOf="@id/ConstraintLayout_2"
-                    app:layout_constraintTop_toBottomOf="@id/arriveTimeTxt" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/superLine_6"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginStart="18dp"
+                        android:paddingEnd="15dp"
+                        android:text="预计到店"
+                        android:textColor="@color/color_gray"
+                        android:textSize="15sp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/arriveTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        tools:text="14:00(房间将整晚保留)" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <View
                 android:id="@+id/View"
@@ -334,7 +345,7 @@
                 android:background="@color/WhiteSmoke"
                 app:layout_constraintEnd_toEndOf="@id/ConstraintLayout"
                 app:layout_constraintStart_toStartOf="@id/ConstraintLayout"
-                app:layout_constraintTop_toBottomOf="@id/ConstraintLayout_2" />
+                app:layout_constraintTop_toBottomOf="@id/customerInfo" />
 
             <LinearLayout
                 android:id="@+id/LinearLayout_1"
