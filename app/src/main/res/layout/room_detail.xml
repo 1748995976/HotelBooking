@@ -57,6 +57,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/facilityRecycler"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />\
@@ -98,6 +99,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/servicePreRecycler"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
@@ -142,6 +144,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/servicePolicyChild"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />
@@ -157,6 +160,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/servicePolicyUse"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />
@@ -172,6 +176,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/servicePolicyRoomDesc"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />

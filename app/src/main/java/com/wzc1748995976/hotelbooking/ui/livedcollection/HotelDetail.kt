@@ -181,32 +181,6 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
             it.adapter = bannerAdapter
             //it.setIndicator(null,false)
         }
-        //竖直方向禁止滑动
-        val layoutManager1 = object: LinearLayoutManager(context){
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
-        val layoutManager2 = object: LinearLayoutManager(context){
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
-        val layoutManager3 = object: LinearLayoutManager(context){
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
-        val layoutManager4 = object: LinearLayoutManager(context){
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
-        val layoutManager5 = object: LinearLayoutManager(context){
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
         // 将所有控件的id提取出来
         val roomName = findViewById<TextView>(R.id.roomName)
 
@@ -222,17 +196,12 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         val breakFastDesc = room_detail_desc.findViewById<TextView>(R.id.breakFastDesc)
 
         val facilityRecycler = findViewById<RecyclerView>(R.id.facilityRecycler)
-        facilityRecycler.layoutManager = layoutManager1
         val facilityMOrLButton = findViewById<SuperButton>(R.id.facilityMOrLButton)
         val servicePreLinear = findViewById<LinearLayout>(R.id.servicePreLinear)
         val servicePreRecycler = findViewById<RecyclerView>(R.id.servicePreRecycler)
-        servicePreRecycler.layoutManager = layoutManager2
         val servicePolicyChild = findViewById<RecyclerView>(R.id.servicePolicyChild)
-        servicePolicyChild.layoutManager = layoutManager3
         val servicePolicyUse = findViewById<RecyclerView>(R.id.servicePolicyUse)
-        servicePolicyUse.layoutManager = layoutManager4
         val servicePolicyRoomDesc = findViewById<RecyclerView>(R.id.servicePolicyRoomDesc)
-        servicePolicyRoomDesc.layoutManager = layoutManager5
         val bookPrice = findViewById<TextView>(R.id.bookPrice)
         val bookButton = findViewById<SuperButton>(R.id.bookButton)
         //房间描述
