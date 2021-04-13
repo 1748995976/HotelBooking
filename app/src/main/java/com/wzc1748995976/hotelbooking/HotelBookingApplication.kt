@@ -10,6 +10,7 @@ class HotelBookingApplication : Application() {
         lateinit var context: Context
         const val GD_WEB_TOKEN = "dc30468d1abbd655f077d0d14ae21396"
         var account:String? = null
+        val week = listOf<String>("","周日","周一","周二","周三","周四","周五","周六")
     }
     override fun onCreate() {
         super.onCreate()

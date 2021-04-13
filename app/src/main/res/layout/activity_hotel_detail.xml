@@ -1,16 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.livedcollection.HotelDetail">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/headerRecyclerView"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:background="@color/LightPink"
+            android:layout_marginHorizontal="8dp"
+            android:paddingVertical="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/startDate"
+                android:layout_marginStart="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                tools:text="3月28日" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/startDateTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="3dp"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                tools:text="入住" />
+
+            <top.androidman.SuperLine
+                android:id="@+id/superLine_1"
+                android:layout_width="15dp"
+                android:layout_height="1dp"
+                app:line_color="@color/color_red" />
+
+            <top.androidman.SuperButton
+                android:id="@+id/gapDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                app:border_color="@color/color_red"
+                app:border_width="1dp"
+                app:corner="8dp"
+                app:textColor="@color/color_black"
+                app:textSize="18dp"
+                app:background_normalColor="@color/transparent"
+                tools:text="1晚" />
+
+            <top.androidman.SuperLine
+                android:id="@+id/superLine_2"
+                android:layout_width="15dp"
+                android:layout_height="1dp"
+                app:line_color="@color/color_red" />
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/startDate"
+                app:layout_constraintStart_toEndOf="@id/superLine_2"
+                app:layout_constraintTop_toTopOf="@id/startDate"
+                tools:text="3月28日" />
+            <TextView
+                android:id="@+id/endDateTxt"
+                android:layout_gravity="bottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="3dp"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                tools:text="离店" />
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_arrow_right_36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listRecyclerView"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

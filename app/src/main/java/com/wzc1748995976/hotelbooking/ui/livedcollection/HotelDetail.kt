@@ -33,13 +33,15 @@ import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.room_detail.*
 import kotlinx.android.synthetic.main.room_detail.view.*
+import org.w3c.dom.Text
 import top.androidman.SuperButton
 
 
 class HotelDetail : AppCompatActivity() {
 
     private lateinit var viewModel: HotelDetailViewModel
-    private val items = ArrayList<Any>()
+    private val headItems = ArrayList<Any>()
+    private val listItems = ArrayList<Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +49,14 @@ class HotelDetail : AppCompatActivity() {
 
         val hotelId = intent.getStringExtra("hotelId")
         //适配RecyclerView
-        val adapter = MultiTypeAdapter()
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.visibility = View.VISIBLE
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val headerAdapter = MultiTypeAdapter()
+        val listAdapter = MultiTypeAdapter()
+        val headerRecyclerView = findViewById<RecyclerView>(R.id.headerRecyclerView)
+        headerRecyclerView.visibility = View.VISIBLE
+        headerRecyclerView.layoutManager = LinearLayoutManager(this)
+        val listRecyclerView = findViewById<RecyclerView>(R.id.listRecyclerView)
+        listRecyclerView.visibility = View.VISIBLE
+        listRecyclerView.layoutManager = LinearLayoutManager(this)
 
         //viewModel请求网络
         viewModel = ViewModelProvider(this).get(HotelDetailViewModel::class.java)
@@ -61,16 +67,11 @@ class HotelDetail : AppCompatActivity() {
                 //获取指定酒店所有房间的数据
                 viewModel.refreshRoom(hotelId ?: "未知酒店ID")
                 //向数组中酒店信息
-                items.add(
+                headItems.add(
                     HotelDetailInfo(
-                        data[0].name,
-                        MyServiceCreator.hotelsImgPath + data[0].photo1,
-                        data[0].types, data[0].score,
-                        data[0].scoreDec,
-                        data[0].address,
-                        data[0].openTime,
-                        data[0].decorateTime,
-                        data[0].distanceText,
+                        data[0].name, MyServiceCreator.hotelsImgPath + data[0].photo1,
+                        data[0].types, data[0].score, data[0].scoreDec, data[0].address,
+                        data[0].openTime, data[0].decorateTime, data[0].distanceText,
                         data[0].distanceBus
                     )
                 )
@@ -100,39 +101,26 @@ class HotelDetail : AppCompatActivity() {
                         for (index in data.indices) {
                             val roomDesc =
                                 data[index].breakfast + " " + data[index].roomarea + " " + data[index].beddesc + " " + data[index].peopledesc
-                            items.add(
+                            listItems.add(
                                 RoomInfo(
                                     data[index].roomname,
                                     MyServiceCreator.hotelsImgPath + data[index].photo1,
                                     MyServiceCreator.hotelsImgPath + data[index].photo2,
                                     MyServiceCreator.hotelsImgPath + data[index].photo3,
                                     MyServiceCreator.hotelsImgPath + data[index].photo4,
-                                    data[index].beddetail,
-                                    data[index].roomarea,
-                                    data[index].floordesc,
-                                    data[index].smokedesc,
-                                    data[index].wifidesc,
-                                    data[index].internetdesc,
-                                    data[index].peopledesc,
-                                    data[index].breakfast, roomDesc,
-                                    "15分钟内可免费取消",
-                                    dataA[index].price.toString(),
-                                    data[index].windowdesc,
-                                    dataA[index].state,
-                                    dataA[index].remaining ?: 0,
-
-                                    data[index].costpolicy,
-                                    data[index].easyfacility,
-                                    data[index].mediatech,
-                                    data[index].bathroommatch,
-                                    data[index].fooddrink,
-                                    data[index].outerdoor,
+                                    data[index].beddetail, data[index].roomarea, data[index].floordesc,
+                                    data[index].smokedesc, data[index].wifidesc, data[index].internetdesc,
+                                    data[index].peopledesc, data[index].breakfast, roomDesc,
+                                    "15分钟内可免费取消", dataA[index].price.toString(),
+                                    data[index].windowdesc, dataA[index].state, dataA[index].remaining ?: 0,
+                                    data[index].costpolicy, data[index].easyfacility, data[index].mediatech,
+                                    data[index].bathroommatch, data[index].fooddrink, data[index].outerdoor,
                                     data[index].otherfacility
                                 )
                             )
                         }
-                        //adapter注册
-                        adapter.register(HotelDetailInfoDelegate())
+                        //adapter注册头部
+                        headerAdapter.register(HotelDetailInfoDelegate())
                         val roomInfoDelegate = RoomInfoDelegate()
                         roomInfoDelegate.setClickHotelItem(object : RoomInfoDelegate.ClickRoomItem {
                             override fun getResultToSet(
@@ -144,12 +132,27 @@ class HotelDetail : AppCompatActivity() {
                                     item,viewModel,hotelId ?: "未知酒店ID")
                             }
                         })
-                        adapter.register(roomInfoDelegate)
-                        recyclerView.adapter = adapter
+                        //adapter注册修改日期
+                        val startDate = findViewById<TextView>(R.id.startDate)
+                        val endDate = findViewById<TextView>(R.id.endDate)
+                        val gapDate = findViewById<SuperButton>(R.id.gapDate)
+                        val startDateTxt = findViewById<TextView>(R.id.startDateTxt)
+                        val endDateTxt = findViewById<TextView>(R.id.endDateTxt)
 
+                        startDate.text = "${MainActivity.viewModel.inMonth.value}月${MainActivity.viewModel.inDay.value}日"
+                        gapDate.setText(MainActivity.viewModel.inChinaCheckGapDate.value.toString()+"晚")
+                        endDate.text = "${MainActivity.viewModel.outMonth.value}月${MainActivity.viewModel.outDay.value}日"
+                        startDateTxt.text = "${HotelBookingApplication.week[MainActivity.viewModel.inWeekDay.value!!.toInt()]}入住"
+                        endDateTxt.text = "${HotelBookingApplication.week[MainActivity.viewModel.outWeekDay.value!!.toInt()]}离店"
+                        //adapter注册房价列表
+                        listAdapter.register(roomInfoDelegate)
                         //将数组赋予给适配器
-                        adapter.items = items
-                        adapter.notifyDataSetChanged()
+                        headerRecyclerView.adapter = headerAdapter
+                        listRecyclerView.adapter = listAdapter
+                        headerAdapter.items = headItems
+                        listAdapter.items = listItems
+                        headerAdapter.notifyDataSetChanged()
+                        listAdapter.notifyDataSetChanged()
                     }
                 })
             }

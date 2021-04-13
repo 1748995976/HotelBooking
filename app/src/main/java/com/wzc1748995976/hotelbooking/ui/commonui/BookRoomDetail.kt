@@ -76,8 +76,8 @@ class BookRoomDetail : AppCompatActivity() {
             roomNumber.text = "${value}间（每间最多住${roomInfo?.peopleDesc}）"
         })
         //向头部添加内容
-        startDate.text = MainActivity.viewModel.inChinaCheckInDate.value
-        endDate.text = MainActivity.viewModel.inChinaCheckOutDate.value
+        startDate.text = "${MainActivity.viewModel.inMonth.value}月${MainActivity.viewModel.inDay.value}日"
+        endDate.text = "${MainActivity.viewModel.outMonth.value}月${MainActivity.viewModel.outDay.value}日"
         gapDate.setText("${MainActivity.viewModel.inChinaCheckGapDate.value}晚")
         roomName.text = roomInfo?.name
         roomDesc.text = roomInfo?.roomDesc

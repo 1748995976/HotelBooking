@@ -29,6 +29,7 @@ import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.ui.commonui.SearchHotels
 import kotlinx.android.synthetic.main.in_china_fragment.*
 import top.androidman.SuperButton
+import java.text.SimpleDateFormat
 
 
 class InChinaFragment : Fragment() {
@@ -46,13 +47,27 @@ class InChinaFragment : Fragment() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val weekDay = calendar.get(Calendar.DAY_OF_WEEK)
         calendar.add(Calendar.DATE, 1)
         val addYear = calendar.get(Calendar.YEAR)
         val addMonth = calendar.get(Calendar.MONTH) + 1
         val addDay = calendar.get(Calendar.DAY_OF_MONTH)
+        val addWeekDay = calendar.get(Calendar.DAY_OF_WEEK)
 
-        MainActivity.viewModel.inChinaCheckInDate.value = "${year}-${month}-${day}"
-        MainActivity.viewModel.inChinaCheckOutDate.value = "${addYear}-${addMonth}-${addDay}"
+        MainActivity.viewModel.run {
+            inYear.value = year.toString()
+            inMonth.value = month.toString()
+            inDay.value = day.toString()
+            inWeekDay.value = weekDay.toString()
+            inChinaCheckInDate.value = "${year}-${month}-${day}"
+        }
+        MainActivity.viewModel.run {
+            outYear.value = addYear.toString()
+            outMonth.value = addMonth.toString()
+            outDay.value = addDay.toString()
+            outWeekDay.value = addWeekDay.toString()
+            inChinaCheckOutDate.value = "${addYear}-${addMonth}-${addDay}"
+        }
         return inflater.inflate(R.layout.in_china_fragment, container, false)
     }
 
@@ -93,13 +108,36 @@ class InChinaFragment : Fragment() {
                         override fun getResultToSet(
                             mStartTime: String,
                             mEndTime: String,
-                            _mStartTime: String,
-                            _mEndTime: String,
+                            startDate: String,
+                            endDate: String,
                             daysOffset: Int
                         ) {
-                            MainActivity.viewModel.inChinaCheckInDate.value = _mStartTime
-                            MainActivity.viewModel.inChinaCheckOutDate.value = _mEndTime
-                            MainActivity.viewModel.inChinaCheckGapDate.value = daysOffset
+                            var date = SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+                            val calendar = Calendar.getInstance()
+                            calendar.time = date
+                            val _inYear = calendar.get(android.icu.util.Calendar.YEAR)
+                            val _inMonth = calendar.get(android.icu.util.Calendar.MONTH) + 1
+                            val _inDay = calendar.get(android.icu.util.Calendar.DAY_OF_MONTH)
+                            val _inWeekDay = calendar.get(android.icu.util.Calendar.DAY_OF_WEEK)
+                            date = SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+                            calendar.time = date
+                            val _outYear = calendar.get(android.icu.util.Calendar.YEAR)
+                            val _outMonth = calendar.get(android.icu.util.Calendar.MONTH) + 1
+                            val _outDay = calendar.get(android.icu.util.Calendar.DAY_OF_MONTH)
+                            val _outWeekDay = calendar.get(android.icu.util.Calendar.DAY_OF_WEEK)
+                            MainActivity.viewModel.run {
+                                inYear.value = _inYear.toString()
+                                inMonth.value = _inMonth.toString()
+                                inDay.value = _inDay.toString()
+                                inWeekDay.value = _inWeekDay.toString()
+                                outYear.value = _outYear.toString()
+                                outMonth.value = _outMonth.toString()
+                                outDay.value = _outDay.toString()
+                                outWeekDay.value = _outWeekDay.toString()
+                                inChinaCheckInDate.value = startDate
+                                inChinaCheckOutDate.value = endDate
+                                inChinaCheckGapDate.value = daysOffset
+                            }
                         }
                     })
                     it.show(it1, view)
@@ -127,10 +165,12 @@ class InChinaFragment : Fragment() {
         })
         MainActivity.viewModel.run {
             inChinaCheckInDate.observe(viewLifecycleOwner, Observer { value ->
-                view.findViewById<TextView>(R.id.inChinaCheckInDateTextView).text = value
+                view.findViewById<TextView>(R.id.inChinaCheckInDateTextView).text =
+                    "${MainActivity.viewModel.inMonth.value}月${MainActivity.viewModel.inDay.value}日"
             })
             inChinaCheckOutDate.observe(viewLifecycleOwner, Observer { value ->
-                view.findViewById<TextView>(R.id.inChinaCheckOutDateTextView).text = value
+                view.findViewById<TextView>(R.id.inChinaCheckOutDateTextView).text =
+                    "${MainActivity.viewModel.outMonth.value}月${MainActivity.viewModel.outDay.value}日"
             })
             inChinaCheckGapDate.observe(viewLifecycleOwner, Observer { value ->
                 view.findViewById<TextView>(R.id.inChinaCheckGapTextView).text = "共${value}晚"
