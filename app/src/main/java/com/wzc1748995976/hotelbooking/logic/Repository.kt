@@ -164,6 +164,22 @@ object Repository {
         emit(result)
     }
 
+    fun getServiceByHotelId(hotelId:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val serviceResponse = HotelBookingNetWork.getServiceByHotelId(hotelId)
+            if(serviceResponse.status == 0){
+                val result = serviceResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${serviceResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<HotelServiceResponseData>(e)
+        }
+        emit(result)
+    }
+
+
 }
 
 //    fun loginRequest(account: String,password: String){

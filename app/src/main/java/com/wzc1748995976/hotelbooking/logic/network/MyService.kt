@@ -36,4 +36,7 @@ interface MyService {
                                  @Path("eid") eid:String,
                                  @Path("sdate") sdate:String,
                                  @Path("edate") edate:String): Call<RoomInfoByHotelIdEidDateResponse>
+    //获取指定酒店的服务政策
+    @GET("hotel_service/getServiceByHotelId/{hotelId}")
+    fun getServiceByHotelId(@Path("hotelId") hotelId:String): Call<HotelServiceResponse>
 }

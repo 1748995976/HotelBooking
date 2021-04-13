@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import android.content.Intent
+import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -138,7 +139,8 @@ class HotelDetail : AppCompatActivity() {
                                 item: RoomInfo
                             ) {
                                 //在这里弹起酒店预订界面，即Roomdetail，应该是popwindow
-                                showBookDialog(this@HotelDetail, this@HotelDetail,item)
+                                showBookDialog(this@HotelDetail, this@HotelDetail,
+                                    item,viewModel,hotelId ?: "未知酒店ID")
                             }
                         })
                         adapter.register(roomInfoDelegate)
@@ -158,7 +160,7 @@ class HotelDetail : AppCompatActivity() {
 
 
 private fun showBookDialog(context: Context, owner: LifecycleOwner,
-                           roomInfo:RoomInfo) {
+                           roomInfo:RoomInfo,viewModel: HotelDetailViewModel,hotelId:String) {
     val dialog = Dialog(context, R.style.DialogTheme)
     val dialogView = View.inflate(context, R.layout.room_detail, null)
     var isMoreFacility = false
@@ -179,6 +181,32 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
             it.adapter = bannerAdapter
             //it.setIndicator(null,false)
         }
+        //竖直方向禁止滑动
+        val layoutManager1 = object: LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        val layoutManager2 = object: LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        val layoutManager3 = object: LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        val layoutManager4 = object: LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        val layoutManager5 = object: LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
         // 将所有控件的id提取出来
         val roomName = findViewById<TextView>(R.id.roomName)
 
@@ -194,11 +222,17 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         val breakFastDesc = room_detail_desc.findViewById<TextView>(R.id.breakFastDesc)
 
         val facilityRecycler = findViewById<RecyclerView>(R.id.facilityRecycler)
+        facilityRecycler.layoutManager = layoutManager1
         val facilityMOrLButton = findViewById<SuperButton>(R.id.facilityMOrLButton)
+        val servicePreLinear = findViewById<LinearLayout>(R.id.servicePreLinear)
         val servicePreRecycler = findViewById<RecyclerView>(R.id.servicePreRecycler)
+        servicePreRecycler.layoutManager = layoutManager2
         val servicePolicyChild = findViewById<RecyclerView>(R.id.servicePolicyChild)
+        servicePolicyChild.layoutManager = layoutManager3
         val servicePolicyUse = findViewById<RecyclerView>(R.id.servicePolicyUse)
+        servicePolicyUse.layoutManager = layoutManager4
         val servicePolicyRoomDesc = findViewById<RecyclerView>(R.id.servicePolicyRoomDesc)
+        servicePolicyRoomDesc.layoutManager = layoutManager5
         val bookPrice = findViewById<TextView>(R.id.bookPrice)
         val bookButton = findViewById<SuperButton>(R.id.bookButton)
         //房间描述
@@ -214,15 +248,25 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         breakFastDesc.text = roomInfo.breakfast
         // 房型设施
         val facilityAdapter = MultiTypeAdapter()
+        val sectionFacilityAdapterItems  = ArrayList<Any>()
         val facilityAdapterItems = ArrayList<Any>()
         facilityRecycler.visibility = View.VISIBLE
         facilityRecycler.layoutManager = LinearLayoutManager(context)
         facilityAdapter.register(FacilityInfoDelegate())
         facilityRecycler.adapter = facilityAdapter
-        for (i in 0..1) {
-            facilityAdapterItems.add(FacilityInfo("影音体验", "投影仪：支持手机投影，100寸幕布，投影仪内置杜比环绕音箱"))
+        val reference = listOf("费用政策","便利设施","媒体科技","浴室配套",
+            "食品饮品","室外景观","其它设施")
+        val content = listOf(roomInfo.costPolicy,roomInfo.easyFacility,roomInfo.mediaTech,
+            roomInfo.bathroomMatch,roomInfo.foodDrink,roomInfo.outerDoor,roomInfo.otherFacility)
+        for (i in reference.indices){
+            if(content[i] != null){
+                if(i <= (reference.size-1)/2){
+                    sectionFacilityAdapterItems.add(FacilityInfo(reference[i],content[i]!!))
+                }
+                facilityAdapterItems.add(FacilityInfo(reference[i],content[i]!!))
+            }
         }
-        facilityAdapter.items = facilityAdapterItems
+        facilityAdapter.items = sectionFacilityAdapterItems
         facilityAdapter.notifyDataSetChanged()
         // 更多房型设施按键
         facilityMOrLButton.setOnClickListener {
@@ -230,17 +274,13 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
                 isMoreFacility = !isMoreFacility
                 facilityMOrLButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_less_blue_24dp))
                 facilityMOrLButton.setText("收起")
-                for (i in 0..1) {
-                    facilityAdapterItems.add(FacilityInfo("影音体验", "投影仪：支持手机投影，100寸幕布，投影仪内置杜比环绕音箱"))
-                    facilityAdapter.notifyDataSetChanged()
-                }
+                facilityAdapter.items = facilityAdapterItems
+                facilityAdapter.notifyDataSetChanged()
             } else {
                 isMoreFacility = !isMoreFacility
                 facilityMOrLButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_more_blue_24dp))
                 facilityMOrLButton.setText("更多房型设施")
-                for (i in 0..1) {
-                    facilityAdapterItems.removeAt(facilityAdapterItems.size - 1)
-                }
+                facilityAdapter.items = sectionFacilityAdapterItems
                 facilityAdapter.notifyDataSetChanged()
             }
         }
@@ -251,11 +291,6 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         servicePreRecycler.layoutManager = LinearLayoutManager(context)
         servicePreAdapter.register(PreferServiceInfoDelegate())
         servicePreRecycler.adapter = servicePreAdapter
-        for (i in 0..1) {
-            servicePreAdapterItems.add(PreferServiceInfo("溜溜住", "直接退房，无需查房"))
-        }
-        servicePreAdapter.items = servicePreAdapterItems
-        servicePreAdapter.notifyDataSetChanged()
         // 儿童及加床
         val servicePolicyChildAdapter = MultiTypeAdapter()
         val servicePolicyChildAdapterItems = ArrayList<Any>()
@@ -263,11 +298,6 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         servicePolicyChild.layoutManager = LinearLayoutManager(context)
         servicePolicyChildAdapter.register(PolicyServiceInfoDelegate())
         servicePolicyChild.adapter = servicePolicyChildAdapter
-        for (i in 0..1) {
-            servicePolicyChildAdapterItems.add(PolicyServiceInfo("不能加床"))
-        }
-        servicePolicyChildAdapter.items = servicePolicyChildAdapterItems
-        servicePolicyChildAdapter.notifyDataSetChanged()
         // 使用规则
         val servicePolicyUseAdapter = MultiTypeAdapter()
         val servicePolicyUseAdapterItems = ArrayList<Any>()
@@ -275,11 +305,6 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         servicePolicyUse.layoutManager = LinearLayoutManager(context)
         servicePolicyUseAdapter.register(PolicyServiceInfoDelegate())
         servicePolicyUse.adapter = servicePolicyUseAdapter
-        for (i in 0..1) {
-            servicePolicyUseAdapterItems.add(PolicyServiceInfo("使用规则"))
-        }
-        servicePolicyUseAdapter.items = servicePolicyUseAdapterItems
-        servicePolicyUseAdapter.notifyDataSetChanged()
         // 房型说明
         val servicePolicyRoomDescAdapter = MultiTypeAdapter()
         val servicePolicyRoomDescAdapterItems = ArrayList<Any>()
@@ -287,13 +312,65 @@ private fun showBookDialog(context: Context, owner: LifecycleOwner,
         servicePolicyRoomDesc.layoutManager = LinearLayoutManager(context)
         servicePolicyRoomDescAdapter.register(PolicyServiceInfoDelegate())
         servicePolicyRoomDesc.adapter = servicePolicyRoomDescAdapter
-        for (i in 0..1) {
-            servicePolicyRoomDescAdapterItems.add(PolicyServiceInfo("房型说明"))
-        }
-        servicePolicyRoomDescAdapter.items = servicePolicyRoomDescAdapterItems
-        servicePolicyRoomDescAdapter.notifyDataSetChanged()
+        // 获取以上所有服务的数据
+        viewModel.refreshService(hotelId)
+        viewModel.refreshServiceResult.observe(owner, Observer { result->
+            val data = result.getOrNull()
+            if(data!=null){
+                // 服务优选
+                if(data.servicetitle_1 == null && data.servicetitle_2 == null
+                    && data.servicetitle_3 == null){
+                    servicePreLinear.visibility = View.GONE
+                }else{
+                    if(data.servicetitle_1 != null){
+                        servicePreAdapterItems.add(
+                            PreferServiceInfo(data.servicetitle_1, data.servicepre_1 ?: "未知服务"))
+                    }
+                    if(data.servicetitle_2 != null){
+                        servicePreAdapterItems.add(
+                            PreferServiceInfo(data.servicetitle_2, data.servicepre_2 ?: "未知服务"))
+                    }
+                    if(data.servicetitle_3 != null){
+                        servicePreAdapterItems.add(
+                            PreferServiceInfo(data.servicetitle_3, data.servicepre_3 ?: "未知服务"))
+                    }
+                }
+                servicePreAdapter.items = servicePreAdapterItems
+                servicePreAdapter.notifyDataSetChanged()
+                // 儿童及加床
+                if(data.childlivein != null){
+                    servicePolicyChildAdapterItems.add(PolicyServiceInfo(data.childlivein))
+                }
+                if(data.addbed != null){
+                    servicePolicyChildAdapterItems.add(PolicyServiceInfo(data.addbed))
+                }
+                servicePolicyChildAdapter.items = servicePolicyChildAdapterItems
+                servicePolicyChildAdapter.notifyDataSetChanged()
+                // 使用规则
+                if(data.userule_1 != null){
+                    servicePolicyUseAdapterItems.add(PolicyServiceInfo(data.userule_1))
+                }
+                if(data.userule_2 != null){
+                    servicePolicyUseAdapterItems.add(PolicyServiceInfo(data.userule_2))
+                }
+                if(data.userule_3 != null){
+                    servicePolicyUseAdapterItems.add(PolicyServiceInfo(data.userule_3))
+                }
+                servicePolicyUseAdapter.items = servicePolicyUseAdapterItems
+                servicePolicyUseAdapter.notifyDataSetChanged()
+                // 房型说明
+                if(data.roomtypedesc_1 != null){
+                    servicePolicyRoomDescAdapterItems.add(PolicyServiceInfo(data.roomtypedesc_1))
+                }
+                if(data.roomtypedesc_2 != null){
+                    servicePolicyRoomDescAdapterItems.add(PolicyServiceInfo(data.roomtypedesc_2))
+                }
+                servicePolicyRoomDescAdapter.items = servicePolicyRoomDescAdapterItems
+                servicePolicyRoomDescAdapter.notifyDataSetChanged()
+            }
+        })
         // 预订价格
-        bookPrice.text = "130"
+        bookPrice.text = roomInfo.roomPrice
         // 预订按钮点击
         bookButton.setOnClickListener {
             val intent = Intent(context, BookRoomDetail::class.java)

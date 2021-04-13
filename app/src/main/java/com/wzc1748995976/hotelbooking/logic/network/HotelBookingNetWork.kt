@@ -24,6 +24,7 @@ object HotelBookingNetWork {
     suspend fun getAllRoomInfoByHotelId(hotelId: String) = myService.getAllRoomInfoByHotelId(hotelId).await()
     suspend fun getRoomInfoByHotelIdEidDate(hotelId:String,eid:String,sdate:String,edate:String)
             = myService.getRoomInfoByHotelIdEidDate(hotelId,eid,sdate,edate).await()
+    suspend fun getServiceByHotelId(hotelId: String) = myService.getServiceByHotelId(hotelId).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->
