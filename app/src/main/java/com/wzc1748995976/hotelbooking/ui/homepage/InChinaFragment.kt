@@ -103,7 +103,7 @@ class InChinaFragment : Fragment() {
         }
         view.findViewById<SuperButton>(R.id.checkButton).setOnClickListener {
             activity?.let { it1 ->
-                DatePicker.let {
+                DatePicker().let {
                     it.setpickDateCallBack(object : pickDateCallBack {
                         override fun getResultToSet(
                             mStartTime: String,

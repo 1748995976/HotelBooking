@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
+            android:id="@+id/dateLinear"
             android:background="@color/LightPink"
             android:layout_marginHorizontal="8dp"
             android:paddingVertical="3dp"

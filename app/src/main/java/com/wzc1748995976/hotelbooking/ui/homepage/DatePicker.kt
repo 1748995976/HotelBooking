@@ -13,15 +13,18 @@ import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import java.text.SimpleDateFormat
 
 interface pickDateCallBack{
-    fun getResultToSet(mStartTime: String,mEndTime: String,_mStartTime: String,_mEndTime: String,daysOffset: Int)
+    fun getResultToSet(mStartTime: String,mEndTime: String,startDate: String,endDate: String,daysOffset: Int)
 }
 
 
-object DatePicker {
-    private var startGroup = -1 //全局量
-    private var endGroup = -1
-    private var startChild = -1
-    private var endChild = -1
+class DatePicker {
+    companion object{
+        //整个应用公用这一个日历选择的区域
+        private var startGroup = -1 //全局量
+        private var endGroup = -1
+        private var startChild = -1
+        private var endChild = -1
+    }
 
     //得到日期的数据
     var mpickDateCallBack:pickDateCallBack? = null

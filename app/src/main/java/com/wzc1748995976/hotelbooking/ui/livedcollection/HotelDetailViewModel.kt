@@ -10,6 +10,18 @@ import com.wzc1748995976.hotelbooking.logic.model.HotelRoomInfoResponseData
 import com.wzc1748995976.hotelbooking.logic.model.RoomInfoByHotelIdEidDateResponseData
 
 class HotelDetailViewModel : ViewModel() {
+
+    val inChinaCheckInDate = MutableLiveData<String>("")
+    val inChinaCheckOutDate = MutableLiveData<String>("")
+    val inChinaCheckGapDate = MutableLiveData<Int>(1)
+    val inYear = MutableLiveData<String>("")
+    val inMonth = MutableLiveData<String>("")
+    val inDay = MutableLiveData<String>("")
+    val inWeekDay = MutableLiveData<String>("")
+    val outYear = MutableLiveData<String>("")
+    val outMonth = MutableLiveData<String>("")
+    val outDay = MutableLiveData<String>("")
+    val outWeekDay = MutableLiveData<String>("")
     // 获得酒店信息
     private val refreshHotelLiveData = MutableLiveData<String?>()
     val refreshHotelResult = Transformations.switchMap(refreshHotelLiveData){
@@ -27,13 +39,16 @@ class HotelDetailViewModel : ViewModel() {
         refreshRoomLiveData.value = hotelId
     }
     //获取指定酒店指定房间指定日期的数据
-    data class DateRoomInfoRequest(val hotelId:String,val eid:String,val sdate:String,val edate:String)
-    private val refreshDateRoomLiveData = MutableLiveData<List<DateRoomInfoRequest>>()
+    data class DateRoomInfoCondition(val hotelId:String,val eid:String)
+    data class DateRoomInfoRequest(val data:List<DateRoomInfoCondition>,val sdate:String,val edate:String)
+
+    private val refreshDateRoomLiveData = MutableLiveData<DateRoomInfoRequest>()
 
     val refreshDateRoomResult = Transformations.switchMap(refreshDateRoomLiveData){
-        Repository.getRoomInfoByHotelIdEidDate(refreshDateRoomLiveData.value ?: ArrayList())
+        Repository.getRoomInfoByHotelIdEidDate(refreshDateRoomLiveData.value
+            ?: DateRoomInfoRequest(ArrayList(),"未知sdate","未知edate"))
     }
-    fun refreshDateRoom(requestList:List<DateRoomInfoRequest>){
+    fun refreshDateRoom(requestList:DateRoomInfoRequest){
         refreshDateRoomLiveData.value = requestList
     }
 
