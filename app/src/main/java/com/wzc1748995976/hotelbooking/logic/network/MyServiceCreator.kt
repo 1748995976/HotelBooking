@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MyServiceCreator {
-    private const val BASE_URL = "http://10.21.207.157:3000/"
+    private const val BASE_URL = "http://192.168.56.1:3000/"
 
     const val homeAdPrePath = BASE_URL + "home_advertisement/img/"
 

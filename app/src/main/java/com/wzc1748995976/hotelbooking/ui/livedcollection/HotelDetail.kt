@@ -182,38 +182,40 @@ class HotelDetail : AppCompatActivity() {
             if (dataA != null && dataA.isNotEmpty()) {
                 //data数据集只能大小为1
                 for (index in data.indices) {
-                    val roomDesc =
-                        data[index].breakfast + " " + data[index].roomarea + " " + data[index].beddesc + " " + data[index].peopledesc
-                    listItems.add(
-                        RoomInfo(
-                            data[index].roomname,
-                            MyServiceCreator.hotelsImgPath + data[index].photo1,
-                            MyServiceCreator.hotelsImgPath + data[index].photo2,
-                            MyServiceCreator.hotelsImgPath + data[index].photo3,
-                            MyServiceCreator.hotelsImgPath + data[index].photo4,
-                            data[index].beddetail,
-                            data[index].roomarea,
-                            data[index].floordesc,
-                            data[index].smokedesc,
-                            data[index].wifidesc,
-                            data[index].internetdesc,
-                            data[index].peopledesc,
-                            data[index].breakfast,
-                            roomDesc,
-                            "15分钟内可免费取消",
-                            dataA[index].price.toString(),
-                            data[index].windowdesc,
-                            dataA[index].state,
-                            dataA[index].remaining ?: 0,
-                            data[index].costpolicy,
-                            data[index].easyfacility,
-                            data[index].mediatech,
-                            data[index].bathroommatch,
-                            data[index].fooddrink,
-                            data[index].outerdoor,
-                            data[index].otherfacility
+                    if(dataA[index] != null){
+                        val roomDesc =
+                            data[index].breakfast + " " + data[index].roomarea + " " + data[index].beddesc + " " + data[index].peopledesc
+                        listItems.add(
+                            RoomInfo(
+                                data[index].roomname,
+                                MyServiceCreator.hotelsImgPath + data[index].photo1,
+                                MyServiceCreator.hotelsImgPath + data[index].photo2,
+                                MyServiceCreator.hotelsImgPath + data[index].photo3,
+                                MyServiceCreator.hotelsImgPath + data[index].photo4,
+                                data[index].beddetail,
+                                data[index].roomarea,
+                                data[index].floordesc,
+                                data[index].smokedesc,
+                                data[index].wifidesc,
+                                data[index].internetdesc,
+                                data[index].peopledesc,
+                                data[index].breakfast,
+                                roomDesc,
+                                "15分钟内可免费取消",
+                                dataA[index]!!.price.toString(),
+                                data[index].windowdesc,
+                                dataA[index]!!.state,
+                                dataA[index]!!.remaining ?: 0,
+                                data[index].costpolicy,
+                                data[index].easyfacility,
+                                data[index].mediatech,
+                                data[index].bathroommatch,
+                                data[index].fooddrink,
+                                data[index].outerdoor,
+                                data[index].otherfacility
+                            )
                         )
-                    )
+                    }
                 }
             }
             //adapter注册房间列表
