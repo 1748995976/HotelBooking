@@ -39,4 +39,10 @@ interface MyService {
     //获取指定酒店的服务政策
     @GET("hotel_service/getServiceByHotelId/{hotelId}")
     fun getServiceByHotelId(@Path("hotelId") hotelId:String): Call<HotelServiceResponse>
+    //获取指定用户的历史订单记录
+    @GET("user_history_order/getHistoryOrderByAccount/{account}")
+    fun getHistoryOrderByAccount(@Path("account") account:String): Call<HistoryOrderByAccountResponse>
+    //获取指定酒店指定房间的数据
+    @GET("hotel_room/getRoomByHotelIdEid/{hotelId}/{eid}")
+    fun getRoomByHotelIdEid(@Path("hotelId") hotelId:String,@Path("eid") eid:String): Call<RoomInfoResponse>
 }

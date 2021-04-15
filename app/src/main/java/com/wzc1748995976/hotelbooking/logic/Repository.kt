@@ -183,6 +183,36 @@ object Repository {
         emit(result)
     }
 
+    fun getHistoryOrderByAccount(account: String) = liveData(Dispatchers.IO){
+        val result = try {
+            val orderResponse = HotelBookingNetWork.getHistoryOrderByAccount(account)
+            if(orderResponse.status == 0){
+                val result = orderResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${orderResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<HistoryOrderByAccountResponseData>>(e)
+        }
+        emit(result)
+    }
+
+    fun getRoomByHotelIdEid(hotelId:String,eid:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val roomResponse = HotelBookingNetWork.getRoomByHotelIdEid(hotelId,eid)
+            if(roomResponse.status == 0){
+                val result = roomResponse.data
+                Result.success(result)
+            }else{
+                Result.failure(RuntimeException("result is ${roomResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<RoomInfoResponseData>(e)
+        }
+        emit(result)
+    }
+
 
 }
 

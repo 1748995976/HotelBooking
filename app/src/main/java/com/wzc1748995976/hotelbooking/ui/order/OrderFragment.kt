@@ -3,18 +3,24 @@ package com.wzc1748995976.hotelbooking.ui.order
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
+import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.logic.Repository
+import com.wzc1748995976.hotelbooking.logic.model.HistoryOrderByAccountResponseData
 
 class OrderFragment : Fragment() {
 
     private lateinit var viewModel: OrderViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +32,15 @@ class OrderFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
+
+        viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
+        viewModel.historyResult.observe(viewLifecycleOwner, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                viewModel.historyDataList.value = data
+            }
+        })
+        //这一步应该根据订单信息获取相应的酒店房间信息
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
 
