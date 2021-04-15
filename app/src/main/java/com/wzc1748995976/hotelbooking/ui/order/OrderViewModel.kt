@@ -5,6 +5,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.wzc1748995976.hotelbooking.logic.Repository
 import com.wzc1748995976.hotelbooking.logic.model.HistoryOrderByAccountResponseData
+import com.wzc1748995976.hotelbooking.logic.model.RoomInfoResponseData
+import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
 
 class OrderViewModel : ViewModel() {
     //请求指定用户的订单记录
@@ -16,17 +18,18 @@ class OrderViewModel : ViewModel() {
         historyLiveData.value = account
     }
 
-    val historyDataList =  MutableLiveData<List<HistoryOrderByAccountResponseData>>()
     //请求订单记录中房间的信息
-    data class HotelIdEid(val hotelId:String,val eid: String)
-    private val infoLiveData = MutableLiveData<HotelIdEid>()
-
-    val infoResult = Transformations.switchMap(historyLiveData){
-        Repository.getRoomByHotelIdEid(infoLiveData.value?.hotelId ?: "未知酒店ID",
-            infoLiveData.value?.eid ?: "未知房间eid")
+    val roomDataLiveData = MutableLiveData<List<RoomInfoResponseData>>()
+    val infoLiveData = MutableLiveData<List<HistoryOrderByAccountResponseData>>()
+    val hotelLiveData = MutableLiveData<List<SearchHotelsResponseData>>()
+    val hotelResult = Transformations.switchMap(infoLiveData){
+        Repository.searchHotelsByIdByOrderList(infoLiveData.value ?: ArrayList())
+    }
+    val infoResult = Transformations.switchMap(infoLiveData){
+        Repository.getAllRoomByHotelIdEid(infoLiveData.value ?: ArrayList())
     }
 
-    fun refreshInfo(account: String,eid: String){
-        infoLiveData.value = HotelIdEid(account,eid)
+    fun refreshInfo(data:List<HistoryOrderByAccountResponseData>){
+        infoLiveData.value = data
     }
 }

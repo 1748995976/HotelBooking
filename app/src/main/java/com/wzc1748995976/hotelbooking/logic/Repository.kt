@@ -198,17 +198,47 @@ object Repository {
         emit(result)
     }
 
-    fun getRoomByHotelIdEid(hotelId:String,eid:String) = liveData(Dispatchers.IO){
+    //通过List<HistoryOrderByAccountResponseData>获取房间信息列表
+    fun getAllRoomByHotelIdEid(data:List<HistoryOrderByAccountResponseData>) = liveData(Dispatchers.IO){
         val result = try {
-            val roomResponse = HotelBookingNetWork.getRoomByHotelIdEid(hotelId,eid)
-            if(roomResponse.status == 0){
-                val result = roomResponse.data
-                Result.success(result)
+            //存储结果
+            val roomResponseList = ArrayList<RoomInfoResponseData>()
+
+            for(i in data){
+                val roomResponse = HotelBookingNetWork.getRoomByHotelIdEid(i.hotelId!!,i.eid!!)
+                if(roomResponse.status == 0 && roomResponse.data != null){
+                    roomResponseList.add(roomResponse.data)
+                }
+            }
+            if(roomResponseList.isNotEmpty()){
+                Result.success(roomResponseList)
             }else{
-                Result.failure(RuntimeException("result is ${roomResponse.data}"))
+                Result.failure(RuntimeException("result is $roomResponseList"))
             }
         }catch (e: Exception){
-            Result.failure<RoomInfoResponseData>(e)
+            Result.failure<List<RoomInfoResponseData>>(e)
+        }
+        emit(result)
+    }
+    //通过List<HistoryOrderByAccountResponseData>获取酒店信息列表
+    fun searchHotelsByIdByOrderList(data:List<HistoryOrderByAccountResponseData>) = liveData(Dispatchers.IO){
+        val result = try {
+            //存储结果
+            val hotelResponseList = ArrayList<SearchHotelsResponseData>()
+
+            for(i in data){
+                val hotelResponse = HotelBookingNetWork.searchHotelsById(i.hotelId)
+                if(hotelResponse.status == 0 && hotelResponse.data != null){
+                    hotelResponseList.add(hotelResponse.data[0])
+                }
+            }
+            if(hotelResponseList.isNotEmpty()){
+                Result.success(hotelResponseList)
+            }else{
+                Result.failure(RuntimeException("result is $hotelResponseList"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<SearchHotelsResponseData>>(e)
         }
         emit(result)
     }

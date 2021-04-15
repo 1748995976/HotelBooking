@@ -60,6 +60,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/orange_all"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@id/superLine"
         app:layout_constraintStart_toStartOf="@id/hotelIcon"/>
 

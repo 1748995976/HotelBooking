@@ -16,10 +16,13 @@ import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.Repository
 import com.wzc1748995976.hotelbooking.logic.model.HistoryOrderByAccountResponseData
+import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 
 class OrderFragment : Fragment() {
 
     private lateinit var viewModel: OrderViewModel
+    val orderItemAdapter = MultiTypeAdapter()
+    val orderItemAdapterItems = ArrayList<Any>()
 
 
     override fun onCreateView(
@@ -31,21 +34,9 @@ class OrderFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
-
-        viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
-        viewModel.historyResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
-                viewModel.historyDataList.value = data
-            }
-        })
-        //这一步应该根据订单信息获取相应的酒店房间信息
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
 
-        val orderItemAdapter = MultiTypeAdapter()
-        val orderItemAdapterItems = ArrayList<Any>()
         recyclerView?.visibility = View.VISIBLE
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         val finishUseOrderInfoDelegate = FinishUseOrderInfoDelegate()
@@ -100,23 +91,63 @@ class OrderFragment : Fragment() {
         orderItemAdapter.register(bookSuccessOrderInfoDelegate)
         orderItemAdapter.register(cancelOrderInfoDelegate)
         recyclerView?.adapter = orderItemAdapter
-
-        for (i in 0..1){
-            orderItemAdapterItems.add(FinishUseOrderInfo("华中科技大学",
-                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
-            "标准大床房","2021.1.20","2021.1.30","999"))
-            orderItemAdapterItems.add(WaitEvaOrderInfo("武汉大学",
-                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
-                "标准大床房","2021.1.20","2021.1.30","999"))
-            orderItemAdapterItems.add(BookSuccessOrderInfo("清华大学",
-                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
-                "标准大床房","2021.1.20","2021.1.30","999"))
-            orderItemAdapterItems.add(CancelOrderInfo("北京大学",
-                "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg","2间",
-                "标准大床房","2021.1.20","2021.1.30","999"))
-        }
-        orderItemAdapter.items = orderItemAdapterItems
-        orderItemAdapter.notifyDataSetChanged()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
+
+        viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
+        viewModel.historyResult.observe(viewLifecycleOwner, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                viewModel.refreshInfo(data)
+            }
+        })
+        viewModel.hotelResult.observe(viewLifecycleOwner, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                viewModel.hotelLiveData.value = data
+            }
+        })
+        //这一步应该根据订单信息获取相应的酒店房间信息
+        viewModel.infoResult.observe(viewLifecycleOwner, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                viewModel.roomDataLiveData.value = data
+            }
+        })
+        //根据获取到的酒店房间信息和订单信息进行显示
+        viewModel.roomDataLiveData.observe(viewLifecycleOwner, Observer { value->
+            val roomInfo = value
+            val hotelInfo = viewModel.hotelLiveData.value!!
+            val historyOrder = viewModel.infoLiveData.value!!
+            for (i in historyOrder.indices){
+                if(historyOrder[i].orderState == 0){
+                    //已消费
+                    orderItemAdapterItems.add(FinishUseOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
+                }else if(historyOrder[i].orderState == 1){
+                    //待评价
+                    orderItemAdapterItems.add(WaitEvaOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
+                }else if(historyOrder[i].orderState == 2){
+                    //预定成功
+                    orderItemAdapterItems.add(BookSuccessOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
+                }else if(historyOrder[i].orderState == 3){
+                    //已取消
+                    orderItemAdapterItems.add(CancelOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
+                }
+            }
+            orderItemAdapter.items = orderItemAdapterItems
+            orderItemAdapter.notifyDataSetChanged()
+        })
+    }
 }
