@@ -4,7 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MyServiceCreator {
-    private const val BASE_URL = "http://10.11.169.68:3000/"
+    //可以用手机连接电脑热点然后使用无线局域网的IPV4地址
+    private const val BASE_URL = "http://222.20.104.6:3000/"
 
     const val homeAdPrePath = BASE_URL + "home_advertisement/img/"
 

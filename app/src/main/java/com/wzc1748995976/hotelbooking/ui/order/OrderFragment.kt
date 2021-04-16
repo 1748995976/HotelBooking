@@ -98,13 +98,16 @@ class OrderFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
 
+        //请求指定用户的订单记录
         viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
         viewModel.historyResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
             if(data != null && data.isNotEmpty()){
+                //请求订单信息
                 viewModel.refreshInfo(data)
             }
         })
+        //请求订单信息对应的酒店的信息
         viewModel.hotelResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
             if(data != null && data.isNotEmpty()){
