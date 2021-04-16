@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.commonui.BookRoomDetail" />
-        <activity android:name=".ui.livedcollection.HotelDetail" />
+        <activity android:name=".ui.commonui.HotelDetail" />
         <activity android:name=".ui.homepage.InChinaDetail" />
         <activity android:name=".ui.livedcollection.RoomDetail" />
         <activity android:name=".ui.order.CancelOrder" />

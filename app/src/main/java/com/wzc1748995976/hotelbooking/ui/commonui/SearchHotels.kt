@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
-import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelDetail
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LCInChinaLInfoDelegate
 

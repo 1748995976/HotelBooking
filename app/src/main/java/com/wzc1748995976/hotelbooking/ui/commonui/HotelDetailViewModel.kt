@@ -1,13 +1,9 @@
-package com.wzc1748995976.hotelbooking.ui.livedcollection
+package com.wzc1748995976.hotelbooking.ui.commonui
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.wzc1748995976.hotelbooking.logic.Repository
-import com.wzc1748995976.hotelbooking.logic.model.HotelRoomInfoResponseData
-import com.wzc1748995976.hotelbooking.logic.model.RoomInfoByHotelIdEidDateResponseData
 
 class HotelDetailViewModel : ViewModel() {
 
@@ -40,15 +36,20 @@ class HotelDetailViewModel : ViewModel() {
     }
     //获取指定酒店指定房间指定日期的数据
     data class DateRoomInfoCondition(val hotelId:String,val eid:String)
-    data class DateRoomInfoRequest(val data:List<DateRoomInfoCondition>,val sdate:String,val edate:String)
+    data class DateRoomInfoRequest(val data:List<DateRoomInfoCondition>, val sdate:String, val edate:String)
 
     private val refreshDateRoomLiveData = MutableLiveData<DateRoomInfoRequest>()
 
     val refreshDateRoomResult = Transformations.switchMap(refreshDateRoomLiveData){
         Repository.getRoomInfoByHotelIdEidDate(refreshDateRoomLiveData.value
-            ?: DateRoomInfoRequest(ArrayList(),"未知sdate","未知edate"))
+            ?: DateRoomInfoRequest(
+                ArrayList(),
+                "未知sdate",
+                "未知edate"
+            )
+        )
     }
-    fun refreshDateRoom(requestList:DateRoomInfoRequest){
+    fun refreshDateRoom(requestList: DateRoomInfoRequest){
         refreshDateRoomLiveData.value = requestList
     }
 

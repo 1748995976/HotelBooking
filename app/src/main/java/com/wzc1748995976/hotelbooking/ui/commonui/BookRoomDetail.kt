@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.isGone
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,8 +17,6 @@ import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumber
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumberDelegate
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.pickNumberCallBack
 import kotlinx.android.synthetic.main.activity_book_room_detail.*
-import kotlinx.android.synthetic.main.room_item.*
-import org.w3c.dom.Text
 import top.androidman.SuperLine
 
 class BookRoomDetail : AppCompatActivity() {
@@ -27,20 +24,6 @@ class BookRoomDetail : AppCompatActivity() {
     private var isMore = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //显示选择房间数量
-        fun clickShowNumber(){
-            roomNumberImg.setImageResource(R.drawable.ic_arrow_less_24dp)
-            roomNumberRecycler.visibility = android.view.View.VISIBLE
-            superLine_4.visibility = android.view.View.GONE
-            isMore = false
-        }
-        //隐藏显示房间数量
-        fun clickHideNumber(){
-            roomNumberImg.setImageResource(R.drawable.ic_arrow_more_24dp)
-            roomNumberRecycler.visibility = android.view.View.GONE
-            superLine_4.visibility = android.view.View.VISIBLE
-            isMore = true
-        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_room_detail)
 
@@ -63,6 +46,20 @@ class BookRoomDetail : AppCompatActivity() {
             override fun canScrollVertically(): Boolean {
                 return false
             }
+        }
+        //显示选择房间数量
+        fun clickShowNumber(){
+            roomNumberImg.setImageResource(R.drawable.ic_arrow_less_24dp)
+            roomNumberRecycler.visibility = android.view.View.VISIBLE
+            superLine_4.visibility = android.view.View.GONE
+            isMore = false
+        }
+        //隐藏显示房间数量
+        fun clickHideNumber(){
+            roomNumberImg.setImageResource(R.drawable.ic_arrow_more_24dp)
+            roomNumberRecycler.visibility = android.view.View.GONE
+            superLine_4.visibility = android.view.View.VISIBLE
+            isMore = true
         }
         roomNumberLinear.setOnClickListener {
             if (isMore){

@@ -4,7 +4,7 @@ import androidx.lifecycle.liveData
 import com.wzc1748995976.hotelbooking.logic.model.*
 import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
 import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
-import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelDetailViewModel
+import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetailViewModel
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 import java.lang.RuntimeException
@@ -144,7 +144,7 @@ object Repository {
 
     //需要注意的是，这个请求方法与其他的请求方法不同，这里接受的参数是一个数组
     //在这个方法中将参数中的每个元素依次拿出来然后进行诸葛网络请求，最后将返回的结果封装在一个list当中
-    fun getRoomInfoByHotelIdEidDate(request:HotelDetailViewModel.DateRoomInfoRequest) = liveData(Dispatchers.IO){
+    fun getRoomInfoByHotelIdEidDate(request: HotelDetailViewModel.DateRoomInfoRequest) = liveData(Dispatchers.IO){
         val result = try {
             val data = ArrayList<RoomInfoByHotelIdEidDateResponseData?>()
             for (i in request.data){

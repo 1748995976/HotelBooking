@@ -20,7 +20,9 @@ class OrderViewModel : ViewModel() {
 
     //请求订单记录中房间的信息
     val roomDataLiveData = MutableLiveData<List<RoomInfoResponseData>>()
+    //请求的订单的信息
     val infoLiveData = MutableLiveData<List<HistoryOrderByAccountResponseData>>()
+    //请求订单对应的酒店的信息
     val hotelLiveData = MutableLiveData<List<SearchHotelsResponseData>>()
     val hotelResult = Transformations.switchMap(infoLiveData){
         Repository.searchHotelsByIdByOrderList(infoLiveData.value ?: ArrayList())

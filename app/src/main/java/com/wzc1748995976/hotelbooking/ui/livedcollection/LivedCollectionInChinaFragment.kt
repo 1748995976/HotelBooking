@@ -16,6 +16,7 @@ import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
+import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
 
 class LivedCollectionInChinaFragment : Fragment() {
 
@@ -92,7 +93,8 @@ class LivedCollectionInChinaFragment : Fragment() {
                 holder: LCInChinaLInfoDelegate.ViewHolder,
                 item: HotelInfo
             ) {
-                val intent = Intent(activity,HotelDetail::class.java)
+                val intent = Intent(activity,
+                    HotelDetail::class.java)
                 intent.putExtra("hotelId",item.id)
                 startActivity(intent)
             }
@@ -121,7 +123,8 @@ class LivedCollectionInChinaFragment : Fragment() {
                 holder: LCInChinaLInfoDelegate.ViewHolder,
                 item: HotelInfo
             ) {
-                val intent = Intent(activity,HotelDetail::class.java)
+                val intent = Intent(activity,
+                    HotelDetail::class.java)
                 intent.putExtra("hotelId",item.id)
                 startActivity(intent)
             }

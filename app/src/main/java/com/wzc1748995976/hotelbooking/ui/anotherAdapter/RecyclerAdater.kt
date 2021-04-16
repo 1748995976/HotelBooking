@@ -232,6 +232,30 @@ class PreferServiceInfoDelegate: ItemViewDelegate<PreferServiceInfo, PreferServi
         }
     }
 }
+// 取消政策除了除了取消政策标题之外小标题的适配器
+// 政策服务除了商家取消政策之外标题下小标题的适配器
+data class CancelPolicyInfo(
+    val cancelPolicyDesc: String
+)
+
+class CancelPolicyDelegate: ItemViewDelegate<CancelPolicyInfo, CancelPolicyDelegate.ViewHolder>() {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val cancelPolicyDesc: TextView = itemView.findViewById(R.id.serviceDesc)
+    }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.room_service_policy_small_item, parent, false)
+        return ViewHolder(view)
+    }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, item: CancelPolicyInfo) {
+        holder.run {
+            cancelPolicyDesc.text = item.cancelPolicyDesc
+        }
+    }
+}
 
 // 政策服务除了商家取消政策之外标题下小标题的适配器
 data class PolicyServiceInfo(
