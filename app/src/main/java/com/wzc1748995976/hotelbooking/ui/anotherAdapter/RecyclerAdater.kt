@@ -57,6 +57,10 @@ data class RoomInfo(
     val state: String?,//房间状态
     val remaining: Int,//剩余房间数量
 
+    val cancelTitle:String?,//退款标题
+    val cancelPolicy:String?,//退款详情描述
+    val cancelLevel:Int?,//退款等级
+
     val costPolicy:String?,//费用政策
     val easyFacility:String?,//便利设施
     val mediaTech:String?,//媒体科技

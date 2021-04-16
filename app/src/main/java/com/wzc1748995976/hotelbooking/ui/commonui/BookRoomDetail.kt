@@ -2,14 +2,13 @@ package com.wzc1748995976.hotelbooking.ui.commonui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
+import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.MainActivity
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomInfo
@@ -17,6 +16,8 @@ import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumber
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumberDelegate
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.pickNumberCallBack
 import kotlinx.android.synthetic.main.activity_book_room_detail.*
+import org.w3c.dom.Text
+import top.androidman.SuperButton
 import top.androidman.SuperLine
 
 class BookRoomDetail : AppCompatActivity() {
@@ -99,6 +100,25 @@ class BookRoomDetail : AppCompatActivity() {
         adapter.items = items
         roomNumberRecycler.adapter = adapter
         adapter.notifyDataSetChanged()
+
+        //用于处理退款规则
+        val refundRule = findViewById<TextView>(R.id.refundRule)
+        refundRule.text = "根据酒店政策，${roomInfo.cancelPolicy}，逾期不可取消/变更，如未入住，酒店将扣除全部房费"
+        //用于预订说明
+        val bookDesc = findViewById<TextView>(R.id.bookDesc)
+        bookDesc.text = "订单需等酒店或者无需供应商确认即可生效，持APP订单即可办理入住"
+        //提交按钮
+        val submitButton = findViewById<SuperButton>(R.id.submitButton)
+        submitButton.setOnClickListener {
+            val customerName = findViewById<EditText>(R.id.customerName).text.toString()
+            val customerPhone = findViewById<EditText>(R.id.customerPhone).text.toString()
+            val arriveTime = findViewById<EditText>(R.id.arriveTime).text.toString()
+            if(customerName.isEmpty() || customerPhone.isEmpty() || arriveTime.isEmpty()){
+                Toast.makeText(HotelBookingApplication.context,"请将信息填写完整后再提交订单",Toast.LENGTH_SHORT).show()
+            }else{
+
+            }
+        }
 
     }
 }

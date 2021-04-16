@@ -581,7 +581,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="退款规则"
                     android:textColor="@color/color_gray"
                     android:textSize="13dp" />
@@ -590,6 +590,7 @@
                     android:id="@+id/refundRule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:textColor="@color/color_gray"
                     android:textSize="13dp"
                     tools:text="根据酒店政策，根据酒店政策根据酒店政策根据酒店政策根
@@ -598,7 +599,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="预定说明"
                     android:textColor="@color/color_gray"
                     android:textSize="13dp" />
