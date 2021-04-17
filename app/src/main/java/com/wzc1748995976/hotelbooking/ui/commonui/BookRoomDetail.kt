@@ -1,5 +1,6 @@
 package com.wzc1748995976.hotelbooking.ui.commonui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.MainActivity
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.logic.model.SubmitOrderData
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomInfo
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumber
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumberDelegate
@@ -152,6 +154,22 @@ class BookRoomDetail : AppCompatActivity() {
             if(customerName.isEmpty() || customerPhone.isEmpty() || arriveTime.isEmpty()){
                 Toast.makeText(HotelBookingApplication.context,"请将信息填写完整后再提交订单",Toast.LENGTH_SHORT).show()
             }else{
+                val submitOrderData = SubmitOrderData(HotelBookingApplication.account!!,roomInfo.hotelId!!,
+                    roomInfo.eid!!,viewModel.chooseNumber.value!!,roomInfo.totalPrice,MainActivity.viewModel.inChinaCheckInDate.value!!,
+                    MainActivity.viewModel.inChinaCheckOutDate.value!!,customerName,customerPhone,arriveTime,
+                    roomInfo.cancelLevel!!)
+                viewModel.request(submitOrderData)
+                viewModel.requestResult.observe(this, Observer { result->
+                    val data = result.getOrNull()
+                    if(data != null && data){
+                        Toast.makeText(HotelBookingApplication.context,"预订成功,在订单界面查看",Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(HotelBookingApplication.context,"操作失败",Toast.LENGTH_LONG).show()
+                    }
+                })
 
             }
         }

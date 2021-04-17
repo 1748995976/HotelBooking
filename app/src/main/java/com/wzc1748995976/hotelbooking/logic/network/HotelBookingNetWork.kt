@@ -1,5 +1,6 @@
 package com.wzc1748995976.hotelbooking.logic.network
 
+import com.wzc1748995976.hotelbooking.logic.model.SubmitOrderData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +28,7 @@ object HotelBookingNetWork {
     suspend fun getServiceByHotelId(hotelId: String) = myService.getServiceByHotelId(hotelId).await()
     suspend fun getHistoryOrderByAccount(account: String) = myService.getHistoryOrderByAccount(account).await()
     suspend fun getRoomByHotelIdEid(hotelId:String,eid:String) = myService.getRoomByHotelIdEid(hotelId,eid).await()
+    suspend fun addOrderByAccount(submitOrderData: SubmitOrderData) = myService.addOrderByAccount(submitOrderData).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->

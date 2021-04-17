@@ -217,28 +217,40 @@ object Repository {
         emit(result)
     }
     //通过List<HistoryOrderByAccountResponseData>获取酒店信息列表
-    fun searchHotelsByIdByOrderList(data:List<HistoryOrderByAccountResponseData>) = liveData(Dispatchers.IO){
+    fun searchHotelsByIdByOrderList(data:List<HistoryOrderByAccountResponseData>) = liveData(Dispatchers.IO) {
         val result = try {
             //存储结果
             val hotelResponseList = ArrayList<SearchHotelsResponseData>()
 
-            for(i in data){
+            for (i in data) {
                 val hotelResponse = HotelBookingNetWork.searchHotelsById(i.hotelId)
-                if(hotelResponse.status == 0 && hotelResponse.data != null){
+                if (hotelResponse.status == 0 && hotelResponse.data != null) {
                     hotelResponseList.add(hotelResponse.data[0])
                 }
             }
-            if(hotelResponseList.isNotEmpty()){
+            if (hotelResponseList.isNotEmpty()) {
                 Result.success(hotelResponseList)
-            }else{
+            } else {
                 Result.failure(RuntimeException("result is $hotelResponseList"))
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure<List<SearchHotelsResponseData>>(e)
         }
         emit(result)
     }
-
+    fun addOrderByAccount(submitOrderData: SubmitOrderData) = liveData(Dispatchers.IO){
+        val result = try {
+            val operateResponse = HotelBookingNetWork.addOrderByAccount(submitOrderData)
+            if(operateResponse.status == 0){
+                Result.success(operateResponse.data)
+            }else{
+                Result.failure(RuntimeException("result is ${operateResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<Boolean>(e)
+        }
+        emit(result)
+    }
 
 }
 

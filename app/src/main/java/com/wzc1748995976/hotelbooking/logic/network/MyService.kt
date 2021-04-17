@@ -2,7 +2,9 @@ package com.wzc1748995976.hotelbooking.logic.network
 
 import com.wzc1748995976.hotelbooking.logic.model.*
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface MyService {
@@ -45,4 +47,7 @@ interface MyService {
     //获取指定酒店指定房间的数据
     @GET("hotel_room/getRoomByHotelIdEid/{hotelId}/{eid}")
     fun getRoomByHotelIdEid(@Path("hotelId") hotelId:String,@Path("eid") eid:String): Call<RoomInfoResponse>
+    //预订房间
+    @POST("/user_history_order/addOrderByAccount")
+    fun addOrderByAccount(@Body submitOrderData:SubmitOrderData): Call<OperateOrderResponse>
 }
