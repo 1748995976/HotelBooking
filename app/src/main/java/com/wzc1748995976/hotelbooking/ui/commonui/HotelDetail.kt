@@ -198,6 +198,8 @@ class HotelDetail : AppCompatActivity() {
                                     roomInfoDataList[index].peopledesc + "·" + roomInfoDataList[index].smokedesc
                         listItems.add(
                             RoomInfo(
+                                roomInfoDataList[index].hotelId,
+                                roomInfoDataList[index].eid,
                                 roomInfoDataList[index].roomname,
                                 MyServiceCreator.hotelsImgPath + roomInfoDataList[index].photo1,
                                 MyServiceCreator.hotelsImgPath + roomInfoDataList[index].photo2,
@@ -213,7 +215,9 @@ class HotelDetail : AppCompatActivity() {
                                 roomInfoDataList[index].breakfast,
                                 roomDesc,
                                 hotelServiceData?.cancelpolicy ?: "无取消政策",
-                                data[index]!!.price.toString(),
+                                data[index]!!.totalPrice!!,
+                                data[index]!!.avgPrice!!,
+                                data[index]!!.price!!,
                                 roomInfoDataList[index].windowdesc,
                                 data[index]!!.state,
                                 data[index]!!.remaining ?: 0,
@@ -466,7 +470,11 @@ private fun showBookDialog(
             servicePolicyRoomDescAdapter.notifyDataSetChanged()
         }
         // 预订价格
-        bookPrice.text = roomInfo.roomPrice
+        if(roomInfo.priceList.size > 1){
+            bookPrice.text = "${roomInfo.avgPrice}(均价)"
+        }else{
+            bookPrice.text = roomInfo.totalPrice.toString()
+        }
         if (roomInfo.remaining == 0) {
             bookButton.setNormalColor(resources.getColor(R.color.color_gray))
         } else {
@@ -491,6 +499,7 @@ private fun showBookDialog(
     window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     dialog.show()
 }
+
 //
 //view.findViewById<SuperButton>(R.id.checkButton).setOnClickListener {
 //    activity?.let { it1 ->

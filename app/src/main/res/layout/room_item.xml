@@ -110,6 +110,7 @@
         app:layout_constraintTop_toBottomOf="@id/roomCancelDesc">
 
         <TextView
+            android:id="@+id/prePriceTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥"

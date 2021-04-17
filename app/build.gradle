@@ -91,4 +91,5 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     implementation 'com.github.lzjin:SideBarView:1.0'
+    implementation 'com.github.xujiaji:happy-bubble:1.2.3'
 }

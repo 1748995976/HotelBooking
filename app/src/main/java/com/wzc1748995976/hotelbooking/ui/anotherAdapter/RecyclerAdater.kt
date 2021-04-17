@@ -37,6 +37,8 @@ data class HotelDetailInfo(
 )
 @Parcelize
 data class RoomInfo(
+    val hotelId:String?,
+    val eid:String?,
     val name: String?,//房间名称
     val image_1: String?,//房间图片url
     val image_2: String?,//房间图片url
@@ -52,7 +54,9 @@ data class RoomInfo(
     val breakfast: String?,//早餐描述
     val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
     val roomCancelDesc: String?,//房间取消时间描述
-    val roomPrice: String?,//房间价格
+    val totalPrice: Int,//房间价格
+    val avgPrice: Int,//房间平均价格
+    val priceList: List<Int>,//房间每天的价格
     val windowDesc: String?,//房间窗户描述
     val state: String?,//房间状态
     val remaining: Int,//剩余房间数量
@@ -140,6 +144,7 @@ class RoomInfoDelegate: ItemViewDelegate<RoomInfo, RoomInfoDelegate.ViewHolder>(
         val roomDesc: TextView = itemView.findViewById(R.id.roomDesc)
         val roomCancelDesc: TextView = itemView.findViewById(R.id.roomCancelDesc)
         val roomPrice: TextView = itemView.findViewById(R.id.roomPrice)
+        val prePriceTxt: TextView = itemView.findViewById(R.id.prePriceTxt)
         val windowDesc: TextView = itemView.findViewById(R.id.windowDesc)
         val orderLay: View = itemView.findViewById(R.id.orderLayout)
         val grabLay: View = itemView.findViewById(R.id.grabLayout)
@@ -170,7 +175,13 @@ class RoomInfoDelegate: ItemViewDelegate<RoomInfo, RoomInfoDelegate.ViewHolder>(
             roomName.text = item.name
             roomDesc.text = item.roomDesc
             roomCancelDesc.text = item.roomCancelDesc
-            roomPrice.text = item.roomPrice
+            if(item.priceList.size > 1){
+                prePriceTxt.text = "均￥"
+                roomPrice.text = item.avgPrice.toString()
+            }else{
+                roomPrice.text = item.totalPrice.toString()
+            }
+
             windowDesc.text = item.windowDesc
             Glide.with(HotelBookingApplication.context)
                 .load(item.image_1)

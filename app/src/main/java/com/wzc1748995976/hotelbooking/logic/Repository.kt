@@ -150,11 +150,7 @@ object Repository {
             for (i in request.data){
                 val roomResponse = HotelBookingNetWork.getRoomInfoByHotelIdEidDate(i.hotelId,i.eid,request.sdate,request.edate)
                 if(roomResponse.status == 0){
-                    if(roomResponse.data == null || roomResponse.data.isEmpty()){
-                        data.add(null)
-                    }else{
-                        data.add(roomResponse.data[0])
-                    }
+                    data.add(roomResponse.data)
                 }
             }
             if(data.isNotEmpty()){

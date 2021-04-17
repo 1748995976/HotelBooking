@@ -1,11 +1,14 @@
 package com.wzc1748995976.hotelbooking.ui.commonui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
@@ -15,10 +18,15 @@ import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomInfo
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumber
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.RoomNumberDelegate
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.pickNumberCallBack
+import com.xujiaji.happybubble.BubbleDialog
 import kotlinx.android.synthetic.main.activity_book_room_detail.*
-import org.w3c.dom.Text
+import kotlinx.android.synthetic.main.activity_main.*
 import top.androidman.SuperButton
 import top.androidman.SuperLine
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BookRoomDetail : AppCompatActivity() {
     private lateinit var viewModel:BookRoomDetailViewModel
@@ -81,7 +89,8 @@ class BookRoomDetail : AppCompatActivity() {
         roomDesc.text = roomInfo?.roomDesc
         cancelDesc.text = roomInfo?.roomCancelDesc
         //其它地方添加内容
-        submitPrice.text = roomInfo?.roomPrice
+        submitPrice.text = "${roomInfo?.totalPrice}(总共)"
+
 
         // 用于处理选择房间下的RecyclerView列表
         val adapter = MultiTypeAdapter()
@@ -107,6 +116,33 @@ class BookRoomDetail : AppCompatActivity() {
         //用于预订说明
         val bookDesc = findViewById<TextView>(R.id.bookDesc)
         bookDesc.text = "订单需等酒店或者无需供应商确认即可生效，持APP订单即可办理入住"
+        //疑问按钮
+        val questionView = LayoutInflater.from(this).inflate(R.layout.total_price_question,container,false)
+        val questionRecycler = questionView.findViewById<RecyclerView>(R.id.questionRecyclerView)
+        val questionAdapter = MultiTypeAdapter()
+        val questionAdapterItems = ArrayList<Any>()
+        questionRecycler.visibility = android.view.View.VISIBLE
+        questionRecycler.layoutManager = LinearLayoutManager(questionView.context)
+        questionAdapter.register(QuestionInfoDelegate())
+        questionRecycler.adapter = questionAdapter
+        val sDate = SimpleDateFormat("yyyy-MM-dd").parse(MainActivity.viewModel.inChinaCheckInDate.value!!)!!
+        val calendar = Calendar.getInstance()
+        calendar.time = sDate
+        for (i in roomInfo.priceList.indices){
+            questionAdapterItems.add(
+                QuestionInfo(SimpleDateFormat("yyyy-MM-dd").format(calendar.time),
+                roomInfo.priceList[i].toString()))
+            calendar.add(Calendar.DATE,1)
+        }
+        questionAdapter.items = questionAdapterItems
+        questionAdapter.notifyDataSetChanged()
+        val questionImg = findViewById<ImageView>(R.id.questionImg)
+        val bubbleDialog = BubbleDialog(this)
+            .setBubbleContentView<BubbleDialog>(questionView)
+        questionImg.setOnClickListener {
+            bubbleDialog.setClickedView<BubbleDialog>(questionImg)
+                .show()
+        }
         //提交按钮
         val submitButton = findViewById<SuperButton>(R.id.submitButton)
         submitButton.setOnClickListener {
