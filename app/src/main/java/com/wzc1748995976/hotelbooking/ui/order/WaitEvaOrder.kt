@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.HotelServiceResponseData
+import top.androidman.SuperButton
 
 
 class WaitEvaOrder : AppCompatActivity() {
@@ -36,5 +37,10 @@ class WaitEvaOrder : AppCompatActivity() {
                 Toast.makeText(HotelBookingApplication.context,"数据异常", Toast.LENGTH_SHORT).show()
             }
         })
+
+        val evaluation = findViewById<SuperButton>(R.id.evaluation)
+        evaluation.setOnClickListener {
+            Toast.makeText(HotelBookingApplication.context,"进入评价界面",Toast.LENGTH_SHORT).show()
+        }
     }
 }

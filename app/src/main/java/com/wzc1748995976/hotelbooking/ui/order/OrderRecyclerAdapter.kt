@@ -33,14 +33,13 @@ data class OrderDetailInfo(
     val internetDesc: String?,//有线上网描述
     val peopleDesc: String?,//人员描述
     val breakfast: String?,//早餐描述
-    val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
     val totalPrice: Int,//房间价格
     val priceList: String,//价格列表
     val windowDesc: String?,//房间窗户描述
 
-    val cancelTitle:String?,//退款标题
-    val cancelPolicy:String?,//退款详情描述
-    val cancelLevel:Int?,//退款等级
+//    val cancelTitle:String?,//退款标题
+//    val cancelPolicy:String?,//退款详情描述
+//    val cancelLevel:Int?,//退款等级
 
     val costPolicy:String?,//费用政策
     val easyFacility:String?,//便利设施
@@ -156,10 +155,20 @@ class WaitEvaOrderInfoDelegate: ItemViewDelegate<WaitEvaOrderInfo, WaitEvaOrderI
     interface ClickOrderItem{
         fun getResultToSet(holder: ViewHolder, item: WaitEvaOrderInfo)
     }
+    interface ClickEvaItem{
+        fun getResultToSet(holder: ViewHolder, item: WaitEvaOrderInfo)
+    }
+    interface ClickBookAgainItem{
+        fun getResultToSet(holder: ViewHolder, item: WaitEvaOrderInfo)
+    }
 
     private var clickOrderItem: ClickOrderItem? = null
-    fun setClickOrderItem(newObject: ClickOrderItem){
-        clickOrderItem = newObject
+    private var clickEvaItem: ClickEvaItem? = null
+    private var clickBookAgainItem: ClickBookAgainItem? = null
+    fun setClickOrderItem(newObject_1: ClickOrderItem,newObject_2: ClickEvaItem,newObject_3: ClickBookAgainItem){
+        clickOrderItem = newObject_1
+        clickEvaItem = newObject_2
+        clickBookAgainItem = newObject_3
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -195,6 +204,12 @@ class WaitEvaOrderInfoDelegate: ItemViewDelegate<WaitEvaOrderInfo, WaitEvaOrderI
         holder.itemView.setOnClickListener {
             clickOrderItem?.getResultToSet(holder, item)
         }
+        holder.evaluation.setOnClickListener {
+            clickEvaItem?.getResultToSet(holder, item)
+        }
+        holder.bookAgain.setOnClickListener {
+            clickBookAgainItem?.getResultToSet(holder, item)
+        }
     }
 }
 
@@ -203,10 +218,20 @@ class BookSuccessOrderInfoDelegate: ItemViewDelegate<BookSuccessOrderInfo, BookS
     interface ClickOrderItem{
         fun getResultToSet(holder: ViewHolder, item: BookSuccessOrderInfo)
     }
+    interface ClickCancelRuleItem{
+        fun getResultToSet(holder: ViewHolder, item: BookSuccessOrderInfo)
+    }
+    interface ClickBookAgainItem{
+        fun getResultToSet(holder: ViewHolder, item: BookSuccessOrderInfo)
+    }
 
     private var clickOrderItem: ClickOrderItem? = null
-    fun setClickOrderItem(newObject: ClickOrderItem){
-        clickOrderItem = newObject
+    private var clickCancelRuleItem: ClickCancelRuleItem? = null
+    private var clickBookAgainItem: ClickBookAgainItem? = null
+    fun setClickOrderItem(newObject_1: ClickOrderItem,newObject_2: ClickCancelRuleItem,newObject_3: ClickBookAgainItem){
+        clickOrderItem = newObject_1
+        clickCancelRuleItem = newObject_2
+        clickBookAgainItem = newObject_3
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -242,6 +267,12 @@ class BookSuccessOrderInfoDelegate: ItemViewDelegate<BookSuccessOrderInfo, BookS
         holder.itemView.setOnClickListener {
             clickOrderItem?.getResultToSet(holder, item)
         }
+        holder.cancelRule.setOnClickListener {
+            clickCancelRuleItem?.getResultToSet(holder, item)
+        }
+        holder.bookAgain.setOnClickListener {
+            clickBookAgainItem?.getResultToSet(holder, item)
+        }
     }
 }
 
@@ -250,12 +281,16 @@ class CancelOrderInfoDelegate: ItemViewDelegate<CancelOrderInfo, CancelOrderInfo
     interface ClickOrderItem{
         fun getResultToSet(holder: ViewHolder, item: CancelOrderInfo)
     }
-
-    private var clickOrderItem: ClickOrderItem? = null
-    fun setClickOrderItem(newObject: ClickOrderItem){
-        clickOrderItem = newObject
+    interface ClickBookAgainItem{
+        fun getResultToSet(holder: ViewHolder, item: CancelOrderInfo)
     }
 
+    private var clickOrderItem: ClickOrderItem? = null
+    private var clickBookAgainItem: ClickBookAgainItem? = null
+    fun setClickOrderItem(newObject_1: ClickOrderItem, newObject_2: ClickBookAgainItem){
+        clickOrderItem = newObject_1
+        clickBookAgainItem = newObject_2
+    }
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val hotelName: TextView = itemView.findViewById(R.id.hotelName)
         val hotelImg: ImageView = itemView.findViewById(R.id.hotelImg)
@@ -287,6 +322,9 @@ class CancelOrderInfoDelegate: ItemViewDelegate<CancelOrderInfo, CancelOrderInfo
         }
         holder.itemView.setOnClickListener {
             clickOrderItem?.getResultToSet(holder, item)
+        }
+        holder.bookAgain.setOnClickListener {
+            clickBookAgainItem?.getResultToSet(holder, item)
         }
     }
 }

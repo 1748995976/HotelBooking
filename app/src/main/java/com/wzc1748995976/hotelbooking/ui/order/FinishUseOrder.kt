@@ -57,6 +57,13 @@ class FinishUseOrder : AppCompatActivity() {
                 Toast.makeText(HotelBookingApplication.context,"数据异常",Toast.LENGTH_SHORT).show()
             }
         })
+
+        val bookAgain = findViewById<SuperButton>(R.id.bookAgain)
+        bookAgain.setOnClickListener {
+            val intent = Intent(this, HotelDetail::class.java)
+            intent.putExtra("hotelId",orderDetailInfo.hotelId)
+            startActivity(intent)
+        }
     }
 }
 fun commonShow(it1:AppCompatActivity,orderDetailInfo: OrderDetailInfo,

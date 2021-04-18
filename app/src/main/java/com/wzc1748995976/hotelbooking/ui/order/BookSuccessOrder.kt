@@ -2,12 +2,14 @@ package com.wzc1748995976.hotelbooking.ui.order
 
 
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.HotelServiceResponseData
+import top.androidman.SuperButton
 
 
 class BookSuccessOrder : AppCompatActivity() {
@@ -29,9 +31,19 @@ class BookSuccessOrder : AppCompatActivity() {
             if (data != null) {
                 hotelServiceData = data
                 commonShow(this,orderDetailInfo,hotelServiceData)
+
+                val cancelRule = findViewById<TextView>(R.id.cancelRule)
+                cancelRule.text = hotelServiceData?.cancelpolicy
+                val checkInRule = findViewById<TextView>(R.id.checkInRule)
+                checkInRule.text = hotelServiceData?.userule_1
             }else{
                 Toast.makeText(HotelBookingApplication.context,"数据异常", Toast.LENGTH_SHORT).show()
             }
         })
+
+        val cancelOrder = findViewById<SuperButton>(R.id.cancelOrder)
+        cancelOrder.setOnClickListener {
+            Toast.makeText(HotelBookingApplication.context,"进入取消规则界面", Toast.LENGTH_SHORT).show()
+        }
     }
 }

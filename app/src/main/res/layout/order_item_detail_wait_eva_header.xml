@@ -13,8 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:background_normalColor="#00000000"
-        app:icon="@drawable/ic_arrow_right_white_24dp"
-        app:iconOrientation="right"
         app:textSize="28sp"
         app:textColor="@color/white"
         app:text="待评价"/>

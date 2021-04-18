@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.Repository
 import com.wzc1748995976.hotelbooking.logic.model.HistoryOrderByAccountResponseData
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
+import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
 
 class OrderFragment : Fragment() {
 
@@ -60,8 +62,8 @@ class OrderFragment : Fragment() {
                 startActivity(intent)
             }
         })
-        waitEvaOrderInfoDelegate.setClickOrderItem(object :
-            WaitEvaOrderInfoDelegate.ClickOrderItem {
+
+        val waitEvaItemClick = object : WaitEvaOrderInfoDelegate.ClickOrderItem {
             override fun getResultToSet(
                 holder: WaitEvaOrderInfoDelegate.ViewHolder,
                 item: WaitEvaOrderInfo
@@ -70,9 +72,29 @@ class OrderFragment : Fragment() {
                 intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
-        })
-        bookSuccessOrderInfoDelegate.setClickOrderItem(object :
-            BookSuccessOrderInfoDelegate.ClickOrderItem{
+        }
+        val waitEvaEvaClick = object : WaitEvaOrderInfoDelegate.ClickEvaItem {
+            override fun getResultToSet(
+                holder: WaitEvaOrderInfoDelegate.ViewHolder,
+                item: WaitEvaOrderInfo
+            ) {
+                Toast.makeText(HotelBookingApplication.context,"进入评价界面",Toast.LENGTH_SHORT).show()
+            }
+        }
+        val waitEvaBookAgainClick = object : WaitEvaOrderInfoDelegate.ClickBookAgainItem {
+            override fun getResultToSet(
+                holder: WaitEvaOrderInfoDelegate.ViewHolder,
+                item: WaitEvaOrderInfo
+            ) {
+                val intent = Intent(context, HotelDetail::class.java)
+                intent.putExtra("hotelId",item.orderDetailInfo.hotelId)
+                startActivity(intent)
+            }
+        }
+        waitEvaOrderInfoDelegate.setClickOrderItem(waitEvaItemClick,
+            waitEvaEvaClick,waitEvaBookAgainClick)
+
+        val bookSuccessItemClick = object : BookSuccessOrderInfoDelegate.ClickOrderItem {
             override fun getResultToSet(
                 holder: BookSuccessOrderInfoDelegate.ViewHolder,
                 item: BookSuccessOrderInfo
@@ -81,9 +103,29 @@ class OrderFragment : Fragment() {
                 intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
-        })
-        cancelOrderInfoDelegate.setClickOrderItem(object :
-            CancelOrderInfoDelegate.ClickOrderItem {
+        }
+        val bookSuccessCancelRuleClick = object : BookSuccessOrderInfoDelegate.ClickCancelRuleItem {
+            override fun getResultToSet(
+                holder: BookSuccessOrderInfoDelegate.ViewHolder,
+                item: BookSuccessOrderInfo
+            ) {
+                Toast.makeText(HotelBookingApplication.context,"进入取消规则界面",Toast.LENGTH_SHORT).show()
+            }
+        }
+        val bookSuccessBookAgainClick = object : BookSuccessOrderInfoDelegate.ClickBookAgainItem {
+            override fun getResultToSet(
+                holder: BookSuccessOrderInfoDelegate.ViewHolder,
+                item: BookSuccessOrderInfo
+            ) {
+                val intent = Intent(context, HotelDetail::class.java)
+                intent.putExtra("hotelId",item.orderDetailInfo.hotelId)
+                startActivity(intent)
+            }
+        }
+        bookSuccessOrderInfoDelegate.setClickOrderItem(bookSuccessItemClick,
+            bookSuccessCancelRuleClick,bookSuccessBookAgainClick)
+
+        val cancelOrderItemClick = object : CancelOrderInfoDelegate.ClickOrderItem {
             override fun getResultToSet(
                 holder: CancelOrderInfoDelegate.ViewHolder,
                 item: CancelOrderInfo
@@ -92,7 +134,19 @@ class OrderFragment : Fragment() {
                 intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
-        })
+        }
+        val cancelOrderBookAgainItemClick = object : CancelOrderInfoDelegate.ClickBookAgainItem {
+            override fun getResultToSet(
+                holder: CancelOrderInfoDelegate.ViewHolder,
+                item: CancelOrderInfo
+            ) {
+                val intent = Intent(context, HotelDetail::class.java)
+                intent.putExtra("hotelId",item.orderDetailInfo.hotelId)
+                startActivity(intent)
+            }
+        }
+        cancelOrderInfoDelegate.setClickOrderItem(cancelOrderItemClick,
+            cancelOrderBookAgainItemClick)
 
 
         orderItemAdapter.register(finishUseOrderInfoDelegate)
@@ -148,9 +202,8 @@ class OrderFragment : Fragment() {
                         MyServiceCreator.hotelsImgPath + roomInfo[i].photo4,
                         roomInfo[i].beddetail,roomInfo[i].roomarea,roomInfo[i].floordesc,
                         roomInfo[i].smokedesc, roomInfo[i].wifidesc,roomInfo[i].internetdesc,roomInfo[i].peopledesc,
-                        roomInfo[i].breakfast,"房间描述",
-                        historyOrder[i].totalPrice,historyOrder[i].priceList,roomInfo[i].windowdesc,"退款标题",
-                        "退款详情描述",1111,roomInfo[i].costpolicy,
+                        roomInfo[i].breakfast,
+                        historyOrder[i].totalPrice,historyOrder[i].priceList,roomInfo[i].windowdesc,roomInfo[i].costpolicy,
                         roomInfo[i].easyfacility,roomInfo[i].mediatech,roomInfo[i].bathroommatch,
                         roomInfo[i].fooddrink,roomInfo[i].outerdoor,roomInfo[i].otherfacility,
                         historyOrder[i].orderId,historyOrder[i].number,historyOrder[i].sdate,
