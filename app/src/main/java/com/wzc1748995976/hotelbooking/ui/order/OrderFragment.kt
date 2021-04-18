@@ -118,6 +118,14 @@ class OrderFragment : Fragment() {
                 viewModel.refreshInfo(data)
             }
         })
+        //这一步应该根据订单信息获取相应的酒店房间信息
+        viewModel.infoResult.observe(viewLifecycleOwner, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data.isNotEmpty()){
+                viewModel.roomDataLiveData.value = data
+                viewModel.refreshHotelInfo(viewModel.infoLiveData.value!!)
+            }
+        })
         //请求订单信息对应的酒店的信息
         viewModel.hotelResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
@@ -125,19 +133,12 @@ class OrderFragment : Fragment() {
                 viewModel.hotelLiveData.value = data
             }
         })
-        //这一步应该根据订单信息获取相应的酒店房间信息
-        viewModel.infoResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
-                viewModel.roomDataLiveData.value = data
-            }
-        })
         //根据获取到的酒店房间信息和订单信息进行显示
-        viewModel.roomDataLiveData.observe(viewLifecycleOwner, Observer { value->
-            val roomInfo = value
-            val hotelInfo = viewModel.hotelLiveData.value
-            val historyOrder = viewModel.infoLiveData.value
-            if(hotelInfo != null && historyOrder != null){
+        viewModel.hotelLiveData.observe(viewLifecycleOwner, Observer { _->
+            val roomInfo = viewModel.roomDataLiveData.value!!
+            val hotelInfo = viewModel.hotelLiveData.value!!
+            val historyOrder = viewModel.infoLiveData.value!!
+            if(true){
                 for (i in historyOrder.indices){
                     val orderDetailInfo = OrderDetailInfo(
                         roomInfo[i].hotelId,roomInfo[i].eid,hotelInfo[i].name,roomInfo[i].roomname,

@@ -22,11 +22,6 @@ class OrderViewModel : ViewModel() {
     val roomDataLiveData = MutableLiveData<List<RoomInfoResponseData>>()
     //请求的订单的信息
     val infoLiveData = MutableLiveData<List<HistoryOrderByAccountResponseData>>()
-    //请求订单对应的酒店的信息
-    val hotelLiveData = MutableLiveData<List<SearchHotelsResponseData>>()
-    val hotelResult = Transformations.switchMap(infoLiveData){
-        Repository.searchHotelsByIdByOrderList(infoLiveData.value ?: ArrayList())
-    }
     val infoResult = Transformations.switchMap(infoLiveData){
         Repository.getAllRoomByHotelIdEid(infoLiveData.value ?: ArrayList())
     }
@@ -34,6 +29,18 @@ class OrderViewModel : ViewModel() {
     fun refreshInfo(data:List<HistoryOrderByAccountResponseData>){
         infoLiveData.value = data
     }
+    //请求订单对应的酒店的信息
+    //hotelInfoLiveData这个是多余的，但是为了保证请求的顺序使得获得的数据不为空，只能设置一个
+    private val hotelInfoLiveData = MutableLiveData<List<HistoryOrderByAccountResponseData>>()
+    val hotelLiveData = MutableLiveData<List<SearchHotelsResponseData>>()
+
+    val hotelResult = Transformations.switchMap(hotelInfoLiveData){
+        Repository.searchHotelsByIdByOrderList(infoLiveData.value ?: ArrayList())
+    }
+    fun refreshHotelInfo(data:List<HistoryOrderByAccountResponseData>){
+        hotelInfoLiveData.value = data
+    }
+
     //获取指定酒店的服务
     private val refreshServiceLiveData = MutableLiveData<String?>()
 
