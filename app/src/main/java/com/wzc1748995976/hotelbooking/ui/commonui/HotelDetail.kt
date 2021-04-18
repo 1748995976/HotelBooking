@@ -214,7 +214,6 @@ class HotelDetail : AppCompatActivity() {
                                 roomInfoDataList[index].peopledesc,
                                 roomInfoDataList[index].breakfast,
                                 roomDesc,
-                                hotelServiceData?.cancelpolicy ?: "无取消政策",
                                 data[index]!!.totalPrice!!,
                                 data[index]!!.avgPrice!!,
                                 data[index]!!.price!!,
@@ -312,6 +311,10 @@ private fun showBookDialog(
         val servicePolicyRoomDesc = findViewById<RecyclerView>(R.id.servicePolicyRoomDesc)
         val bookPrice = findViewById<TextView>(R.id.bookPrice)
         val bookButton = findViewById<SuperButton>(R.id.bookButton)
+        val transparentView = findViewById<View>(R.id.transparentView)
+        transparentView.setOnClickListener {
+            dialog.dismiss()
+        }
         //房间描述
         roomName.text = roomInfo.name
         bedDesc.text = roomInfo.bedDetail

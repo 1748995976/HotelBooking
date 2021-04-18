@@ -4,4 +4,5 @@ data class HistoryOrderByAccountResponse(val status:Int?,val data:List<HistoryOr
 data class HistoryOrderByAccountResponseData(val orderId:String, val account:String, val hotelId:String,
                                              val eid:String, val number:Int, val totalPrice:Int,
                                              val sdate:String, val edate:String, val orderState:Int,
-                                             val customerName:String, val customerPhone:String, val arriveTime:String)
+                                             val customerName:String, val customerPhone:String, val arriveTime:String,
+                                             val cancelTime:String, val payTime:String)

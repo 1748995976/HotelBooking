@@ -11,5 +11,7 @@ class BookSuccessOrder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_item_detail_book_success)
+
+        val roomInfo = intent.getParcelableExtra<OrderDetailInfo>("orderDetailInfo")
     }
 }

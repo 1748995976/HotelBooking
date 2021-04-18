@@ -41,6 +41,7 @@ class BookRoomDetail : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(BookRoomDetailViewModel::class.java)
 
         val roomInfo = intent.getParcelableExtra<RoomInfo>("roomInfo")
+
         val startDate = findViewById<TextView>(R.id.startDate)
         val endDate = findViewById<TextView>(R.id.endDate)
         val roomName = findViewById<TextView>(R.id.roomName)
@@ -89,7 +90,7 @@ class BookRoomDetail : AppCompatActivity() {
         gapDate.setText("${MainActivity.viewModel.inChinaCheckGapDate.value}晚")
         roomName.text = roomInfo?.name
         roomDesc.text = roomInfo?.roomDesc
-        cancelDesc.text = roomInfo?.roomCancelDesc
+        cancelDesc.text = roomInfo?.cancelPolicy
         //其它地方添加内容
         submitPrice.text = "${roomInfo?.totalPrice}(总共)"
 

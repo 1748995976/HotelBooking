@@ -32,6 +32,11 @@ class OrderFragment : Fragment() {
         return inflater.inflate(R.layout.order_fragment, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -51,6 +56,7 @@ class OrderFragment : Fragment() {
                 item: FinishUseOrderInfo
             ) {
                 val intent = Intent(activity,FinishUseOrder::class.java)
+                intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
         })
@@ -61,6 +67,7 @@ class OrderFragment : Fragment() {
                 item: WaitEvaOrderInfo
             ) {
                 val intent = Intent(activity,WaitEvaOrder::class.java)
+                intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
         })
@@ -71,6 +78,7 @@ class OrderFragment : Fragment() {
                 item: BookSuccessOrderInfo
             ) {
                 val intent = Intent(activity,BookSuccessOrder::class.java)
+                intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
         })
@@ -81,6 +89,7 @@ class OrderFragment : Fragment() {
                 item: CancelOrderInfo
             ) {
                 val intent = Intent(activity,CancelOrder::class.java)
+                intent.putExtra("orderDetailInfo",item.orderDetailInfo)
                 startActivity(intent)
             }
         })
@@ -91,12 +100,14 @@ class OrderFragment : Fragment() {
         orderItemAdapter.register(bookSuccessOrderInfoDelegate)
         orderItemAdapter.register(cancelOrderInfoDelegate)
         recyclerView?.adapter = orderItemAdapter
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
+//        viewModel.refreshService(hotelId ?: "未知酒店ID")
+//        viewModel.refreshServiceResult.observe(viewLifecycleOwner, Observer { result ->
+//            val data = result.getOrNull()
+//            if (data != null) {
+//                hotelServiceData = data
+//            }
+//        })
 
         //请求指定用户的订单记录
         viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
@@ -124,33 +135,57 @@ class OrderFragment : Fragment() {
         //根据获取到的酒店房间信息和订单信息进行显示
         viewModel.roomDataLiveData.observe(viewLifecycleOwner, Observer { value->
             val roomInfo = value
-            val hotelInfo = viewModel.hotelLiveData.value!!
-            val historyOrder = viewModel.infoLiveData.value!!
-            for (i in historyOrder.indices){
-                if(historyOrder[i].orderState == 0){
-                    //已消费
-                    orderItemAdapterItems.add(FinishUseOrderInfo(hotelInfo[i].name ?: "未知酒店名",
-                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
-                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
-                }else if(historyOrder[i].orderState == 1){
-                    //待评价
-                    orderItemAdapterItems.add(WaitEvaOrderInfo(hotelInfo[i].name ?: "未知酒店名",
-                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
-                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
-                }else if(historyOrder[i].orderState == 2){
-                    //预定成功
-                    orderItemAdapterItems.add(BookSuccessOrderInfo(hotelInfo[i].name ?: "未知酒店名",
-                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
-                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
-                }else if(historyOrder[i].orderState == 3){
-                    //已取消
-                    orderItemAdapterItems.add(CancelOrderInfo(hotelInfo[i].name ?: "未知酒店名",
-                        MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
-                        roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString()))
+            val hotelInfo = viewModel.hotelLiveData.value
+            val historyOrder = viewModel.infoLiveData.value
+            if(hotelInfo != null && historyOrder != null){
+                for (i in historyOrder.indices){
+                    val orderDetailInfo = OrderDetailInfo(
+                        roomInfo[i].hotelId,roomInfo[i].eid,hotelInfo[i].name,roomInfo[i].roomname,
+                        MyServiceCreator.hotelsImgPath + roomInfo[i].photo1,
+                        MyServiceCreator.hotelsImgPath + roomInfo[i].photo2,
+                        MyServiceCreator.hotelsImgPath + roomInfo[i].photo3,
+                        MyServiceCreator.hotelsImgPath + roomInfo[i].photo4,
+                        roomInfo[i].beddetail,roomInfo[i].roomarea,roomInfo[i].floordesc,
+                        roomInfo[i].smokedesc, roomInfo[i].wifidesc,roomInfo[i].internetdesc,roomInfo[i].peopledesc,
+                        roomInfo[i].breakfast,"房间描述",
+                        historyOrder[i].totalPrice,roomInfo[i].windowdesc,"退款标题",
+                        "退款详情描述",1111,roomInfo[i].costpolicy,
+                        roomInfo[i].easyfacility,roomInfo[i].mediatech,roomInfo[i].bathroommatch,
+                        roomInfo[i].fooddrink,roomInfo[i].outerdoor,roomInfo[i].otherfacility,
+                        historyOrder[i].orderId,historyOrder[i].number,historyOrder[i].sdate,
+                        historyOrder[i].edate,historyOrder[i].orderState,historyOrder[i].customerName,
+                        historyOrder[i].customerPhone,historyOrder[i].arriveTime,hotelInfo[i].address!!,
+                        historyOrder[i].cancelTime,historyOrder[i].payTime
+                    )
+                    if(historyOrder[i].orderState == 0){
+                        //已消费
+                        orderItemAdapterItems.add(FinishUseOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                            MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                            roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString(),
+                            orderDetailInfo))
+                    }else if(historyOrder[i].orderState == 1){
+                        //待评价
+                        orderItemAdapterItems.add(WaitEvaOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                            MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                            roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString(),
+                            orderDetailInfo))
+                    }else if(historyOrder[i].orderState == 2){
+                        //预定成功
+                        orderItemAdapterItems.add(BookSuccessOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                            MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                            roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString(),
+                            orderDetailInfo))
+                    }else if(historyOrder[i].orderState == 3){
+                        //已取消
+                        orderItemAdapterItems.add(CancelOrderInfo(hotelInfo[i].name ?: "未知酒店名",
+                            MyServiceCreator.hotelsImgPath+hotelInfo[i].photo1,historyOrder[i].number.toString()+"间",
+                            roomInfo[i].roomname!!,historyOrder[i].sdate,historyOrder[i].edate,historyOrder[i].totalPrice.toString(),
+                            orderDetailInfo))
+                    }
                 }
+                orderItemAdapter.items = orderItemAdapterItems
+                orderItemAdapter.notifyDataSetChanged()
             }
-            orderItemAdapter.items = orderItemAdapterItems
-            orderItemAdapter.notifyDataSetChanged()
         })
     }
 }

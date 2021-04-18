@@ -1,6 +1,7 @@
 package com.wzc1748995976.hotelbooking.ui.order
 
 import android.content.Context
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,56 @@ import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import kotlinx.android.parcel.Parcelize
 import top.androidman.SuperButton
+
+@Parcelize
+data class OrderDetailInfo(
+    val hotelId:String?,
+    val eid:String?,
+    val hotelName: String?,
+    val roomName: String?,//房间名称
+    val image_1: String?,//房间图片url
+    val image_2: String?,//房间图片url
+    val image_3: String?,//房间图片url
+    val image_4: String?,//房间图片url
+    val bedDetail:String?,//床详细描述
+    val roomArea: String?,//房间面积描述
+    val floorDesc: String?,//楼层描述
+    val smokeDesc: String?,//吸烟描述
+    val wifiDesc: String?,//无线上网描述
+    val internetDesc: String?,//有线上网描述
+    val peopleDesc: String?,//人员描述
+    val breakfast: String?,//早餐描述
+    val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
+    val totalPrice: Int,//房间价格
+    val windowDesc: String?,//房间窗户描述
+
+    val cancelTitle:String?,//退款标题
+    val cancelPolicy:String?,//退款详情描述
+    val cancelLevel:Int?,//退款等级
+
+    val costPolicy:String?,//费用政策
+    val easyFacility:String?,//便利设施
+    val mediaTech:String?,//媒体科技
+    val bathroomMatch:String?,//浴室配套
+    val foodDrink:String?,//食品饮品
+    val outerDoor:String?,//室外景观
+    val otherFacility:String?,//其它设施
+
+    val orderId:String,
+    val number:Int,
+    val sdate:String,
+    val edate:String,
+    val orderState:Int,
+    val customerName:String,
+    val customerPhone:String,
+    val arriveTime:String,
+
+    val hotelAddress:String,
+    val cancelTime:String,
+    val payTime:String
+) : Parcelable
 
 data class FinishUseOrderInfo(
     val hotelName: String,//酒店名称
@@ -20,7 +70,8 @@ data class FinishUseOrderInfo(
     val roomName: String,//房间名称
     val checkInDate: String,//房间入住日期
     val checkOutDate: String,//房间离店日期
-    val totalPrice: String//花费总数
+    val totalPrice: String,//花费总数
+    val orderDetailInfo: OrderDetailInfo
 )
 data class WaitEvaOrderInfo(
     val hotelName: String,//酒店名称
@@ -29,7 +80,8 @@ data class WaitEvaOrderInfo(
     val roomName: String,//房间名称
     val checkInDate: String,//房间入住日期
     val checkOutDate: String,//房间离店日期
-    val totalPrice: String//花费总数
+    val totalPrice: String,//花费总数
+    val orderDetailInfo: OrderDetailInfo
 )
 data class BookSuccessOrderInfo(
     val hotelName: String,//酒店名称
@@ -38,7 +90,8 @@ data class BookSuccessOrderInfo(
     val roomName: String,//房间名称
     val checkInDate: String,//房间入住日期
     val checkOutDate: String,//房间离店日期
-    val totalPrice: String//花费总数
+    val totalPrice: String,//花费总数
+    val orderDetailInfo: OrderDetailInfo
 )
 
 data class CancelOrderInfo(
@@ -48,7 +101,8 @@ data class CancelOrderInfo(
     val roomName: String,//房间名称
     val checkInDate: String,//房间入住日期
     val checkOutDate: String,//房间离店日期
-    val totalPrice: String//花费总数
+    val totalPrice: String,//花费总数
+    val orderDetailInfo: OrderDetailInfo
 )
 
 class FinishUseOrderInfoDelegate: ItemViewDelegate<FinishUseOrderInfo, FinishUseOrderInfoDelegate.ViewHolder>() {

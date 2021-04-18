@@ -107,13 +107,14 @@
 
         <TextView
             android:id="@+id/hotelName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/color_black"
-            android:textSize="23sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/hotelDetail"
             tools:text="超级无敌影院酒店" />
 
         <top.androidman.SuperButton
@@ -196,7 +197,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/color_black"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/lookRoomButton"
+            app:layout_constraintEnd_toEndOf="@id/lookRoomButton"
             app:layout_constraintStart_toStartOf="@id/roomName"
             app:layout_constraintTop_toBottomOf="@id/roomName"
             tools:text="大床|无早餐|2人入住|32-40㎡|禁烟" />
@@ -208,7 +209,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/color_black"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/lookRoomButton"
+            app:layout_constraintEnd_toEndOf="@id/lookRoomButton"
             app:layout_constraintStart_toStartOf="@id/roomName"
             app:layout_constraintTop_toBottomOf="@id/roomDesc"
             tools:text="3-30(周二)4-2(周五) 共3晚1间" />
@@ -286,7 +287,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/checkInTime"
+                    android:id="@+id/arriveTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -355,7 +356,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/orderSerialNumber"
+                android:id="@+id/orderId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -379,7 +380,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/placeOrderTime"
+                android:id="@+id/payTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"

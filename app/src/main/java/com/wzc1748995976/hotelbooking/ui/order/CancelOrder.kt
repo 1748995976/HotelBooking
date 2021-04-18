@@ -10,6 +10,8 @@ class CancelOrder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_item_detail_cancel_order)
+
+        val roomInfo = intent.getParcelableExtra<OrderDetailInfo>("orderDetailInfo")
     }
 
 }

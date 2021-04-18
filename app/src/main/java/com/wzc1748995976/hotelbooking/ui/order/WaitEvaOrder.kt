@@ -14,5 +14,7 @@ class WaitEvaOrder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_item_detail_wait_eva)
+
+        val roomInfo = intent.getParcelableExtra<OrderDetailInfo>("orderDetailInfo")
     }
 }
