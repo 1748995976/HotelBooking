@@ -53,7 +53,7 @@ data class RoomInfo(
     val peopleDesc: String?,//人员描述
     val breakfast: String?,//早餐描述
     val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
-    val totalPrice: Int,//房间价格
+    val everyTotalPrice: Int,//房间一晚总价格
     val avgPrice: Int,//房间平均价格
     val priceList: List<Int>,//房间每天的价格
     val windowDesc: String?,//房间窗户描述
@@ -178,7 +178,7 @@ class RoomInfoDelegate: ItemViewDelegate<RoomInfo, RoomInfoDelegate.ViewHolder>(
                 prePriceTxt.text = "均￥"
                 roomPrice.text = item.avgPrice.toString()
             }else{
-                roomPrice.text = item.totalPrice.toString()
+                roomPrice.text = item.everyTotalPrice.toString()
             }
 
             windowDesc.text = item.windowDesc

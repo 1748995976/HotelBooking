@@ -22,16 +22,16 @@ import com.wzc1748995976.hotelbooking.MainActivity
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.HotelServiceResponseData
 import com.wzc1748995976.hotelbooking.ui.anotherAdapter.*
-import com.wzc1748995976.hotelbooking.ui.commonui.BookRoomDetail
-import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
-import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetailViewModel
+import com.wzc1748995976.hotelbooking.ui.commonui.*
 import com.wzc1748995976.hotelbooking.ui.homepage.BannerImageAdapter
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.room_detail.view.*
 import org.w3c.dom.Text
 import top.androidman.SuperButton
+import top.androidman.SuperLine
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FinishUseOrder : AppCompatActivity() {
@@ -57,13 +57,15 @@ class FinishUseOrder : AppCompatActivity() {
                 Toast.makeText(HotelBookingApplication.context,"数据异常",Toast.LENGTH_SHORT).show()
             }
         })
-
-
     }
 }
 fun commonShow(it1:AppCompatActivity,orderDetailInfo: OrderDetailInfo,
                hotelServiceData: HotelServiceResponseData?){
     it1.run {
+        val invoice = findViewById<TextView>(R.id.invoice)
+        val superLine = findViewById<SuperLine>(R.id.superLine)
+        val invoiceTxt = findViewById<TextView>(R.id.invoiceTxt)
+        val payDetail = findViewById<SuperButton>(R.id.payDetail)
         val payPrice = findViewById<TextView>(R.id.payPrice)
         val hotelName = findViewById<TextView>(R.id.hotelName)
         val hotelAddress = findViewById<TextView>(R.id.hotelAddress)
@@ -80,6 +82,61 @@ fun commonShow(it1:AppCompatActivity,orderDetailInfo: OrderDetailInfo,
         val hotelDetail = findViewById<SuperButton>(R.id.hotelDetail)
         val lookRoomButton = findViewById<SuperButton>(R.id.lookRoomButton)
 
+        if(hotelServiceData?.servicetitle_1 != null){
+            invoice.text = hotelServiceData.servicetitle_1
+        }else{
+            invoice.visibility = View.GONE
+            invoiceTxt.visibility = View.GONE
+            superLine.visibility = View.GONE
+        }
+
+
+        payDetail.setOnClickListener {
+            val dialog = Dialog(this, R.style.DialogTheme)
+            val dialogView = View.inflate(this, R.layout.total_price_question, null)
+            dialogView.run {
+                val questionRecycler = this.findViewById<RecyclerView>(R.id.questionRecyclerView)
+                val questionAdapter = MultiTypeAdapter()
+                val questionAdapterItems = ArrayList<Any>()
+                questionRecycler.visibility = View.VISIBLE
+                questionRecycler.layoutManager = LinearLayoutManager(it1)
+                questionAdapter.register(QuestionInfoDelegate())
+                questionRecycler.adapter = questionAdapter
+                val sDate = SimpleDateFormat("yyyy-MM-dd").parse(orderDetailInfo.sdate)!!
+                val calendar = Calendar.getInstance()
+                calendar.time = sDate
+                val priceList = ArrayList<String>()
+                var price = ""
+                val a = orderDetailInfo
+                for (i in orderDetailInfo.priceList){
+                    if(i != ' '){
+                        price += i
+                    }else{
+                        if(price.isNotEmpty())
+                            priceList.add(price)
+                        price = ""
+                    }
+                }
+                for (i in priceList.indices){
+                    questionAdapterItems.add(
+                        QuestionInfo(SimpleDateFormat("yyyy-MM-dd").format(calendar.time),
+                            priceList[i],orderDetailInfo.number.toString())
+                    )
+                    calendar.add(Calendar.DATE,1)
+                }
+                questionAdapter.items = questionAdapterItems
+                questionAdapter.notifyDataSetChanged()
+            }
+            dialog.setContentView(dialogView)
+            val window = dialog.window
+            //设置弹出位置
+            window?.setGravity(Gravity.BOTTOM)
+            //设置弹出动画
+            window?.setWindowAnimations(R.style.main_menu_animStyle)
+            //设置对话框大小
+            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.show()
+        }
         payPrice.text = orderDetailInfo.totalPrice.toString()
         hotelName.text = orderDetailInfo.hotelName
         hotelAddress.text = orderDetailInfo.hotelAddress

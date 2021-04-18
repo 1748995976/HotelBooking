@@ -328,6 +328,10 @@ private fun showBookDialog(
         } else {
             routerDesc.text = roomInfo.internetDesc
         }
+        val smokeImg = findViewById<ImageView>(R.id.smokeImg)
+        if(roomInfo.smokeDesc == "可吸烟"){
+            smokeImg.setImageResource(R.drawable.ic_smoke_24dp)
+        }
         smokeDesc.text = roomInfo.smokeDesc
         peopleDesc.text = roomInfo.peopleDesc
         breakFastDesc.text = roomInfo.breakfast
@@ -476,7 +480,7 @@ private fun showBookDialog(
         if(roomInfo.priceList.size > 1){
             bookPrice.text = "${roomInfo.avgPrice}(均价)"
         }else{
-            bookPrice.text = roomInfo.totalPrice.toString()
+            bookPrice.text = roomInfo.everyTotalPrice.toString()
         }
         if (roomInfo.remaining == 0) {
             bookButton.setNormalColor(resources.getColor(R.color.color_gray))

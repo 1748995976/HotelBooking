@@ -80,10 +80,6 @@ class BookRoomDetail : AppCompatActivity() {
                 clickHideNumber()
             }
         }
-        //viewModel监听
-        viewModel.chooseNumber.observe(this, Observer { value->
-            roomNumber.text = "${value}间（每间最多住${roomInfo?.peopleDesc}）"
-        })
         //向头部添加内容
         startDate.text = "${MainActivity.viewModel.inMonth.value}月${MainActivity.viewModel.inDay.value}日"
         endDate.text = "${MainActivity.viewModel.outMonth.value}月${MainActivity.viewModel.outDay.value}日"
@@ -92,7 +88,7 @@ class BookRoomDetail : AppCompatActivity() {
         roomDesc.text = roomInfo?.roomDesc
         cancelDesc.text = roomInfo?.cancelPolicy
         //其它地方添加内容
-        submitPrice.text = "${roomInfo?.totalPrice}(总共)"
+        //submitPrice.text = "${roomInfo?.everyTotalPrice}(总共)"
 
 
         // 用于处理选择房间下的RecyclerView列表
@@ -128,17 +124,7 @@ class BookRoomDetail : AppCompatActivity() {
         questionRecycler.layoutManager = LinearLayoutManager(questionView.context)
         questionAdapter.register(QuestionInfoDelegate())
         questionRecycler.adapter = questionAdapter
-        val sDate = SimpleDateFormat("yyyy-MM-dd").parse(MainActivity.viewModel.inChinaCheckInDate.value!!)!!
-        val calendar = Calendar.getInstance()
-        calendar.time = sDate
-        for (i in roomInfo.priceList.indices){
-            questionAdapterItems.add(
-                QuestionInfo(SimpleDateFormat("yyyy-MM-dd").format(calendar.time),
-                roomInfo.priceList[i].toString()))
-            calendar.add(Calendar.DATE,1)
-        }
-        questionAdapter.items = questionAdapterItems
-        questionAdapter.notifyDataSetChanged()
+
         val questionImg = findViewById<ImageView>(R.id.questionImg)
         val bubbleDialog = BubbleDialog(this)
             .setBubbleContentView<BubbleDialog>(questionView)
@@ -146,6 +132,24 @@ class BookRoomDetail : AppCompatActivity() {
             bubbleDialog.setClickedView<BubbleDialog>(questionImg)
                 .show()
         }
+        //viewModel监听
+        viewModel.chooseNumber.observe(this, Observer { value->
+            roomNumber.text = "${value}间（每间最多住${roomInfo?.peopleDesc}）"
+            val totalPrice = (roomInfo?.everyTotalPrice)?.times((viewModel.chooseNumber.value!!))
+            submitPrice.text = "${totalPrice}(总共)"
+            questionAdapterItems.clear()
+            val sDate = SimpleDateFormat("yyyy-MM-dd").parse(MainActivity.viewModel.inChinaCheckInDate.value!!)!!
+            val calendar = Calendar.getInstance()
+            calendar.time = sDate
+            for (i in roomInfo.priceList.indices){
+                questionAdapterItems.add(
+                    QuestionInfo(SimpleDateFormat("yyyy-MM-dd").format(calendar.time),
+                        roomInfo.priceList[i].toString(),viewModel.chooseNumber.value?.toString()!!))
+                calendar.add(Calendar.DATE,1)
+            }
+            questionAdapter.items = questionAdapterItems
+            questionAdapter.notifyDataSetChanged()
+        })
         //提交按钮
         val submitButton = findViewById<SuperButton>(R.id.submitButton)
         submitButton.setOnClickListener {
@@ -156,7 +160,7 @@ class BookRoomDetail : AppCompatActivity() {
                 Toast.makeText(HotelBookingApplication.context,"请将信息填写完整后再提交订单",Toast.LENGTH_SHORT).show()
             }else{
                 val submitOrderData = SubmitOrderData(HotelBookingApplication.account!!,roomInfo.hotelId!!,
-                    roomInfo.eid!!,viewModel.chooseNumber.value!!,roomInfo.totalPrice,MainActivity.viewModel.inChinaCheckInDate.value!!,
+                    roomInfo.eid!!,viewModel.chooseNumber.value!!,roomInfo.everyTotalPrice,MainActivity.viewModel.inChinaCheckInDate.value!!,
                     MainActivity.viewModel.inChinaCheckOutDate.value!!,customerName,customerPhone,arriveTime,
                     roomInfo.cancelLevel!!)
                 viewModel.request(submitOrderData)

@@ -35,6 +35,7 @@ data class OrderDetailInfo(
     val breakfast: String?,//早餐描述
     val roomDesc: String?,//房间描述，例如：无早餐 15-18㎡ 单人床 两人入住
     val totalPrice: Int,//房间价格
+    val priceList: String,//价格列表
     val windowDesc: String?,//房间窗户描述
 
     val cancelTitle:String?,//退款标题

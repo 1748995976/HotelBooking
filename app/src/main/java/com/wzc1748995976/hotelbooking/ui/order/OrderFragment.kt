@@ -148,7 +148,7 @@ class OrderFragment : Fragment() {
                         roomInfo[i].beddetail,roomInfo[i].roomarea,roomInfo[i].floordesc,
                         roomInfo[i].smokedesc, roomInfo[i].wifidesc,roomInfo[i].internetdesc,roomInfo[i].peopledesc,
                         roomInfo[i].breakfast,"房间描述",
-                        historyOrder[i].totalPrice,roomInfo[i].windowdesc,"退款标题",
+                        historyOrder[i].totalPrice,historyOrder[i].priceList,roomInfo[i].windowdesc,"退款标题",
                         "退款详情描述",1111,roomInfo[i].costpolicy,
                         roomInfo[i].easyfacility,roomInfo[i].mediatech,roomInfo[i].bathroommatch,
                         roomInfo[i].fooddrink,roomInfo[i].outerdoor,roomInfo[i].otherfacility,
