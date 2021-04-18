@@ -95,8 +95,7 @@ class HomeFragment : Fragment() {
             tab, position ->  tab.text = when(position){
             0-> "国内"
             1-> "钟点房"
-            2-> "国际/港澳台"
-            else -> "民宿公寓"
+            else -> "未知"
             }
         }.attach()
 
@@ -131,7 +130,7 @@ class HomeFragment : Fragment() {
 
 class HomePageCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
@@ -139,7 +138,7 @@ class HomePageCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragm
                 val fragment = InChinaFragment()
                 fragment.arguments = Bundle().apply {
                     // Our object is just an integer :-P
-                    putInt("国内", position + 1)
+                    putInt("住宿", position + 1)//原名为国内
                 }
                 fragment
             }
@@ -148,22 +147,6 @@ class HomePageCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragm
                 fragment.arguments = Bundle().apply {
                     // Our object is just an integer :-P
                     putInt("钟点房", position + 1)
-                }
-                fragment
-            }
-            2->{
-                val fragment = InChinaFragment()
-                fragment.arguments = Bundle().apply {
-                    // Our object is just an integer :-P
-                    putInt("国际/港澳台", position + 1)
-                }
-                fragment
-            }
-            3->{
-                val fragment = InChinaFragment()
-                fragment.arguments = Bundle().apply {
-                    // Our object is just an integer :-P
-                    putInt("民宿公寓", position + 1)
                 }
                 fragment
             }
