@@ -18,6 +18,7 @@ class EvaluationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evaluation)
+        //别忘了提取用户的account和昵称或者匿名模式
         val hotelId = intent.getStringExtra("hotelId")
         val eid = intent.getStringExtra("eid")
         val hotelName = intent.getStringExtra("hotelName")

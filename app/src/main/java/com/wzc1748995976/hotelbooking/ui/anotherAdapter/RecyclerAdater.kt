@@ -18,6 +18,7 @@ import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.ui.commonui.EvaluationActivity
+import com.wzc1748995976.hotelbooking.ui.commonui.ViewHotelEvaluation
 import com.wzc1748995976.hotelbooking.ui.homepage.InChinaDetailKind
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LCInChinaLInfoDelegate
@@ -120,7 +121,10 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
             hotelDis.text = item.distanceText
             hotelDisBus.text = item.distanceBus
             lookEvaluation.setOnClickListener {
-                Toast.makeText(HotelBookingApplication.context,"查看商家评价",Toast.LENGTH_SHORT).show()
+                val intent = Intent(HotelBookingApplication.context,ViewHotelEvaluation::class.java)
+                intent.putExtra("hotelId",item.hotelId)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                HotelBookingApplication.context.startActivity(intent)
             }
 
             Glide.with(HotelBookingApplication.context)
