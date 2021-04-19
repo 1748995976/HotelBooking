@@ -1,28 +1,32 @@
 package com.wzc1748995976.hotelbooking.ui.order
 
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
-import com.wzc1748995976.hotelbooking.logic.Repository
-import com.wzc1748995976.hotelbooking.logic.model.HistoryOrderByAccountResponseData
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
+
 
 class OrderFragment : Fragment() {
 
     private lateinit var viewModel: OrderViewModel
+    private lateinit var refreshLayout:SmartRefreshLayout
     val orderItemAdapter = MultiTypeAdapter()
     val orderItemAdapterItems = ArrayList<Any>()
 
@@ -31,7 +35,8 @@ class OrderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.order_fragment, container, false)
+        val view = inflater.inflate(R.layout.order_fragment, container, false)
+        return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +46,17 @@ class OrderFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        refreshLayout = view?.findViewById(R.id.refreshLayout)!!
+        refreshLayout.setRefreshHeader(ClassicsHeader(context))
+        refreshLayout.setOnRefreshListener(object : OnRefreshListener {
+            override fun onRefresh(refreshlayout: RefreshLayout) {
+                //这里添加刷新逻辑
+                orderItemAdapterItems.clear()
+                viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
+            }
+        })
+        refreshLayout.setEnableLoadMore(false)
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
 
@@ -167,24 +183,30 @@ class OrderFragment : Fragment() {
         viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
         viewModel.historyResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
+            if(data != null){
                 //请求订单信息
                 viewModel.refreshInfo(data)
+            }else{
+                refreshLayout.finishRefresh(1000,false,true) //传入false表示刷新失败
             }
         })
         //这一步应该根据订单信息获取相应的酒店房间信息
         viewModel.infoResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
+            if(data != null){
                 viewModel.roomDataLiveData.value = data
                 viewModel.refreshHotelInfo(viewModel.infoLiveData.value!!)
+            }else{
+                refreshLayout.finishRefresh(1000,false,true)
             }
         })
         //请求订单信息对应的酒店的信息
         viewModel.hotelResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
+            if(data != null){
                 viewModel.hotelLiveData.value = data
+            }else{
+                refreshLayout.finishRefresh(1000,false,true)
             }
         })
         //根据获取到的酒店房间信息和订单信息进行显示
@@ -240,6 +262,13 @@ class OrderFragment : Fragment() {
                 orderItemAdapter.items = orderItemAdapterItems
                 orderItemAdapter.notifyDataSetChanged()
             }
+            refreshLayout.finishRefresh(1000)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        orderItemAdapterItems.clear()
+        viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
     }
 }

@@ -91,5 +91,11 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     implementation 'com.github.lzjin:SideBarView:1.0'
+    // Introduce bubble
     implementation 'com.github.xujiaji:happy-bubble:1.2.3'
+    // Introduce beautiful dialog
+    implementation 'com.afollestad.material-dialogs:core:3.2.1'
+
+    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
+    implementation  'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
 }
