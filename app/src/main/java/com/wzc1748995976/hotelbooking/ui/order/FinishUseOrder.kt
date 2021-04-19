@@ -3,6 +3,7 @@ package com.wzc1748995976.hotelbooking.ui.order
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -64,6 +65,15 @@ class FinishUseOrder : AppCompatActivity() {
             intent.putExtra("hotelId",orderDetailInfo.hotelId)
             startActivity(intent)
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        //将状态栏的颜色设置成透明色
+        val decorView = window.decorView
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Color.TRANSPARENT
+        actionBar?.hide()
     }
 }
 fun commonShow(it1:AppCompatActivity,orderDetailInfo: OrderDetailInfo,

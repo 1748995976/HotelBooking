@@ -95,7 +95,9 @@ dependencies {
     implementation 'com.github.xujiaji:happy-bubble:1.2.3'
     // Introduce beautiful dialog
     implementation 'com.afollestad.material-dialogs:core:3.2.1'
-
+    // Introduce refresh header
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
     implementation  'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
+    // Introduce Ratingbar
+    implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 }

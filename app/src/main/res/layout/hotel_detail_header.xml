@@ -123,6 +123,21 @@
             app:layout_constraintTop_toTopOf="@id/hDHLevelText"
             tools:background="@drawable/ic_business_district_24dp" />
 
+        <top.androidman.SuperButton
+            android:id="@+id/lookEvaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:background_normalColor="@color/transparent"
+            app:text="查看评价"
+            app:textSize="14sp"
+            app:textColor="@color/color_black"
+            app:icon="@drawable/ic_arrow_right_black_24dp"
+            app:iconOrientation="right"
+            app:layout_constraintBottom_toBottomOf="@id/hDHLevelText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hDHLevelText" />
+
         <TextView
             android:id="@+id/hDHOpenTime"
             android:layout_width="wrap_content"

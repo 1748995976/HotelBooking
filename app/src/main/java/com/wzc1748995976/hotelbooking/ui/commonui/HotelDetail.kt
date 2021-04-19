@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.content.Intent
+import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Build
 import android.widget.ImageView
@@ -143,7 +144,7 @@ class HotelDetail : AppCompatActivity() {
             if (data != null && data.isNotEmpty() && data.size == 1) {
                 //向数组中酒店信息
                 headItems.add(
-                    HotelDetailInfo(
+                    HotelDetailInfo(data[0].id,
                         data[0].name, MyServiceCreator.hotelsImgPath + data[0].photo1,
                         data[0].types, data[0].score, data[0].scoreDec, data[0].address,
                         data[0].openTime, data[0].decorateTime, data[0].distanceText,
@@ -255,6 +256,16 @@ class HotelDetail : AppCompatActivity() {
             listAdapter.items = listItems
             listAdapter.notifyDataSetChanged()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //将状态栏的颜色设置成透明色
+        val decorView = window.decorView
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Color.TRANSPARENT
+        actionBar?.hide()
     }
 
 }

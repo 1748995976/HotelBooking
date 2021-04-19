@@ -20,6 +20,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
+import com.wzc1748995976.hotelbooking.ui.commonui.EvaluationActivity
 import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
 
 
@@ -94,7 +95,12 @@ class OrderFragment : Fragment() {
                 holder: WaitEvaOrderInfoDelegate.ViewHolder,
                 item: WaitEvaOrderInfo
             ) {
-                Toast.makeText(HotelBookingApplication.context,"进入评价界面",Toast.LENGTH_SHORT).show()
+                val intent = Intent(activity, EvaluationActivity::class.java)
+                intent.putExtra("hotelId", item.orderDetailInfo.hotelId)
+                intent.putExtra("eid", item.orderDetailInfo.eid)
+                intent.putExtra("hotelName", item.orderDetailInfo.hotelName)
+                intent.putExtra("roomName", item.orderDetailInfo.roomName)
+                startActivity(intent)
             }
         }
         val waitEvaBookAgainClick = object : WaitEvaOrderInfoDelegate.ClickBookAgainItem {

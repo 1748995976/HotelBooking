@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refreshLayout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的订单"
+        android:background="@color/white"
+        android:paddingTop="33dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/color_black"
+        android:textSize="23sp"/>
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:background="@color/WhiteSmoke"
-        tools:context=".ui.order.OrderFragment">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -17,6 +29,6 @@
             android:layout_height="wrap_content"
             android:background="@color/WhiteSmoke" />
 
-    </FrameLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</LinearLayout>

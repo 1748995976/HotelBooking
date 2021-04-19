@@ -1,6 +1,7 @@
 package com.wzc1748995976.hotelbooking.ui.anotherAdapter
 
 import android.content.Context
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -10,11 +11,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.ui.commonui.EvaluationActivity
 import com.wzc1748995976.hotelbooking.ui.homepage.InChinaDetailKind
 import com.wzc1748995976.hotelbooking.ui.livedcollection.HotelInfo
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LCInChinaLInfoDelegate
@@ -24,6 +27,7 @@ import top.androidman.SuperButton
 // 点进酒店详情界面的多类型RecyclerView
 
 data class HotelDetailInfo(
+    val hotelId:String,//酒店ID
     val name: String?,//酒店名称
     val image: String?,//酒店封面图片url
     val level: String?,//酒店类型
@@ -88,6 +92,7 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
         val hotelAddress: TextView = itemView.findViewById(R.id.hDHAddress)
         val hotelDis: TextView = itemView.findViewById(R.id.hDHDistanceText)
         val hotelDisBus: TextView = itemView.findViewById(R.id.hDHDistanceBusText)
+        val lookEvaluation: SuperButton = itemView.findViewById(R.id.lookEvaluation)
     }
 
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
@@ -114,6 +119,9 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
             hotelAddress.text = item.address
             hotelDis.text = item.distanceText
             hotelDisBus.text = item.distanceBus
+            lookEvaluation.setOnClickListener {
+                Toast.makeText(HotelBookingApplication.context,"查看商家评价",Toast.LENGTH_SHORT).show()
+            }
 
             Glide.with(HotelBookingApplication.context)
                 .load(item.image)
