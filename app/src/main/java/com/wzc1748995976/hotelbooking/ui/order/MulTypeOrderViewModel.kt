@@ -15,4 +15,13 @@ class MulTypeOrderViewModel : ViewModel() {
     fun refreshService(hotelId: String){
         refreshServiceLiveData.value = hotelId
     }
+    // 用于BookSuccessOrder取消订单
+    private val cancelOrderLiveData = MutableLiveData<String?>()
+
+    val cancelOrderResult = Transformations.switchMap(cancelOrderLiveData){
+        Repository.cancelOrderByOrderId(cancelOrderLiveData.value ?: "未知订单ID")
+    }
+    fun cancelOrder(orderId: String){
+        cancelOrderLiveData.value = orderId
+    }
 }

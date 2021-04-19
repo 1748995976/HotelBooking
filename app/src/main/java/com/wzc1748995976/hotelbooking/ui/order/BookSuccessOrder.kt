@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -44,6 +45,18 @@ class BookSuccessOrder : AppCompatActivity() {
             }
         })
 
+        viewModel.cancelOrderResult.observe(this, Observer { result->
+            val data = result.getOrNull()
+            if(data == true){
+                finish()
+                Toast.makeText(HotelBookingApplication.context,"取消订单成功", Toast.LENGTH_SHORT).show()
+            }else if(data == false){
+                Toast.makeText(HotelBookingApplication.context,"不可取消", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(HotelBookingApplication.context,"网络异常", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         val cancelOrder = findViewById<SuperButton>(R.id.cancelOrder)
         cancelOrder.setOnClickListener {
             Toast.makeText(HotelBookingApplication.context,"进入取消规则界面", Toast.LENGTH_SHORT).show()
@@ -51,11 +64,9 @@ class BookSuccessOrder : AppCompatActivity() {
                 .title(text = "取消订单")
                 .message(text = "在${orderDetailInfo.cancelTime}之前都可以免费取消订单，确定要取消订单吗?")
                 .positiveButton(text = "确定"){ dialog->
-                    finish()
-                    Toast.makeText(HotelBookingApplication.context,"取消了订单", Toast.LENGTH_SHORT).show()
+                    viewModel.cancelOrder(orderDetailInfo.orderId)
                 }
                 .negativeButton(text = "我再想想"){ dialog->
-                    Toast.makeText(HotelBookingApplication.context,"没有取消订单", Toast.LENGTH_SHORT).show()
                 }
                 .icon(R.drawable.ic_note_24dp)
             dialog.show()

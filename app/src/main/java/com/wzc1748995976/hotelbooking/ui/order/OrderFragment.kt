@@ -125,7 +125,9 @@ class OrderFragment : Fragment() {
                 holder: BookSuccessOrderInfoDelegate.ViewHolder,
                 item: BookSuccessOrderInfo
             ) {
-                Toast.makeText(HotelBookingApplication.context,"进入取消规则界面",Toast.LENGTH_SHORT).show()
+                val intent = Intent(activity,BookSuccessOrder::class.java)
+                intent.putExtra("orderDetailInfo",item.orderDetailInfo)
+                startActivity(intent)
             }
         }
         val bookSuccessBookAgainClick = object : BookSuccessOrderInfoDelegate.ClickBookAgainItem {

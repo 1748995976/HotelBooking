@@ -251,6 +251,19 @@ object Repository {
         }
         emit(result)
     }
+    fun cancelOrderByOrderId(orderId:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val operateResponse = HotelBookingNetWork.cancelOrderByOrderId(orderId)
+            if(operateResponse.status == 0){
+                Result.success(operateResponse.data)
+            }else{
+                Result.failure(RuntimeException("result is ${operateResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<Boolean>(e)
+        }
+        emit(result)
+    }
 
 }
 

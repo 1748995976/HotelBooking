@@ -50,4 +50,6 @@ interface MyService {
     //预订房间
     @POST("/user_history_order/addOrderByAccount")
     fun addOrderByAccount(@Body submitOrderData:SubmitOrderData): Call<OperateOrderResponse>
+    @GET("user_history_order/cancelOrderByOrderId/{orderId}")
+    fun cancelOrderByOrderId(@Path("orderId") orderId:String): Call<OperateOrderResponse>
 }

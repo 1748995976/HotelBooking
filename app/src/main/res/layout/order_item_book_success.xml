@@ -145,7 +145,7 @@
         android:layout_marginEnd="6dp"
         app:textSize="15sp"
         app:textColor="@color/color_gray"
-        app:text="取消规则"
+        app:text="取消订单"
         app:border_width="0.5dp"
         app:corner="6dp"
         app:border_color="@color/color_gray"
