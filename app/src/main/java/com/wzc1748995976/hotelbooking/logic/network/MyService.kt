@@ -48,8 +48,9 @@ interface MyService {
     @GET("hotel_room/getRoomByHotelIdEid/{hotelId}/{eid}")
     fun getRoomByHotelIdEid(@Path("hotelId") hotelId:String,@Path("eid") eid:String): Call<RoomInfoResponse>
     //预订房间
-    @POST("/user_history_order/addOrderByAccount")
+    @POST("user_history_order/addOrderByAccount")
     fun addOrderByAccount(@Body submitOrderData:SubmitOrderData): Call<OperateOrderResponse>
+    //取消预订
     @GET("user_history_order/cancelOrderByOrderId/{orderId}")
     fun cancelOrderByOrderId(@Path("orderId") orderId:String): Call<OperateOrderResponse>
 }
