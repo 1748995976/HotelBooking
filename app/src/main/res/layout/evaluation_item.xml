@@ -58,10 +58,16 @@
             android:id="@+id/checkInDateTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_gray"
+            android:textSize="13sp"
+            tools:text="2021-03" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:textColor="@color/color_gray"
             android:textSize="13sp"
-            tools:text="2021-03入住" />
+            android:text="入住" />
 
         <TextView
             android:id="@+id/evaluateDateTxt"
@@ -69,7 +75,13 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_gray"
             android:textSize="13sp"
-            tools:text="2021-03-04发表评价" />
+            tools:text="2021-03-04" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_gray"
+            android:textSize="13sp"
+            android:text="发表评价" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,7 +97,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_gray"
             android:textSize="13sp"
-            tools:text="2021-03-04发表评价" />
+            tools:text="超级无敌大床房" />
 
     </LinearLayout>
 

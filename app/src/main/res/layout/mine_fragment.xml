@@ -24,6 +24,17 @@
 
     </RelativeLayout>
     <com.wzc1748995976.hotelbooking.MakePerfect.MyLinearLayout
+        android:id="@+id/accountItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:show_left_text = "账号"
+        app:show_left_img = "@drawable/ic_account"
+        app:show_right_text = "111"
+        app:show_right_img = "@drawable/ic_arrow_right_24dp"
+        app:show_bottom_line="true"
+        app:is_show_right_img="false" />
+    <com.wzc1748995976.hotelbooking.MakePerfect.MyLinearLayout
         android:id="@+id/nickNameItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
