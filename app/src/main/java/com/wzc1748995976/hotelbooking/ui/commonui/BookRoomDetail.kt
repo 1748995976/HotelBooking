@@ -111,7 +111,12 @@ class BookRoomDetail : AppCompatActivity() {
 
         //用于处理退款规则
         val refundRule = findViewById<TextView>(R.id.refundRule)
-        refundRule.text = "根据酒店政策，${roomInfo.cancelPolicy}，逾期不可取消/变更，如未入住，酒店将扣除全部房费"
+        if(roomInfo.cancelPolicy != null){
+            refundRule.text = "根据酒店政策，${roomInfo.cancelPolicy}，逾期不可取消/变更，如未入住，酒店将扣除全部房费"
+        }else{
+            refundRule.text = "根据酒店政策，${roomInfo.cancelTitle}，逾期不可取消/变更，如未入住，酒店将扣除全部房费"
+        }
+
         //用于预订说明
         val bookDesc = findViewById<TextView>(R.id.bookDesc)
         bookDesc.text = "订单需等酒店或者无需供应商确认即可生效，持APP订单即可办理入住"
