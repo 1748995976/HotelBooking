@@ -1,5 +1,6 @@
 package com.wzc1748995976.hotelbooking.ui.mine
 
+import android.content.Intent
 import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.MakePerfect.MyLinearLayout
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.logic.model.UserInfoResponseData
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropCircleTransformation
@@ -23,6 +25,8 @@ import kotlinx.android.synthetic.main.mine_item.view.*
 class MineFragment : Fragment() {
 
     private lateinit var viewModel: MineViewModel
+
+    private lateinit var userInfoResponseData: UserInfoResponseData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +53,16 @@ class MineFragment : Fragment() {
         val changeItem = view.findViewById<MyLinearLayout>(R.id.changeItem)
         val aboutUsItem = view.findViewById<MyLinearLayout>(R.id.aboutUsItem)
 
+        changeItem.setOnClickListener {
+            val intent = Intent(activity,ModifyUserInfoActivity::class.java)
+            intent.putExtra("userInfoResponseData",userInfoResponseData)
+            startActivity(intent)
+        }
+
         viewModel.userInfoResult.observe(viewLifecycleOwner, Observer { result->
             val data = result.getOrNull()
             if(data != null){
+                userInfoResponseData = data
                 accountItem.item_text_right.text = data.account
                 nickNameItem.item_text_right.text = data.name
                 sexItem.item_text_right.text = data.sex
@@ -71,8 +82,6 @@ class MineFragment : Fragment() {
                     .into(avatarImageView)
             }
         })
-
-
         return view
     }
 

@@ -25,7 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="n">
-        <activity android:name=".ui.commonui.ViewHotelEvaluation"></activity>
+        <activity android:name=".ui.mine.ModifyUserInfoActivity"
+            android:theme="@style/MyCityPickerTheme"/>
+        <activity android:name=".ui.commonui.ViewHotelEvaluation" />
         <activity android:name=".ui.commonui.EvaluationActivity" />
         <activity android:name=".ui.commonui.SearchHotels" />
         <activity android:name=".ui.homepage.MoreLocationInfo" />

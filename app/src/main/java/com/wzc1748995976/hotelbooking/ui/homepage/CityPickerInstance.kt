@@ -32,9 +32,7 @@ object CityPickerInstance {
     }
 
     fun getInstance(fragment: FragmentActivity?): CityPicker? {
-        if (cityPickerInstance != null) {
-            return cityPickerInstance
-        } else {
+
             val hotCities: MutableList<HotCity> = ArrayList()
             hotCities.add(HotCity("北京", "010", "110000")) //code为城市代码
             hotCities.add(HotCity("上海", "021", "310000"))
@@ -64,7 +62,7 @@ object CityPickerInstance {
                 })
             }
             return cityPickerInstance
-        }
+
     }
     //设置监听回调
     private var locationSingleListener =
