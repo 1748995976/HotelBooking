@@ -53,4 +53,10 @@ interface MyService {
     //取消预订
     @GET("user_history_order/cancelOrderByOrderId/{orderId}")
     fun cancelOrderByOrderId(@Path("orderId") orderId:String): Call<OperateOrderResponse>
+    //获取个人信息
+    @GET("user_info/getInfoByAccount/{account}")
+    fun getInfoByAccount(@Path("account") account:String): Call<UserInfoResponse>
+    //获取酒店评价
+    @GET("getEvaluationByHotelId/{hotelId}")
+    fun getEvaluationByHotelId(@Path("hotelId") hotelId:String): Call<EvaluationsResponse>
 }

@@ -265,6 +265,34 @@ object Repository {
         emit(result)
     }
 
+    fun getInfoByAccount(account:String) = liveData(Dispatchers.IO){
+        val result = try {
+            val userInfoResponse = HotelBookingNetWork.getInfoByAccount(account)
+            if(userInfoResponse.status == 0){
+                Result.success(userInfoResponse.data)
+            }else{
+                Result.failure(RuntimeException("result is ${userInfoResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<UserInfoResponseData>(e)
+        }
+        emit(result)
+    }
+
+    fun getEvaluationByHotelId(hotelId: String) = liveData(Dispatchers.IO){
+        val result = try {
+            val evaluationsResponse = HotelBookingNetWork.getEvaluationByHotelId(hotelId)
+            if(evaluationsResponse.status == 0){
+                Result.success(evaluationsResponse.data)
+            }else{
+                Result.failure(RuntimeException("result is ${evaluationsResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<List<EvaluationsResponseData>>(e)
+        }
+        emit(result)
+    }
+
 }
 
 //    fun loginRequest(account: String,password: String){

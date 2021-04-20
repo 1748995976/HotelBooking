@@ -17,6 +17,8 @@ object MyServiceCreator {
 
     const val hotelsImgPath = BASE_URL + "hotels/img/"
 
+    const val userAvatar = BASE_URL + "userAvatar/img/"
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(client)

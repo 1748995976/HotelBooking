@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.drakeet.multitype.ItemViewDelegate
+import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
+import jp.wasabeef.glide.transformations.CropCircleTransformation
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 data class EvaluationInfo(
+    val roomName :String,//房间名称
     val name:String,//评价人的昵称
     val account:String,//评价人的账号
     val score:String,//评价分数
@@ -33,6 +38,7 @@ class EvaluationInfoDelegate: ItemViewDelegate<EvaluationInfo, EvaluationInfoDel
         val evaluateDateTxt = itemView.findViewById<TextView>(R.id.evaluateDateTxt)
         val evaluationTxt = itemView.findViewById<TextView>(R.id.evaluationTxt)
         val businessResponseTxt = itemView.findViewById<TextView>(R.id.businessResponseTxt)
+        val roomNameTxt = itemView.findViewById<TextView>(R.id.roomNameTxt)
     }
 
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
@@ -44,16 +50,29 @@ class EvaluationInfoDelegate: ItemViewDelegate<EvaluationInfo, EvaluationInfoDel
         holder.run {
             if(item.anonymous == 0){
                 //正常展示头像
+                Glide.with(HotelBookingApplication.context)
+                    .load(item.imgUrl)
+                    .bitmapTransform(CropCircleTransformation(HotelBookingApplication.context))
+                    .priority(Priority.IMMEDIATE)
+                    .into(avatarImg)
+                nameTxt.text = item.name
             }else{
                 //展示本地的匿名头像
+                Glide.with(HotelBookingApplication.context)
+                    .load(R.mipmap.anonymous)
+                    .bitmapTransform(CropCircleTransformation(HotelBookingApplication.context))
+                    .priority(Priority.IMMEDIATE)
+                    .into(avatarImg)
+                nameTxt.text = "匿名用户"
             }
-            nameTxt.text = item.name
             //这里isEnable属性以及变化后的颜色需要调试一下
             ratingBar.rating = item.score.toFloat()
+            ratingBar.isEnabled = false
             checkInDateTxt.text = item.checkInDate
             evaluateDateTxt.text = item.evaluateDate
             evaluationTxt.text = item.evaluation
             businessResponseTxt.text = item.businessResponse
+            roomNameTxt.text = item.roomName
         }
     }
 }

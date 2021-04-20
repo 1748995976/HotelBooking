@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="18sp"
+    android:layout_margin="10sp"
+    android:padding="10sp"
+    android:background="@drawable/white_all"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,9 +17,9 @@
 
         <ImageView
             android:id="@+id/avatarImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@color/yellow" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/transparent" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
                 style="@style/Widget.MaterialRatingBar.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
                 app:mrb_fillBackgroundStars="true"
                 app:mrb_indeterminateTint="@color/Transparent"
                 app:mrb_progressTint="@color/color_red"
@@ -65,7 +67,22 @@
             android:id="@+id/evaluateDateTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:textColor="@color/color_gray"
+            android:textSize="13sp"
+            tools:text="2021-03-04发表评价" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:textColor="@color/color_gray"
+            android:textSize="13sp"
+            android:text="|"/>
+
+        <TextView
+            android:id="@+id/roomNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textColor="@color/color_gray"
             android:textSize="13sp"
             tools:text="2021-03-04发表评价" />
@@ -81,14 +98,21 @@
         tools:text="我觉的房间很一般，整体的房间不算大，房间1的床是我见过最小的" />
 
     <TextView
+        android:layout_marginTop="4dp"
+        android:textSize="13sp"
+        android:text="商家回应："
+        android:textColor="@color/transparent_black_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
         android:id="@+id/businessResponseTxt"
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/silver_all"
+        android:background="@drawable/whitesmoke_all"
         android:padding="8dp"
-        android:textColor="@color/color_black"
-        android:textSize="15sp"
-        tools:text="商家回应：尊敬的抽弟弟，非常感谢你的入住，非常感谢你入住" />
+        android:textColor="@color/transparent_black_50"
+        android:textSize="13sp"
+        tools:text="尊敬的抽弟弟，非常感谢你的入住，非常感谢你入住" />
 
 </LinearLayout>

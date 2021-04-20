@@ -30,6 +30,8 @@ object HotelBookingNetWork {
     suspend fun getRoomByHotelIdEid(hotelId:String,eid:String) = myService.getRoomByHotelIdEid(hotelId,eid).await()
     suspend fun addOrderByAccount(submitOrderData: SubmitOrderData) = myService.addOrderByAccount(submitOrderData).await()
     suspend fun cancelOrderByOrderId(orderId:String) = myService.cancelOrderByOrderId(orderId).await()
+    suspend fun getInfoByAccount(account: String) = myService.getInfoByAccount(account).await()
+    suspend fun getEvaluationByHotelId(hotelId: String) = myService.getEvaluationByHotelId(hotelId).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->
