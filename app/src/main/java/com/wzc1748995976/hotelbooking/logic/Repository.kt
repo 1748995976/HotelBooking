@@ -293,6 +293,20 @@ object Repository {
         emit(result)
     }
 
+    fun evaluateOrder(submitEvaluation: SubmitEvaluation) = liveData(Dispatchers.IO){
+        val result = try {
+            val evaluateOrderResponse = HotelBookingNetWork.evaluateOrder(submitEvaluation)
+            if(evaluateOrderResponse.status == 0){
+                Result.success(evaluateOrderResponse.data)
+            }else{
+                Result.failure(RuntimeException("result is ${evaluateOrderResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<Boolean>(e)
+        }
+        emit(result)
+    }
+
 }
 
 //    fun loginRequest(account: String,password: String){

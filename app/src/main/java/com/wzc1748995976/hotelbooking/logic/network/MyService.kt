@@ -59,4 +59,7 @@ interface MyService {
     //获取酒店评价
     @GET("getEvaluationByHotelId/{hotelId}")
     fun getEvaluationByHotelId(@Path("hotelId") hotelId:String): Call<EvaluationsResponse>
+    //提交评价
+    @POST("user_history_order/evaluateOrder")
+    fun evaluateOrder(@Body submitEvaluation:SubmitEvaluation): Call<OperateOrderResponse>
 }

@@ -1,5 +1,6 @@
 package com.wzc1748995976.hotelbooking.logic.network
 
+import com.wzc1748995976.hotelbooking.logic.model.SubmitEvaluation
 import com.wzc1748995976.hotelbooking.logic.model.SubmitOrderData
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,6 +33,7 @@ object HotelBookingNetWork {
     suspend fun cancelOrderByOrderId(orderId:String) = myService.cancelOrderByOrderId(orderId).await()
     suspend fun getInfoByAccount(account: String) = myService.getInfoByAccount(account).await()
     suspend fun getEvaluationByHotelId(hotelId: String) = myService.getEvaluationByHotelId(hotelId).await()
+    suspend fun evaluateOrder(submitEvaluation: SubmitEvaluation) = myService.evaluateOrder(submitEvaluation).await()
 
     private suspend fun <T> Call<T>.await(): T{
         return suspendCoroutine { continuation ->

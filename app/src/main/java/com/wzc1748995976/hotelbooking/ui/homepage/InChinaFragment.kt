@@ -74,7 +74,7 @@ class InChinaFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            1->if(resultCode == RESULT_OK){
+            1->if(resultCode == 1){
                 MainActivity.viewModel.detailName.value = data?.getStringExtra("name")
                 MainActivity.viewModel.detailId.value = data?.getStringExtra("id")
             }

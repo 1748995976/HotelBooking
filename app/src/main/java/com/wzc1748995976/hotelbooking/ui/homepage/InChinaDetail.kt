@@ -62,7 +62,7 @@ class InChinaDetail : AppCompatActivity() {
                 val intent = Intent()
                 intent.putExtra("name",detailName)
                 intent.putExtra("id",detailId)
-                setResult(RESULT_OK,intent)
+                setResult(1,intent)
                 finish()
             }
         }

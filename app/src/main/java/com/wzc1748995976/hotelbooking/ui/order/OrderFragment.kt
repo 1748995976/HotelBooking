@@ -87,6 +87,7 @@ class OrderFragment : Fragment() {
             ) {
                 val intent = Intent(activity,WaitEvaOrder::class.java)
                 intent.putExtra("orderDetailInfo",item.orderDetailInfo)
+                intent.putExtra("isEvaDirectly",false)
                 startActivity(intent)
             }
         }
@@ -95,11 +96,9 @@ class OrderFragment : Fragment() {
                 holder: WaitEvaOrderInfoDelegate.ViewHolder,
                 item: WaitEvaOrderInfo
             ) {
-                val intent = Intent(activity, EvaluationActivity::class.java)
-                intent.putExtra("hotelId", item.orderDetailInfo.hotelId)
-                intent.putExtra("eid", item.orderDetailInfo.eid)
-                intent.putExtra("hotelName", item.orderDetailInfo.hotelName)
-                intent.putExtra("roomName", item.orderDetailInfo.roomName)
+                val intent = Intent(activity,WaitEvaOrder::class.java)
+                intent.putExtra("orderDetailInfo",item.orderDetailInfo)
+                intent.putExtra("isEvaDirectly",true)
                 startActivity(intent)
             }
         }

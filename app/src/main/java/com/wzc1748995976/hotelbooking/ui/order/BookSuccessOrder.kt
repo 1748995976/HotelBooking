@@ -60,7 +60,6 @@ class BookSuccessOrder : AppCompatActivity() {
 
         val cancelOrder = findViewById<SuperButton>(R.id.cancelOrder)
         cancelOrder.setOnClickListener {
-            Toast.makeText(HotelBookingApplication.context,"进入取消规则界面", Toast.LENGTH_SHORT).show()
             val dialog = MaterialDialog(this)
                 .title(text = "取消订单")
                 .message(text = "在${orderDetailInfo.cancelTime}之前都可以免费取消订单，确定要取消订单吗?")

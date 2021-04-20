@@ -1,28 +1,39 @@
 package com.wzc1748995976.hotelbooking.ui.commonui
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.LoginViewModel
 import com.wzc1748995976.hotelbooking.R
+import com.wzc1748995976.hotelbooking.logic.model.SubmitEvaluation
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import top.androidman.SuperButton
 
 class EvaluationActivity : AppCompatActivity() {
+
+    private lateinit var viewModel:EvaluationActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evaluation)
+        viewModel = ViewModelProvider(this).get(EvaluationActivityViewModel::class.java)
         //别忘了提取用户的account和昵称或者匿名模式
-        val hotelId = intent.getStringExtra("hotelId")
-        val eid = intent.getStringExtra("eid")
-        val hotelName = intent.getStringExtra("hotelName")
-        val roomName = intent.getStringExtra("roomName")
+        val hotelId = intent.getStringExtra("hotelId")!!
+        val eid = intent.getStringExtra("eid")!!
+        val hotelName = intent.getStringExtra("hotelName")!!
+        val orderId = intent.getStringExtra("orderId")!!
+        val checkInDate = intent.getStringExtra("checkInDate")!!
 
         val titleName = findViewById<TextView>(R.id.titleName)
         titleName.text = hotelName
@@ -63,17 +74,47 @@ class EvaluationActivity : AppCompatActivity() {
             }
             putTextNumber.text = length.toString()
         }
+        evaEditText.setOnKeyListener(object : View.OnKeyListener{
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                if(keyCode == KeyEvent.KEYCODE_ENTER){
+                    if(event?.action == KeyEvent.ACTION_DOWN){
+                        val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        manager.hideSoftInputFromWindow(window.decorView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+                        return true
+                    }
+                }
+                return false
+            }
+        })
 
-
+        val anonymousCheckBox = findViewById<CheckBox>(R.id.anonymousCheckBox)
         val evaSubmitButton = findViewById<SuperButton>(R.id.evaSubmitButton)
         evaSubmitButton.setOnClickListener {
             if(evaEditText.text.toString().isEmpty()){
                 Toast.makeText(HotelBookingApplication.context,"请输入评价",Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(HotelBookingApplication.context,"提交评价成功",Toast.LENGTH_SHORT).show()
+                var anoymous = 0
+                if(anonymousCheckBox.isChecked)
+                    anoymous = 1
+                val submitEvaluation = SubmitEvaluation(orderId,HotelBookingApplication.account!!,
+                    hotelId,eid,ratingBar.rating.toString(),evaEditText.text.toString(),checkInDate,
+                    anoymous)
+                viewModel.evaluate(submitEvaluation)
             }
         }
+
+        viewModel.evaluateResult.observe(this, Observer { result->
+            val data = result.getOrNull()
+            if(data != null && data){
+                Toast.makeText(HotelBookingApplication.context,"提交评价成功",Toast.LENGTH_SHORT).show()
+                val intent = Intent()
+                setResult(3,intent)
+                finish()//这里不必考虑刷新的问题，orderFragment已经重写onResume处理好了
+            }
+        })
     }
+
+
     override fun onResume() {
         super.onResume()
         //将状态栏的颜色设置成透明色
