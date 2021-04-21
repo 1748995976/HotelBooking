@@ -6,6 +6,7 @@ import com.wzc1748995976.hotelbooking.logic.network.HotelBookingNetWork
 import com.wzc1748995976.hotelbooking.logic.model.SearchHotelsResponseData
 import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetailViewModel
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MultipartBody
 import java.lang.Exception
 import java.lang.RuntimeException
 
@@ -300,6 +301,20 @@ object Repository {
                 Result.success(evaluateOrderResponse.data)
             }else{
                 Result.failure(RuntimeException("result is ${evaluateOrderResponse.data}"))
+            }
+        }catch (e: Exception){
+            Result.failure<Boolean>(e)
+        }
+        emit(result)
+    }
+
+    fun updateInfoByAccount(userInfo: UserInfoResponseData) = liveData(Dispatchers.IO){
+        val result = try {
+            val updateResponse = HotelBookingNetWork.updateInfoByAccount(userInfo)
+            if(updateResponse.status == 0){
+                Result.success(updateResponse.data)
+            }else{
+                Result.failure(RuntimeException("result is ${updateResponse.data}"))
             }
         }catch (e: Exception){
             Result.failure<Boolean>(e)

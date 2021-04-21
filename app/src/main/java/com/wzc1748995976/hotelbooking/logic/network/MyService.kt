@@ -1,11 +1,9 @@
 package com.wzc1748995976.hotelbooking.logic.network
 
 import com.wzc1748995976.hotelbooking.logic.model.*
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface MyService {
     //查询某个用户是否存在
@@ -49,10 +47,10 @@ interface MyService {
     fun getRoomByHotelIdEid(@Path("hotelId") hotelId:String,@Path("eid") eid:String): Call<RoomInfoResponse>
     //预订房间
     @POST("user_history_order/addOrderByAccount")
-    fun addOrderByAccount(@Body submitOrderData:SubmitOrderData): Call<OperateOrderResponse>
+    fun addOrderByAccount(@Body submitOrderData:SubmitOrderData): Call<OperateResponse>
     //取消预订
     @GET("user_history_order/cancelOrderByOrderId/{orderId}")
-    fun cancelOrderByOrderId(@Path("orderId") orderId:String): Call<OperateOrderResponse>
+    fun cancelOrderByOrderId(@Path("orderId") orderId:String): Call<OperateResponse>
     //获取个人信息
     @GET("user_info/getInfoByAccount/{account}")
     fun getInfoByAccount(@Path("account") account:String): Call<UserInfoResponse>
@@ -61,5 +59,12 @@ interface MyService {
     fun getEvaluationByHotelId(@Path("hotelId") hotelId:String): Call<EvaluationsResponse>
     //提交评价
     @POST("user_history_order/evaluateOrder")
-    fun evaluateOrder(@Body submitEvaluation:SubmitEvaluation): Call<OperateOrderResponse>
+    fun evaluateOrder(@Body submitEvaluation:SubmitEvaluation): Call<OperateResponse>
+    //上传头像
+    @Multipart
+    @POST("postAvatar")
+    fun postAvatar(@Part part:MultipartBody.Part): Call<OperateResponse>
+    //上传个人信息
+    @POST("user_info/updateInfoByAccount")
+    fun updateInfoByAccount(@Body userInfo:UserInfoResponseData): Call<OperateResponse>
 }
