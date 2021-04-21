@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.MakePerfect.MyLinearLayout
 import com.wzc1748995976.hotelbooking.R
@@ -70,24 +71,25 @@ class MineFragment : Fragment() {
                 ageItem.item_text_right.text = data.age
                 phoneItem.item_text_right.text = data.phone
                 locationItem.item_text_right.text = data.location
-                val a = MyServiceCreator.userAvatar + data.avatar
-                //实现个人中心头部磨砂布局
-                Glide.with(activity)
+                Glide.with(this)
                     .load(MyServiceCreator.userAvatar + data.avatar)
-                    .bitmapTransform(BlurTransformation(activity, 25), CenterCrop(activity))
-                    .priority(Priority.HIGH)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .crossFade()
-                    .into(blurImageView)
-                Glide.with(activity)
-                    .load(MyServiceCreator.userAvatar + data.avatar)
-                    .bitmapTransform(CropCircleTransformation(activity))
+                    .circleCrop()
                     .priority(Priority.IMMEDIATE)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
-                    .crossFade()
+                    .placeholder(R.mipmap.loading)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(avatarImageView)
+                //实现个人中心头部磨砂布局
+                Glide.with(this)
+                    .asBitmap()
+                    .load(MyServiceCreator.userAvatar + data.avatar)
+                    .transform(BlurTransformation(20, 1),CenterCrop())
+                    .priority(Priority.IMMEDIATE)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.mipmap.loading)
+                    .into(blurImageView)
             }
         })
         return view

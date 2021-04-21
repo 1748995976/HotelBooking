@@ -31,6 +31,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.LoginViewModel
 import com.wzc1748995976.hotelbooking.R
@@ -63,17 +64,21 @@ class ModifyUserInfoActivity : AppCompatActivity() {
         val avatarImageView = findViewById<ImageView>(R.id.iv_avatar)
         if(requestCode == 5 && resultCode == Activity.RESULT_OK && data != null){
             uri = data.data
+            Glide.with(this)
+                .load(uri)
+                .circleCrop()
+                .priority(Priority.IMMEDIATE)
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(avatarImageView)
             //实现个人中心头部磨砂布局
             Glide.with(this)
+                .asBitmap()
                 .load(uri)
-                .bitmapTransform(BlurTransformation(this, 25), CenterCrop(this))
-                .priority(Priority.HIGH)
-                .into(blurImageView)
-            Glide.with(this)
-                .load(uri)
-                .bitmapTransform(CropCircleTransformation(this))
+                .transform(BlurTransformation(20, 1),CenterCrop())
                 .priority(Priority.IMMEDIATE)
-                .into(avatarImageView)
+                .placeholder(R.mipmap.loading)
+                .into(blurImageView)
         }
     }
 
@@ -113,21 +118,25 @@ class ModifyUserInfoActivity : AppCompatActivity() {
             age.text = userInfoResponseData.age
             phone.setText(userInfoResponseData.phone)
             location.text = userInfoResponseData.location
-            //实现个人中心头部磨砂布局
             Glide.with(this)
                 .load(MyServiceCreator.userAvatar + userInfoResponseData.avatar)
-                .bitmapTransform(BlurTransformation(this, 25), CenterCrop(this))
-                .priority(Priority.HIGH)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .into(blurImageView)
-            Glide.with(this)
-                .load(MyServiceCreator.userAvatar + userInfoResponseData.avatar)
-                .bitmapTransform(CropCircleTransformation(this))
+                .circleCrop()
                 .priority(Priority.IMMEDIATE)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(avatarImageView)
+            //实现个人中心头部磨砂布局
+            Glide.with(this)
+                .asBitmap()
+                .load(MyServiceCreator.userAvatar + userInfoResponseData.avatar)
+                .transform(BlurTransformation(20, 1),CenterCrop())
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .placeholder(R.mipmap.loading)
+                .into(blurImageView)
         }
 
         backImg.setOnClickListener {

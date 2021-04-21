@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
@@ -53,18 +54,21 @@ class EvaluationInfoDelegate: ItemViewDelegate<EvaluationInfo, EvaluationInfoDel
                 //正常展示头像
                 Glide.with(HotelBookingApplication.context)
                     .load(item.imgUrl)
-                    .bitmapTransform(CropCircleTransformation(HotelBookingApplication.context))
+                    .circleCrop()
                     .priority(Priority.IMMEDIATE)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
+                    .placeholder(R.mipmap.loading)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(avatarImg)
                 nameTxt.text = item.name
             }else{
                 //展示本地的匿名头像
                 Glide.with(HotelBookingApplication.context)
                     .load(R.mipmap.anonymous)
-                    .bitmapTransform(CropCircleTransformation(HotelBookingApplication.context))
+                    .circleCrop()
                     .priority(Priority.IMMEDIATE)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(avatarImg)
                 nameTxt.text = "匿名用户"
             }

@@ -34,7 +34,7 @@ class BannerImageAdapter(imageUrls: List<String>) : BannerAdapter<String, Banner
     override fun onBindView(holder: ImageHolder?, data: String?, position: Int, size: Int) {
         Glide.with(HotelBookingApplication.context)
             .load(data)
-            .into(holder?.imageView)
+            .into(holder?.imageView!!)
         holder?.imageView?.setOnClickListener {
             Toast.makeText(
                 HotelBookingApplication.context,"you click banner photo $position",

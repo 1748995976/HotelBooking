@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
@@ -78,6 +80,7 @@ class LCInChinaLInfoDelegate: ItemViewDelegate<HotelInfo, LCInChinaLInfoDelegate
             }
             Glide.with(HotelBookingApplication.context)
                 .load(item.image)
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(20)))
                 .into(holder.imageView)
         }
         holder.itemView.setOnClickListener {
