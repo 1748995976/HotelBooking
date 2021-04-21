@@ -9,6 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
@@ -137,6 +141,9 @@ class FinishUseOrderInfoDelegate: ItemViewDelegate<FinishUseOrderInfo, FinishUse
             hotelName.text = item.hotelName
             Glide.with(HotelBookingApplication.context)
                 .load(item.hotelImg)
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(20)))
                 .into(holder.hotelImg)
             roomNumber.text = item.roomNumber
             roomName.text = item.roomName
@@ -194,6 +201,9 @@ class WaitEvaOrderInfoDelegate: ItemViewDelegate<WaitEvaOrderInfo, WaitEvaOrderI
             hotelName.text = item.hotelName
             Glide.with(HotelBookingApplication.context)
                 .load(item.hotelImg)
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(20)))
                 .into(holder.hotelImg)
             roomNumber.text = item.roomNumber
             roomName.text = item.roomName
@@ -257,6 +267,9 @@ class BookSuccessOrderInfoDelegate: ItemViewDelegate<BookSuccessOrderInfo, BookS
             hotelName.text = item.hotelName
             Glide.with(HotelBookingApplication.context)
                 .load(item.hotelImg)
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(20)))
                 .into(holder.hotelImg)
             roomNumber.text = item.roomNumber
             roomName.text = item.roomName
@@ -313,6 +326,9 @@ class CancelOrderInfoDelegate: ItemViewDelegate<CancelOrderInfo, CancelOrderInfo
             hotelName.text = item.hotelName
             Glide.with(HotelBookingApplication.context)
                 .load(item.hotelImg)
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(20)))
                 .into(holder.hotelImg)
             roomNumber.text = item.roomNumber
             roomName.text = item.roomName

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
@@ -81,6 +82,8 @@ class LCInChinaLInfoDelegate: ItemViewDelegate<HotelInfo, LCInChinaLInfoDelegate
             Glide.with(HotelBookingApplication.context)
                 .load(item.image)
                 .transform(MultiTransformation(CenterCrop(), RoundedCorners(20)))
+                .placeholder(R.mipmap.loading)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.imageView)
         }
         holder.itemView.setOnClickListener {

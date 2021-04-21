@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="我的订单"
         android:background="@color/white"
-        android:paddingTop="33dp"
+        android:paddingTop="38dp"
         android:paddingBottom="10dp"
         android:gravity="center_horizontal"
         android:textColor="@color/color_black"
