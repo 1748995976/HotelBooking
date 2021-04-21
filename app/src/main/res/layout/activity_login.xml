@@ -22,12 +22,16 @@
         app:layout_constraintTop_toTopOf="@id/gifImageView"
         app:layout_constraintStart_toStartOf="@id/gifImageView"
         app:layout_constraintEnd_toEndOf="@id/gifImageView">
+        <View
+            android:background="@color/transparent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="35dp">
+            android:layout_marginStart="35dp">
 
             <top.androidman.SuperButton
                 android:id="@+id/symbol"
@@ -104,25 +108,19 @@
                 app:textSize="16sp"
                 app:text="忘记密码？" />
         </RelativeLayout>
-        <LinearLayout
-            android:orientation="vertical"
+        <View
+            android:background="@color/transparent"
+            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <top.androidman.SuperButton
-                    android:id="@+id/articleButton"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:background_normalColor="@color/Transparent"
-                    app:textSize="16sp"
-                    app:text="登录即代表阅读并同意服务条款" />
-            </RelativeLayout>
-        </LinearLayout>
+            android:layout_height="0dp"/>
+        <top.androidman.SuperButton
+            android:id="@+id/articleButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:background_normalColor="@color/Transparent"
+            app:textSize="16sp"
+            app:text="登录即代表阅读并同意服务条款" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

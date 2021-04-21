@@ -12,6 +12,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Build
+import android.text.Layout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
@@ -53,6 +54,7 @@ class HotelDetail : AppCompatActivity() {
         setContentView(R.layout.activity_hotel_detail)
 
         val hotelId = intent.getStringExtra("hotelId")
+        val noDataLayout = findViewById<View>(R.id.noDataLayout)
         //适配RecyclerView
         val headerAdapter = MultiTypeAdapter()
         val listAdapter = MultiTypeAdapter()
@@ -190,6 +192,7 @@ class HotelDetail : AppCompatActivity() {
             val data = result.getOrNull()
             listItems.clear()
             if (data != null && data.isNotEmpty()) {
+                noDataLayout.visibility = View.GONE
                 //data数据集只能大小为1
                 for (index in roomInfoDataList.indices) {
                     if (data[index] != null) {
@@ -235,6 +238,9 @@ class HotelDetail : AppCompatActivity() {
                         )
                     }
                 }
+            }
+            else{
+                noDataLayout.visibility = View.VISIBLE
             }
             //adapter注册房间列表
             val roomInfoDelegate = RoomInfoDelegate()

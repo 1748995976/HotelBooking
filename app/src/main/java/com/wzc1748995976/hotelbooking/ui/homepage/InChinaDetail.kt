@@ -203,7 +203,7 @@ class InChinaDetail : AppCompatActivity() {
                     val intent = Intent()
                     intent.putExtra("name",item.name)
                     intent.putExtra("id",item.id)
-                    setResult(RESULT_OK,intent)
+                    setResult(1,intent)
                     finish()
                 }
             })

@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="30dp"
+        android:paddingTop="35dp"
+        android:paddingBottom="10dp"
         android:paddingHorizontal="8dp">
 
         <LinearLayout
@@ -74,6 +75,7 @@
                         android:background="@drawable/ic_hot_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -111,6 +113,7 @@
                         android:background="@drawable/ic_brand_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -159,6 +162,7 @@
                         android:background="@drawable/ic_business_district_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -207,6 +211,7 @@
                         android:background="@drawable/ic_subway_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -255,6 +260,7 @@
                         android:background="@drawable/ic_mountain_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -303,6 +309,7 @@
                         android:background="@drawable/ic_school_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -351,6 +358,7 @@
                         android:background="@drawable/ic_hospital_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -399,6 +407,7 @@
                         android:background="@drawable/ic_plane_24dp" />
 
                     <TextView
+                        android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

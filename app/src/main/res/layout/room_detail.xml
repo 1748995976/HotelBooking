@@ -36,7 +36,7 @@
                 android:id="@+id/roomImageBanner"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@drawable/ic_loading_24dp"
+                android:background="@mipmap/loading"
                 app:banner_auto_loop="true"
                 app:banner_indicator_marginBottom="55dp"
                 app:banner_indicator_selected_color="@color/color_red"

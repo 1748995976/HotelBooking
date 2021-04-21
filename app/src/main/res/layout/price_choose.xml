@@ -2,19 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="1dp"
+    android:layout_margin="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <top.androidman.SuperButton
         android:id="@+id/testTextView"
-        android:padding="3dp"
+        android:paddingHorizontal="3dp"
+        android:paddingVertical="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:textSize="14sp"
+        app:textSize="13sp"
+        app:textColor="@color/black"
         app:open_pressed_effect="true"
+        app:background_pressedColor="@color/Tomato"
         app:corner="4dp"
         app:border_width="0.5dp"
-        app:border_color="@color/color_red"/>
+        app:border_color="@color/color_gray"/>
 
 </LinearLayout>

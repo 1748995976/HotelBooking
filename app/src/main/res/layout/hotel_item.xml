@@ -60,8 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textSize="18sp"
-        android:textColor="@color/color_blue"
+        android:textSize="20sp"
+        android:textColor="@color/color_login"
         tools:text="4.5"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/hotelName"
@@ -75,8 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="不错"
-        android:textColor="@color/color_blue"
-        android:textSize="16sp"
+        android:textColor="@color/color_login"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/scoreText"
         app:layout_constraintStart_toEndOf="@+id/scoreText"
         app:layout_constraintTop_toTopOf="@+id/scoreText" />
@@ -120,7 +120,7 @@
             tools:text="75"
             android:textStyle="bold"
             android:textColor="@color/OrangeRed"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"

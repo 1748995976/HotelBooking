@@ -80,8 +80,8 @@
         android:layout_marginEnd="8dp"
         app:background_normalColor="@color/WhiteSmoke"
         app:corner="10dp"
-        app:shadow_endColor="@color/white"
-        app:shadow_size="3dp"
+        app:shadow_endColor="@color/transparent"
+        app:shadow_size="5dp"
         app:shadow_startColor="#D3D3D3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="@color/color_gray"
+            android:textColor="@color/color_black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/hDHOpenTime"
             app:layout_constraintStart_toEndOf="@id/hDHOpenTime"
@@ -168,17 +168,40 @@
             app:line_color="@color/color_gray"
             app:layout_constraintTop_toBottomOf="@id/hDHOpenTime"/>
 
+        <LinearLayout
+            android:id="@+id/navigationLinear"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp"
+
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintTop_toBottomOf="@id/superLine">
+            <ImageView
+                android:src="@drawable/ic_navigation_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/color_gray"
+                android:text="地图/导航"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/hDHAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintEnd_toStartOf="@id/navigationLinear"
             app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
             app:layout_constraintTop_toBottomOf="@id/superLine"
             tools:text="华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学华中科技大学" />
@@ -201,7 +224,7 @@
             android:textColor="@color/color_gray"
             android:textSize="15sp"
             android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            app:layout_constraintEnd_toStartOf="@id/navigationLinear"
             app:layout_constraintStart_toEndOf="@id/hDHDistanceImage"
             app:layout_constraintTop_toBottomOf="@id/hDHAddress"
             tools:text="距您直线1.1公里，驾车2.1公里，约七分钟" />
@@ -211,7 +234,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ic_bus_24dp"
             app:layout_constraintStart_toStartOf="@id/hotelDetailCons"
             app:layout_constraintTop_toBottomOf="@id/hDHDistanceText" />
@@ -221,10 +244,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/color_gray"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@id/hotelDetailCons"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toStartOf="@id/navigationLinear"
             app:layout_constraintStart_toEndOf="@id/hDHDistanceBusImage"
             app:layout_constraintTop_toBottomOf="@id/hDHDistanceText"
             tools:text="距地铁站超级原距离佳园路地铁站距地铁站超级原距离佳园路地铁" />

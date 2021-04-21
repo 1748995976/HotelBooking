@@ -7,10 +7,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -94,6 +91,7 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
         val hotelDis: TextView = itemView.findViewById(R.id.hDHDistanceText)
         val hotelDisBus: TextView = itemView.findViewById(R.id.hDHDistanceBusText)
         val lookEvaluation: SuperButton = itemView.findViewById(R.id.lookEvaluation)
+        val navigationLinear: LinearLayout = itemView.findViewById(R.id.navigationLinear)
     }
 
     override fun onCreateViewHolder(context: Context, parent: ViewGroup): ViewHolder {
@@ -132,7 +130,10 @@ class HotelDetailInfoDelegate: ItemViewDelegate<HotelDetailInfo, HotelDetailInfo
                 .into(holder.hotelImage)
         }
         holder.itemView.setOnClickListener {
-            Toast.makeText(HotelBookingApplication.context,"you click item", Toast.LENGTH_SHORT).show()
+            Toast.makeText(HotelBookingApplication.context,"点击酒店详情头部图片", Toast.LENGTH_SHORT).show()
+        }
+        holder.navigationLinear.setOnClickListener {
+            Toast.makeText(HotelBookingApplication.context,"进入导航界面", Toast.LENGTH_SHORT).show()
         }
     }
 }

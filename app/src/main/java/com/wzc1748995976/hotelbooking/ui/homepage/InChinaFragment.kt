@@ -193,10 +193,11 @@ class InChinaFragment : Fragment() {
             gravity = RangeSeekBar.Gravity.CENTER
             setRange(0f, 1050f, 50f)
             seekBarMode = RangeSeekBar.SEEKBAR_MODE_RANGE
-            stepsColor = Color.BLUE
+            stepsColor = Color.BLACK
+            progressColor = Color.RED
             stepsRadius = 10f
-            stepsHeight = 10f
-            stepsWidth = 10f
+            stepsHeight = 5f
+            stepsWidth = 5f
             setProgress(0f, 1050f)
             leftSeekBar.thumbHeight = 60
             leftSeekBar.thumbWidth = 60
@@ -236,19 +237,11 @@ class InChinaFragment : Fragment() {
                 }
 
                 override fun onStartTrackingTouch(view: RangeSeekBar?, isLeft: Boolean) {
-                    Toast.makeText(
-                        HotelBookingApplication.context,
-                        "onStartTrackingTouch",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //拉动前面的按钮的监听
                 }
 
                 override fun onStopTrackingTouch(view: RangeSeekBar?, isLeft: Boolean) {
-                    Toast.makeText(
-                        HotelBookingApplication.context,
-                        "onStopTrackingTouch",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //拉动后面按钮的监听
                 }
             })
         selectRangePriceGridShow(seekBarView)

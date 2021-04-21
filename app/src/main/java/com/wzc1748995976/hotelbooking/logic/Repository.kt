@@ -147,15 +147,24 @@ object Repository {
     //在这个方法中将参数中的每个元素依次拿出来然后进行诸葛网络请求，最后将返回的结果封装在一个list当中
     fun getRoomInfoByHotelIdEidDate(request: HotelDetailViewModel.DateRoomInfoRequest) = liveData(Dispatchers.IO){
         val result = try {
+            var haveData = true
             val data = ArrayList<RoomInfoByHotelIdEidDateResponseData?>()
             for (i in request.data){
                 val roomResponse = HotelBookingNetWork.getRoomInfoByHotelIdEidDate(i.hotelId,i.eid,request.sdate,request.edate)
                 if(roomResponse.status == 0){
                     data.add(roomResponse.data)
                 }
+                if(roomResponse.data == null){
+                    haveData = false
+                }
             }
             if(data.isNotEmpty()){
-                Result.success(data)
+                if(haveData){
+                    Result.success(data)
+                }else{
+                    Result.success(null)
+                }
+
             }else{
                 Result.failure(RuntimeException("result is $data"))
             }

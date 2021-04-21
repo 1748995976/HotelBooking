@@ -30,21 +30,13 @@ class ViewHotelEvaluation : AppCompatActivity() {
         backImg.setOnClickListener {
             finish()
         }
+        val noDataLayout = findViewById<View>(R.id.noDataLayout)
 
         val items = ArrayList<EvaluationInfo>()
         val adapter = MultiTypeAdapter()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.visibility = View.VISIBLE
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        items.add(EvaluationInfo("超级无敌大床房","一只小猪","1","4.5",
-            "非常满意","感谢您的宝贵建议",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "2021-04","2021-04-06",0))
-        items.add(EvaluationInfo("超级无敌大床房","匿名用户","1","4.5",
-            "非常满意","感谢您的宝贵建议",
-            "https://p0.meituan.net/movie/48774506dc0e68805bc25d2cd087d1024316392.jpg",
-            "2021-04","2021-04-06",1))
         adapter.register(EvaluationInfoDelegate())
         recyclerView.adapter = adapter
         adapter.items = items
@@ -54,7 +46,8 @@ class ViewHotelEvaluation : AppCompatActivity() {
 
         viewModel.evaluationResult.observe(this, Observer { result->
             val data = result.getOrNull()
-            if(data != null){
+            if(data != null && data.isNotEmpty()){
+                noDataLayout.visibility = View.GONE
                 items.clear()
                 for (i in data){
                     items.add(EvaluationInfo(i.roomName,i.userName,i.account,i.score,i.evaluation,
@@ -63,6 +56,8 @@ class ViewHotelEvaluation : AppCompatActivity() {
                 }
                 adapter.items = items
                 adapter.notifyDataSetChanged()
+            }else{
+                noDataLayout.visibility = View.VISIBLE
             }
         })
     }

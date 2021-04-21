@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel :ViewModel(){
-    val inChinaWhereName = MutableLiveData<String>("海口")
+    val inChinaWhereName = MutableLiveData<String>("海口市")
     val inChinaWhereAdCode = MutableLiveData<String>("460100")
     val inChinaWhereCityCode = MutableLiveData<String>("0898")
     val inChinaCheckInDate = MutableLiveData<String>("")

@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="TextView"
+        android:textColor="@color/color_black"
         app:layout_constraintBottom_toTopOf="@+id/rangeSeekBar"
         app:layout_constraintEnd_toStartOf="@+id/maxPrice"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="TextView"
+        android:textColor="@color/color_black"
         app:layout_constraintBottom_toTopOf="@+id/rangeSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rangeSeekBar"
@@ -45,16 +47,20 @@
 
     <TextView
         android:id="@+id/priceRange"
+        android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:textStyle="bold"
         android:textColor="@color/color_red"
         app:layout_constraintStart_toEndOf="@+id/rangePrice"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/rangePrice"
+        app:layout_constraintBottom_toBottomOf="@id/rangePrice"/>
 
     <TextView
         android:id="@+id/rangePrice"
+        android:textSize="16sp"
+        android:textColor="@color/color_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -64,6 +70,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:overScrollMode="never"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +109,7 @@
             android:background="@drawable/radio_button_2"
             android:button="@null"
             android:gravity="center"
-            android:paddingVertical="2dp"
+            android:paddingVertical="8dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="经济型" />
@@ -117,7 +124,7 @@
             android:background="@drawable/radio_button_2"
             android:button="@null"
             android:gravity="center"
-            android:paddingVertical="2dp"
+            android:paddingVertical="8dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="舒适/三星" />
@@ -132,7 +139,7 @@
             android:background="@drawable/radio_button_2"
             android:button="@null"
             android:gravity="center"
-            android:paddingVertical="2dp"
+            android:paddingVertical="8dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="高档/四星" />
@@ -147,7 +154,7 @@
             android:background="@drawable/radio_button_2"
             android:button="@null"
             android:gravity="center"
-            android:paddingVertical="2dp"
+            android:paddingVertical="8dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="豪华/五星" />
@@ -158,10 +165,10 @@
         android:id="@+id/finishButton_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginHorizontal= "8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:background_normalColor="@color/color_red"
+        android:paddingVertical="8dp"
+        app:background_normalColor="@color/Tomato"
         app:corner="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
