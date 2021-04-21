@@ -78,6 +78,7 @@ class MineFragment : Fragment() {
                     .priority(Priority.HIGH)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
+                    .crossFade()
                     .into(blurImageView)
                 Glide.with(activity)
                     .load(MyServiceCreator.userAvatar + data.avatar)
@@ -85,6 +86,7 @@ class MineFragment : Fragment() {
                     .priority(Priority.IMMEDIATE)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
+                    .crossFade()
                     .into(avatarImageView)
             }
         })
