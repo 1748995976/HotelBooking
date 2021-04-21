@@ -70,7 +70,7 @@
                     android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />\
+                    android:layout_marginTop="10dp" />
 
                 <top.androidman.SuperButton
                     android:id="@+id/facilityMOrLButton"
@@ -81,7 +81,7 @@
                     app:iconOrientation="right"
                     app:open_pressed_effect="true"
                     app:text="更多房型设施"
-                    app:textColor="@color/color_blue"
+                    app:textColor="@color/color_login"
                     app:textSize="15sp" />
 
             </LinearLayout>
@@ -247,13 +247,13 @@
                 android:id="@+id/bookButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="30dp"
+                android:paddingHorizontal="50dp"
                 android:paddingVertical="4dp"
-                app:background_normalColor="@color/color_red"
+                app:background_normalColor="@color/Tomato"
                 app:corner="4dp"
                 app:text="预订"
                 app:textColor="@color/color_white"
-                app:textSize="23sp" />
+                app:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

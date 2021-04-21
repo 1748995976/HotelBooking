@@ -252,7 +252,7 @@ class HotelDetail : AppCompatActivity() {
                     //在这里弹起酒店预订界面，即Roomdetail，应该是popwindow
                     showBookDialog(
                         this@HotelDetail, this@HotelDetail,
-                        item, viewModel, hotelId ?: "未知酒店ID", hotelServiceData
+                        item, hotelServiceData
                     )
                 }
             })
@@ -279,8 +279,7 @@ class HotelDetail : AppCompatActivity() {
 
 private fun showBookDialog(
     context: Context, owner: LifecycleOwner,
-    roomInfo: RoomInfo, viewModel: HotelDetailViewModel, hotelId: String,
-    hotelServiceData: HotelServiceResponseData?
+    roomInfo: RoomInfo, hotelServiceData: HotelServiceResponseData?
 ) {
 
     val dialog = Dialog(context, R.style.DialogTheme)
@@ -507,6 +506,7 @@ private fun showBookDialog(
             bookButton.setOnClickListener {
                 val intent = Intent(context, BookRoomDetail::class.java)
                 intent.putExtra("roomInfo", roomInfo)
+                intent.putExtra("hotelService", hotelServiceData)
                 context.startActivity(intent)
                 dialog.dismiss()
             }

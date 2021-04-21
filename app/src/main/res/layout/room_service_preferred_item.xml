@@ -18,7 +18,7 @@
         app:textSize="12sp"
         app:textColor="@color/color_green"
         app:border_width="1dp"
-        app:border_color="@color/color_green"
+        app:border_color="#71C671"
         tools:text="溜溜住"/>
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_weight="4"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:textColor="@color/cp_color_gray"
+        android:textColor="@color/color_black"
         tools:text="入住无需押金，离店无需查房"/>
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.wzc1748995976.hotelbooking.ui.anotherAdapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.opengl.Visibility
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -277,9 +279,11 @@ class CancelPolicyDelegate: ItemViewDelegate<CancelPolicyInfo, CancelPolicyDeleg
     }
 
 
+
     override fun onBindViewHolder(holder: ViewHolder, item: CancelPolicyInfo) {
         holder.run {
             cancelPolicyDesc.text = item.cancelPolicyDesc
+            cancelPolicyDesc.setTextColor(Color.parseColor("#008000"))
         }
     }
 }

@@ -27,6 +27,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="一张圆床2米"/>
@@ -46,6 +47,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="15-20㎡"/>
@@ -65,6 +67,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="13-16层"/>
@@ -92,6 +95,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="部分有窗"/>
@@ -111,6 +115,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="WIFI免费"/>
@@ -131,6 +136,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="无有线宽带"/>
@@ -161,6 +167,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="禁烟"/>
@@ -180,6 +187,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="两人"/>
@@ -199,6 +207,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginStart="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="无早餐"/>
