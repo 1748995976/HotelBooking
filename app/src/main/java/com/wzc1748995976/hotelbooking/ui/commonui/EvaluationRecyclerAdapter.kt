@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.drakeet.multitype.ItemViewDelegate
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
@@ -54,6 +55,8 @@ class EvaluationInfoDelegate: ItemViewDelegate<EvaluationInfo, EvaluationInfoDel
                     .load(item.imgUrl)
                     .bitmapTransform(CropCircleTransformation(HotelBookingApplication.context))
                     .priority(Priority.IMMEDIATE)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(avatarImg)
                 nameTxt.text = item.name
             }else{
