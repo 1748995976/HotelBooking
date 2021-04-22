@@ -34,6 +34,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.LoginViewModel
+import com.wzc1748995976.hotelbooking.MakePerfect.LoadingDialog
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.OperateResponse
 import com.wzc1748995976.hotelbooking.logic.model.UserInfoResponseData
@@ -86,6 +87,10 @@ class ModifyUserInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify_user_info)
+        val loading = object : LoadingDialog(this){
+            override fun cancle() {
+            }
+        }
 
         viewModel = ViewModelProvider(this).get(ModifyUserInfoViewModel::class.java)
 
@@ -104,6 +109,7 @@ class ModifyUserInfoActivity : AppCompatActivity() {
         viewModel.modifyResult.observe(this, Observer { result->
             val data = result.getOrNull()
             if( data!=null && data){
+                loading.dismiss()
                 Toast.makeText(HotelBookingApplication.context,"上传成功",Toast.LENGTH_LONG).show()
                 finish()
             }else{
@@ -143,6 +149,7 @@ class ModifyUserInfoActivity : AppCompatActivity() {
             finish()
         }
         saveInfo.setOnClickListener {
+            loading.show()
             val userInfo = UserInfoResponseData(userInfoResponseData?.account ?: "未知account",
                 userInfoResponseData?.avatar ?: "未知avatar",nickName.text.toString(),
                 sex.text.toString(),age.text.toString(),phone.text.toString(),location.text.toString())

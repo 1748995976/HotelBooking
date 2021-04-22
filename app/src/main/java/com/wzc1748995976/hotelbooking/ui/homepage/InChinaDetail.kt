@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.MakePerfect.LoadingDialog
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.InChinaDetailResponseData
 import top.androidman.SuperButton
@@ -74,6 +75,11 @@ class InChinaDetail : AppCompatActivity() {
         setContentView(R.layout.activity_in_china_detail)
 
         viewModel = ViewModelProvider(this).get(InChinaDetailViewModel::class.java)
+        val loading = object : LoadingDialog(this){
+            override fun cancle() {
+            }
+        }
+        loading.show()
 
         val adcode = intent.getStringExtra("adcode")
         val detailName = intent.getStringExtra("detailName")
@@ -88,6 +94,7 @@ class InChinaDetail : AppCompatActivity() {
 
         viewModel.refreshResult.observe(this, Observer { result->
             val data = result.getOrNull()
+            loading.dismiss()
             if(data == null) {
                 Toast.makeText(HotelBookingApplication.context, "获取异常", Toast.LENGTH_SHORT).show()
             }else{
