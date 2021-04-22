@@ -34,6 +34,7 @@ class EvaluationActivity : AppCompatActivity() {
         val hotelName = intent.getStringExtra("hotelName")!!
         val orderId = intent.getStringExtra("orderId")!!
         val checkInDate = intent.getStringExtra("checkInDate")!!
+        val rating = intent.getFloatExtra("rating",0F)
 
         val titleName = findViewById<TextView>(R.id.titleName)
         titleName.text = hotelName
@@ -62,6 +63,8 @@ class EvaluationActivity : AppCompatActivity() {
                 ratingText.setTextColor(resources.getColor(R.color.color_red))
             }
         }
+        ratingBar.rating = rating
+        ratingText.text = rating.toString()
 
         val evaEditText = findViewById<EditText>(R.id.evaEditText)
         val putTextNumber = findViewById<TextView>(R.id.putTextNumber)

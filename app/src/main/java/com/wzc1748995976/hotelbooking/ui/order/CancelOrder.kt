@@ -1,14 +1,20 @@
 package com.wzc1748995976.hotelbooking.ui.order
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.HotelServiceResponseData
+import top.androidman.SuperButton
 
 
 class CancelOrder : AppCompatActivity() {
@@ -21,6 +27,10 @@ class CancelOrder : AppCompatActivity() {
         setContentView(R.layout.order_item_detail_cancel_order)
 
         val orderDetailInfo = intent.getParcelableExtra<OrderDetailInfo>("orderDetailInfo")!!
+        val refundLinear = findViewById<LinearLayout>(R.id.refundLinear)
+        refundLinear.setOnClickListener {
+            Toast.makeText(this,"查看退款进度",Toast.LENGTH_SHORT).show()
+        }
 
         viewModel = ViewModelProvider(this).get(MulTypeOrderViewModel::class.java)
         //获得酒店服务及政策信息

@@ -19,7 +19,7 @@
         app:textColor="@color/white"
         app:text="已消费"/>
     <TextView
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
@@ -30,12 +30,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:paddingVertical="5dp"
+        android:paddingVertical="8dp"
         app:corner="4dp"
         app:background_normalColor="@color/color_white"
         app:icon="@drawable/ic_arrow_right_white_24dp"
         app:iconOrientation="right"
-        app:textSize="28sp"
+        app:textSize="20sp"
         app:textColor="@color/color_black"
         app:text="再次预订"/>
 </LinearLayout>

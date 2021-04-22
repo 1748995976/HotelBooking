@@ -25,17 +25,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="您已入住，快来评价吧"/>
-    <top.androidman.SuperButton
-        android:id="@+id/evaluation"
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/white_all"
+        android:layout_marginTop="18dp"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingVertical="5dp"
-        app:corner="4dp"
-        app:background_normalColor="@color/color_white"
-        app:icon="@drawable/ic_arrow_right_white_24dp"
-        app:iconOrientation="right"
-        app:textSize="28sp"
-        app:textColor="@color/color_black"
-        app:text="去评价"/>
+        android:layout_height="wrap_content">
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/evaluation"
+            android:theme="@style/Widget.MaterialRatingBar.RatingBar"
+            app:mrb_fillBackgroundStars="true"
+            app:mrb_progressTint="@color/color_orange"
+            app:mrb_indeterminateTint="@color/Transparent"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <top.androidman.SuperLine
+            app:line_color="@color/color_gray"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <top.androidman.SuperButton
+            android:id="@+id/bookAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:paddingVertical="8dp"
+            android:layout_marginHorizontal="10dp"
+            app:corner="4dp"
+            app:border_width="0.5dp"
+            app:border_color="@color/color_black"
+            app:background_normalColor="@color/color_white"
+            app:icon="@drawable/ic_arrow_right_white_24dp"
+            app:iconOrientation="right"
+            app:textSize="20sp"
+            app:textColor="@color/color_black"
+            app:text="再次预订"/>
+
+    </LinearLayout>
 </LinearLayout>

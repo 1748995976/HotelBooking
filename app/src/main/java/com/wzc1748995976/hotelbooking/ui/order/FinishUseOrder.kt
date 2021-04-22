@@ -1,6 +1,8 @@
 package com.wzc1748995976.hotelbooking.ui.order
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -98,6 +100,28 @@ fun commonShow(it1:AppCompatActivity,orderDetailInfo: OrderDetailInfo,
 
         val hotelDetail = findViewById<SuperButton>(R.id.hotelDetail)
         val lookRoomButton = findViewById<SuperButton>(R.id.lookRoomButton)
+
+        val navigationToHotel = findViewById<SuperButton>(R.id.navigationToHotel)
+        val takeTaxiToHotel = findViewById<SuperButton>(R.id.takeTaxiToHotel)
+        val contactHotel = findViewById<SuperButton>(R.id.contactHotel)
+        val copyButton = findViewById<SuperButton>(R.id.copyButton)
+
+        navigationToHotel.setOnClickListener {
+            Toast.makeText(this,"进入导航界面",Toast.LENGTH_SHORT).show()
+        }
+        takeTaxiToHotel.setOnClickListener {
+            Toast.makeText(this,"进入打车界面",Toast.LENGTH_SHORT).show()
+        }
+        contactHotel.setOnClickListener {
+            Toast.makeText(this,"进入联系界面",Toast.LENGTH_SHORT).show()
+        }
+        copyButton.setOnClickListener {
+            //获取剪贴板管理器：
+            val cm: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val mClipData = ClipData.newPlainText("Label", "${orderId.text}")
+            cm.setPrimaryClip(mClipData)
+            Toast.makeText(this,"复制成功",Toast.LENGTH_SHORT).show()
+        }
 
         if(hotelServiceData?.servicetitle_1 != null){
             invoice.text = hotelServiceData.servicetitle_1

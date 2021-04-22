@@ -1,6 +1,10 @@
 package com.wzc1748995976.hotelbooking.ui.order
 
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -12,8 +16,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.wzc1748995976.hotelbooking.HotelBookingApplication
+import com.wzc1748995976.hotelbooking.MainActivity
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.model.HotelServiceResponseData
+import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
 import top.androidman.SuperButton
 
 
@@ -28,6 +34,7 @@ class BookSuccessOrder : AppCompatActivity() {
 
         val orderDetailInfo = intent.getParcelableExtra<OrderDetailInfo>("orderDetailInfo")!!
 
+
         viewModel = ViewModelProvider(this).get(MulTypeOrderViewModel::class.java)
         //获得酒店服务及政策信息
         viewModel.refreshService(orderDetailInfo.hotelId!!)
@@ -38,7 +45,7 @@ class BookSuccessOrder : AppCompatActivity() {
                 commonShow(this,orderDetailInfo,hotelServiceData)
 
                 val cancelRule = findViewById<TextView>(R.id.cancelRule)
-                cancelRule.text = hotelServiceData?.cancelpolicy
+                cancelRule.text = hotelServiceData?.cancelpolicy ?: hotelServiceData?.canceltitle
                 val checkInRule = findViewById<TextView>(R.id.checkInRule)
                 checkInRule.text = hotelServiceData?.userule_1
             }else{
@@ -49,10 +56,34 @@ class BookSuccessOrder : AppCompatActivity() {
         viewModel.cancelOrderResult.observe(this, Observer { result->
             val data = result.getOrNull()
             if(data == true){
-                finish()
-                Toast.makeText(HotelBookingApplication.context,"取消订单成功", Toast.LENGTH_SHORT).show()
+                MaterialDialog(this)
+                    .title(text = "通知")
+                    .message(text = "取消订单成功！")
+                    .positiveButton(text = "确定"){ dialog->
+                        dialog.dismiss()
+                        finish()
+                    }
+                    .negativeButton(text = ""){ dialog->
+                    }
+                    .icon(R.drawable.ic_success_24dp)
+                    .show {
+                        cancelable(false)  // calls setCancelable on the underlying dialog
+                        cancelOnTouchOutside(false)  // calls setCanceledOnTouchOutside on the underlying dialog
+                    }
             }else if(data == false){
-                Toast.makeText(HotelBookingApplication.context,"不可取消", Toast.LENGTH_SHORT).show()
+                MaterialDialog(this)
+                    .title(text = "通知")
+                    .message(text = "您不在免费取消订单规定时间内，不可取消！")
+                    .positiveButton(text = "确定"){ dialog->
+                        dialog.dismiss()
+                    }
+                    .negativeButton(text = ""){ dialog->
+                    }
+                    .icon(R.drawable.ic_note_24dp)
+                    .show {
+                        cancelable(false)  // calls setCancelable on the underlying dialog
+                        cancelOnTouchOutside(false)  // calls setCanceledOnTouchOutside on the underlying dialog
+                    }
             }else{
                 Toast.makeText(HotelBookingApplication.context,"网络异常", Toast.LENGTH_SHORT).show()
             }
@@ -70,6 +101,13 @@ class BookSuccessOrder : AppCompatActivity() {
                 }
                 .icon(R.drawable.ic_note_24dp)
             dialog.show()
+        }
+
+        val bookAgain = findViewById<SuperButton>(R.id.bookAgain)
+        bookAgain.setOnClickListener {
+            val intent = Intent(this, HotelDetail::class.java)
+            intent.putExtra("hotelId",orderDetailInfo.hotelId)
+            startActivity(intent)
         }
     }
 
