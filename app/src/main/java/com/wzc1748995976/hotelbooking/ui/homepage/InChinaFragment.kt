@@ -179,6 +179,9 @@ class InChinaFragment : Fragment() {
         MainActivity.viewModel.detailId.observe(viewLifecycleOwner, Observer {
             view.findViewById<TextView>(R.id.detailTextView).text = MainActivity.viewModel.detailName.value
         })
+        MainActivity.viewModel.inChinaDesc.observe(viewLifecycleOwner, Observer {
+            view.findViewById<TextView>(R.id.inChinaFavTextView).text = it
+        })
     }
 
 
@@ -334,7 +337,7 @@ class InChinaFragment : Fragment() {
                     string += ","
                 }
             }
-            view.findViewById<TextView>(R.id.inChinaFavTextView).text = string
+            MainActivity.viewModel.inChinaDesc.value = string
             dialog?.dismiss()
         }
     }

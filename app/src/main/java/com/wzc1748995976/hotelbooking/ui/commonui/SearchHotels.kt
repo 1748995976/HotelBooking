@@ -17,6 +17,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import com.wzc1748995976.hotelbooking.MainActivity
+import com.wzc1748995976.hotelbooking.MainActivityViewModel
 import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.wzc1748995976.hotelbooking.ui.homepage.PriceRange
@@ -31,6 +32,7 @@ import top.androidman.SuperLine
 class SearchHotels : AppCompatActivity() {
 
     private lateinit var viewModel: SearchHotelsViewModel
+
     //暂存选择价格范围的变化，点击完成按钮再填入viewModel
     private var minPtmp = 0
     private var maxPtmp = 1050
@@ -46,48 +48,89 @@ class SearchHotels : AppCompatActivity() {
         backImg.setOnClickListener {
             finish()
         }
-        val superLine = findViewById<SuperLine>(R.id.superLine)
-        val filterButton = findViewById<SuperButton>(R.id.filterButton)
-        filterButton.setOnClickListener {
-                filterButton.setTextColor(resources.getColor(R.color.Tomato))
-                filterButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_less_tomato_12dp))
-//                seekBarViewRangePriceShow(window.decorView,filterButton)
-                val seekBarView = View.inflate(this, R.layout.hotels_sort, null)
-                val popupWindow = PopupWindow(seekBarView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
-                popupWindow.showAsDropDown(superLine)
-        }
 
         val adapter = MultiTypeAdapter()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.visibility = View.VISIBLE
         recyclerView.layoutManager = LinearLayoutManager(this)
         val priceRangeViewDelegate = LCInChinaLInfoDelegate()
-        priceRangeViewDelegate.setClickHotelItem(object : LCInChinaLInfoDelegate.ClickHotelItem{
+        priceRangeViewDelegate.setClickHotelItem(object : LCInChinaLInfoDelegate.ClickHotelItem {
             override fun getResultToSet(
                 holder: LCInChinaLInfoDelegate.ViewHolder,
                 item: HotelInfo
             ) {
                 val intent = Intent(this@SearchHotels, HotelDetail::class.java)
-                intent.putExtra("hotelId",item.id)
+                intent.putExtra("hotelId", item.id)
                 startActivity(intent)
             }
         })
         adapter.register(priceRangeViewDelegate)
         recyclerView.adapter = adapter
 
-        viewModel.refreshResult.observe(this, Observer { result->
+        viewModel.refreshResult.observe(this, Observer { result ->
             val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
+            if (data != null && data.isNotEmpty()) {
                 val items = ArrayList<Any>()
-                for(i in data){
-                    items.add(HotelInfo(i.id,i.name,MyServiceCreator.hotelsImgPath+i.photo1,
-                    i.types,i.score,i.scoreDec,i.address,i.price))
+                for (i in data) {
+                    items.add(
+                        HotelInfo(
+                            i.id, i.name, MyServiceCreator.hotelsImgPath + i.photo1,
+                            i.types, i.score, i.scoreDec, i.address, i.price
+                        )
+                    )
                 }
                 adapter.items = items
                 adapter.notifyDataSetChanged()
             }
         })
+        /**
+         *这里执行排序按钮的逻辑，刷新逻辑限于数据原因没有写
+         */
+        val filterButton = findViewById<SuperButton>(R.id.filterButton)
+        filterButton.setOnClickListener {
+            filterButton.setTextColor(resources.getColor(R.color.Tomato))
+            filterButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_less_tomato_12dp))
+            showSortType()
+//                seekBarViewRangePriceShow(window.decorView,filterButton)
+
+        }
+        viewModel.sortType.observe(this, Observer { value ->
+            filterButton.setText(value.desc)
+            when (value.type) {
+                0 -> {
+                    filterButton.setTextColor(resources.getColor(R.color.color_black))
+                }
+                else -> {
+                    filterButton.setTextColor(resources.getColor(R.color.Tomato))
+                }
+            }
+            //这里应该要根据排序的类型进行刷新界面的逻辑
+        })
+        /**
+         *这里执行筛价格/星级筛选的逻辑，刷新逻辑限于数据原因没有写
+         */
+        val priceStarButton = findViewById<SuperButton>(R.id.priceStarButton)
+        priceStarButton.setOnClickListener {
+            priceStarButton.setTextColor(resources.getColor(R.color.Tomato))
+            priceStarButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_less_tomato_12dp))
+            seekBarViewRangePriceShow()
+        }
+        //这里应该要执行刷新界面的逻辑
+        MainActivity.viewModel.inChinaDesc.observe(this, Observer {
+            if (it.isEmpty()) {
+                findViewById<SuperButton>(R.id.priceStarButton).run {
+                    setText("价格/星级")
+                    setTextColor(resources.getColor(R.color.color_black))
+                }
+            } else {
+                findViewById<SuperButton>(R.id.priceStarButton).run {
+                    setText(it)
+                    setTextColor(resources.getColor(R.color.Tomato))
+                }
+            }
+        })
     }
+
     override fun onResume() {
         super.onResume()
         //将状态栏的颜色设置成透明色
@@ -99,7 +142,8 @@ class SearchHotels : AppCompatActivity() {
     }
 
     // 把选择价格范围的PopWindow代码封装在一个模块
-    private fun seekBarViewRangePriceShow(view: View,filterButton:SuperButton) {
+    private fun seekBarViewRangePriceShow() {
+        val priceStarButton = findViewById<SuperButton>(R.id.priceStarButton)
         val seekBarView = View.inflate(this, R.layout.price_star_choose_fragment, null)
         seekBarView.findViewById<RangeSeekBar>(R.id.rangeSeekBar).run {
             gravity = RangeSeekBar.Gravity.CENTER
@@ -156,16 +200,24 @@ class SearchHotels : AppCompatActivity() {
                     //拉动后面按钮的监听
                 }
             })
-        val popupWindow = PopupWindow(seekBarView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
+        val popupWindow = PopupWindow(
+            seekBarView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
         selectRangePriceGridShow(seekBarView)
-        selectStarCheckBoxShow(view, seekBarView, popupWindow)
+        selectStarCheckBoxShow(window.decorView, seekBarView, popupWindow)
         initStarPrice(seekBarView)
+
         popupWindow.setOnDismissListener {
-            filterButton.setTextColor(resources.getColor(R.color.color_black))
-            filterButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_more_12dp))
+            if (MainActivity.viewModel.inChinaDesc.value?.isEmpty() == true) {
+                priceStarButton.setTextColor(resources.getColor(R.color.color_black))
+            }
+            priceStarButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_more_12dp))
         }
         popupWindow.setBackgroundDrawable(resources.getDrawable(R.drawable.whitesmoke_bot))
-        popupWindow.showAsDropDown(filterButton)
+        popupWindow.showAsDropDown(priceStarButton)
     }
 
 
@@ -221,25 +273,26 @@ class SearchHotels : AppCompatActivity() {
             } else {
                 if (seekBarView.findViewById<TextView>(R.id.priceRange).text != "") {
                     string += seekBarView.findViewById<TextView>(R.id.priceRange).text
-                    string += ","
+                    string += " "
                 }
                 if (lowStar.isChecked) {
                     string += "经济型"
-                    string += ","
+                    string += " "
                 }
                 if (threeStar.isChecked) {
                     string += "舒适/三星"
-                    string += ","
+                    string += " "
                 }
                 if (fourStar.isChecked) {
                     string += "高档/四星"
-                    string += ","
+                    string += " "
                 }
                 if (fiveStar.isChecked) {
                     string += "豪华/五星"
-                    string += ","
+                    string += " "
                 }
             }
+            MainActivity.viewModel.inChinaDesc.value = string
             popupWindow?.dismiss()
         }
     }
@@ -264,4 +317,85 @@ class SearchHotels : AppCompatActivity() {
         fourStar.isChecked = MainActivity.viewModel.inChinaFourStar.value!!
         fiveStar.isChecked = MainActivity.viewModel.inChinaFiveStar.value!!
     }
+
+    //把展开排序的代码封装在一起
+    private fun showSortType() {
+        val filterButton = findViewById<SuperButton>(R.id.filterButton)
+        val superLine = findViewById<SuperLine>(R.id.superLine)
+        val sortView = View.inflate(this, R.layout.hotels_sort, null)
+        val popupWindow = PopupWindow(
+            sortView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        popupWindow.setOnDismissListener {
+            if (viewModel.sortType.value?.type == 0) {
+                filterButton.setTextColor(resources.getColor(R.color.color_black))
+            }
+            filterButton.setIcon(resources.getDrawable(R.drawable.ic_arrow_more_12dp))
+        }
+
+
+        val intelligentSort = sortView.findViewById<LinearLayout>(R.id.intelligentSort)
+        val intelligentText = sortView.findViewById<TextView>(R.id.intelligentText)
+        val intelligentImg = sortView.findViewById<ImageView>(R.id.intelligentImg)
+        val praisePriority = sortView.findViewById<LinearLayout>(R.id.praisePriority)
+        val praiseText = sortView.findViewById<TextView>(R.id.praiseText)
+        val praiseImg = sortView.findViewById<ImageView>(R.id.praiseImg)
+        val lowPricePriority = sortView.findViewById<LinearLayout>(R.id.lowPricePriority)
+        val lowPriceText = sortView.findViewById<TextView>(R.id.lowPriceText)
+        val lowPriceImg = sortView.findViewById<ImageView>(R.id.lowPriceImg)
+        val highPricePriority = sortView.findViewById<LinearLayout>(R.id.highPricePriority)
+        val highPriceText = sortView.findViewById<TextView>(R.id.highPriceText)
+        val highPriceImg = sortView.findViewById<ImageView>(R.id.highPriceImg)
+        val popularityPriority = sortView.findViewById<LinearLayout>(R.id.popularityPriority)
+        val popularityText = sortView.findViewById<TextView>(R.id.popularityText)
+        val popularityImg = sortView.findViewById<ImageView>(R.id.popularityImg)
+        when (viewModel.sortType.value?.type) {
+            0 -> {
+                intelligentText.setTextColor(resources.getColor(R.color.Tomato))
+                intelligentImg.visibility = View.VISIBLE
+            }
+            1 -> {
+                praiseText.setTextColor(resources.getColor(R.color.Tomato))
+                praiseImg.visibility = View.VISIBLE
+            }
+            2 -> {
+                lowPriceText.setTextColor(resources.getColor(R.color.Tomato))
+                lowPriceImg.visibility = View.VISIBLE
+            }
+            3 -> {
+                highPriceText.setTextColor(resources.getColor(R.color.Tomato))
+                highPriceImg.visibility = View.VISIBLE
+            }
+            4 -> {
+                popularityText.setTextColor(resources.getColor(R.color.Tomato))
+                popularityImg.visibility = View.VISIBLE
+            }
+        }
+        intelligentSort.setOnClickListener {
+            viewModel.sortType.value = SortInfo(0, "智能排序")
+            popupWindow.dismiss()
+        }
+        praisePriority.setOnClickListener {
+            popupWindow.dismiss()
+            viewModel.sortType.value = SortInfo(1, "好评优先")
+        }
+        lowPricePriority.setOnClickListener {
+            popupWindow.dismiss()
+            viewModel.sortType.value = SortInfo(2, "低价优先")
+        }
+        highPricePriority.setOnClickListener {
+            popupWindow.dismiss()
+            viewModel.sortType.value = SortInfo(3, "高价优先")
+        }
+        popularityPriority.setOnClickListener {
+            popupWindow.dismiss()
+            viewModel.sortType.value = SortInfo(4, "人气优先")
+        }
+
+        popupWindow.showAsDropDown(superLine)
+    }
 }
+

@@ -25,6 +25,7 @@ class MainActivityViewModel :ViewModel(){
     val inChinaThreeStar = MutableLiveData<Boolean>(false)
     val inChinaFourStar = MutableLiveData<Boolean>(false)
     val inChinaFiveStar = MutableLiveData<Boolean>(false)
+    val inChinaDesc = MutableLiveData<String>("")
     //具体区域的名字和id
     var detailName = MutableLiveData<String>("")
     var detailId = MutableLiveData<String>("")

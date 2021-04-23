@@ -48,7 +48,8 @@
 
         <top.androidman.SuperButton
             android:id="@+id/filterButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             app:open_pressed_effect="false"
             app:icon="@drawable/ic_arrow_more_12dp"
@@ -56,6 +57,17 @@
             app:textColor="@color/color_black"
             app:textSize="15sp"
             app:text="智能排序" />
+        <top.androidman.SuperButton
+            android:id="@+id/priceStarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            app:open_pressed_effect="false"
+            app:icon="@drawable/ic_arrow_more_12dp"
+            app:iconOrientation="right"
+            app:textColor="@color/color_black"
+            app:textSize="15sp"
+            app:text="价格/星级" />
     </LinearLayout>
 
     <top.androidman.SuperLine
