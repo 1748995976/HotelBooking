@@ -214,29 +214,6 @@ class BookRoomDetail : AppCompatActivity() {
                             roomInfo.cancelLevel!!
                         )
                         viewModel.request(submitOrderData)
-                        viewModel.requestResult.observe(this, Observer { result ->
-                            val data = result.getOrNull()
-                            if (data != null && data) {
-                                MaterialDialog(this)
-                                    .title(text = "预订成功")
-                                    .message(text = "操作成功，您已成功预订！")
-                                    .positiveButton(text = "返回首页"){ dialog->
-                                        val intent = Intent(this, MainActivity::class.java)
-                                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                        startActivity(intent)
-                                    }
-                                    .negativeButton(text = ""){ dialog->
-                                    }
-                                    .icon(R.drawable.ic_success_24dp)
-                                    .show {
-                                        cancelable(false)  // calls setCancelable on the underlying dialog
-                                        cancelOnTouchOutside(false)  // calls setCanceledOnTouchOutside on the underlying dialog
-                                    }
-                            } else {
-                                Toast.makeText(HotelBookingApplication.context, "操作失败", Toast.LENGTH_LONG)
-                                    .show()
-                            }
-                        })
                     }
                     .negativeButton(text = "我再想想"){ dialog->
                     }
@@ -244,6 +221,41 @@ class BookRoomDetail : AppCompatActivity() {
                 dialog.show()
             }
         }
+        viewModel.requestResult.observe(this, Observer { result ->
+            if(result.isFailure){
+                MaterialDialog(this)
+                    .title(text = "网络异常")
+                    .message(text = "请检查您的网络！")
+                    .positiveButton(text = "确定"){ dialog->
+                    }
+                    .negativeButton(text = ""){ dialog->
+                    }
+                    .icon(R.drawable.ic_note_24dp)
+                    .show()
+            }else{
+                val data = result.getOrNull()
+                if (data != null && data) {
+                    MaterialDialog(this)
+                        .title(text = "预订成功")
+                        .message(text = "操作成功，您已成功预订！")
+                        .positiveButton(text = "返回首页"){ dialog->
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            startActivity(intent)
+                        }
+                        .negativeButton(text = ""){ dialog->
+                        }
+                        .icon(R.drawable.ic_success_24dp)
+                        .show {
+                            cancelable(false)  // calls setCancelable on the underlying dialog
+                            cancelOnTouchOutside(false)  // calls setCanceledOnTouchOutside on the underlying dialog
+                        }
+                } else {
+                    Toast.makeText(HotelBookingApplication.context, "操作失败", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        })
     }
 
     override fun onResume() {

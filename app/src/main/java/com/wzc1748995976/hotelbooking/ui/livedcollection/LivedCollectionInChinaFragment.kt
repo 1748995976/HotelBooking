@@ -43,15 +43,21 @@ class LivedCollectionInChinaFragment : Fragment() {
 
         viewModel.refresh(HotelBookingApplication.account ?: "未知用户")
         val noDataLayout = view.findViewById<View>(R.id.noDataLayout)
+        val networkError = view.findViewById<View>(R.id.networkError)
 
         viewModel.refreshLivedResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data!=null && data.isNotEmpty()){
-                requestLivedData = data
+            if(result.isFailure){
+                networkError.visibility = View.VISIBLE
                 noDataLayout.visibility = View.GONE
-                show_1(view)
             }else{
-                noDataLayout.visibility = View.VISIBLE
+                val data = result.getOrNull()
+                if(data!=null && data.isNotEmpty()){
+                    requestLivedData = data
+                    noDataLayout.visibility = View.GONE
+                    show_1(view)
+                }else{
+                    noDataLayout.visibility = View.VISIBLE
+                }
             }
         })
         viewModel.refreshFavResult.observe(viewLifecycleOwner, Observer { result->
@@ -73,7 +79,7 @@ class LivedCollectionInChinaFragment : Fragment() {
                     radio_ninjas.setTextColor(resources.getColor(R.color.color_black))
                     recyclerViewFav.visibility = View.GONE
                     recyclerViewLived.visibility = View.VISIBLE
-                    if(requestLivedData == null || requestLivedData?.isEmpty() == true){
+                    if((requestLivedData == null || requestLivedData?.isEmpty() == true) && networkError.visibility != View.VISIBLE){
                         noDataLayout.visibility = View.VISIBLE
                     }else{
                         noDataLayout.visibility = View.GONE
@@ -88,7 +94,7 @@ class LivedCollectionInChinaFragment : Fragment() {
                     radio_ninjas.setTextColor(resources.getColor(R.color.Tomato))
                     recyclerViewLived.visibility = View.GONE
                     recyclerViewFav.visibility = View.VISIBLE
-                    if(requestFavData == null || requestFavData?.isEmpty() == true){
+                    if((requestFavData == null || requestFavData?.isEmpty() == true) && networkError.visibility != View.VISIBLE){
                         noDataLayout.visibility = View.VISIBLE
                     }else{
                         noDataLayout.visibility = View.GONE

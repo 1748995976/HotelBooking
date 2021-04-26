@@ -22,6 +22,7 @@ import com.wzc1748995976.hotelbooking.R
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.wzc1748995976.hotelbooking.ui.commonui.EvaluationActivity
 import com.wzc1748995976.hotelbooking.ui.commonui.HotelDetail
+import kotlinx.android.synthetic.main.order_fragment.*
 
 
 class OrderFragment : Fragment() {
@@ -48,12 +49,15 @@ class OrderFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val networkError = view?.findViewById<View>(R.id.networkError)
+        val noDataLayout = view?.findViewById<View>(R.id.noDataLayout)
         refreshLayout = view?.findViewById(R.id.refreshLayout)!!
         refreshLayout.setRefreshHeader(ClassicsHeader(context))
         refreshLayout.setOnRefreshListener(object : OnRefreshListener {
             override fun onRefresh(refreshlayout: RefreshLayout) {
                 //这里添加刷新逻辑
                 orderItemAdapterItems.clear()
+                orderItemAdapter.notifyDataSetChanged()
                 viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
             }
         })
@@ -189,31 +193,52 @@ class OrderFragment : Fragment() {
         //请求指定用户的订单记录
         viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
         viewModel.historyResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data != null){
-                //请求订单信息
-                viewModel.refreshInfo(data)
+            if(result.isFailure){
+                networkError?.visibility = View.VISIBLE
+                noDataLayout?.visibility = View.GONE
+                refreshLayout.finishRefresh(1000,false,true)
             }else{
-                refreshLayout.finishRefresh(1000,false,true) //传入false表示刷新失败
+                val data = result.getOrNull()
+                if(data != null){
+                    //请求订单信息
+                    viewModel.refreshInfo(data)
+                }else{
+                    networkError?.visibility = View.GONE
+                    noDataLayout?.visibility = View.VISIBLE
+                    refreshLayout.finishRefresh(1000,false,true) //传入false表示刷新失败
+                }
             }
         })
         //这一步应该根据订单信息获取相应的酒店房间信息
         viewModel.infoResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data != null){
-                viewModel.roomDataLiveData.value = data
-                viewModel.refreshHotelInfo(viewModel.infoLiveData.value!!)
-            }else{
+            if(result.isFailure){
+                networkError?.visibility = View.VISIBLE
+                noDataLayout?.visibility = View.GONE
                 refreshLayout.finishRefresh(1000,false,true)
+            }else{
+                val data = result.getOrNull()
+                if(data != null){
+                    viewModel.roomDataLiveData.value = data
+                    viewModel.refreshHotelInfo(viewModel.infoLiveData.value!!)
+                }else{
+                    refreshLayout.finishRefresh(1000,false,true)
+                }
             }
         })
         //请求订单信息对应的酒店的信息
         viewModel.hotelResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data != null){
-                viewModel.hotelLiveData.value = data
-            }else{
+            if(result.isFailure){
+                networkError?.visibility = View.VISIBLE
+                noDataLayout?.visibility = View.GONE
                 refreshLayout.finishRefresh(1000,false,true)
+            }else{
+                networkError?.visibility = View.GONE
+                val data = result.getOrNull()
+                if(data != null){
+                    viewModel.hotelLiveData.value = data
+                }else{
+                    refreshLayout.finishRefresh(1000,false,true)
+                }
             }
         })
         //根据获取到的酒店房间信息和订单信息进行显示
@@ -276,6 +301,7 @@ class OrderFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         orderItemAdapterItems.clear()
+        orderItemAdapter.notifyDataSetChanged()
         viewModel.refreshHistory(HotelBookingApplication.account ?: "未知account")
     }
 }

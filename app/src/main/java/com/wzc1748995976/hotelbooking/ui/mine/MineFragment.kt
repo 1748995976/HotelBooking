@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -28,7 +29,7 @@ class MineFragment : Fragment() {
 
     private lateinit var viewModel: MineViewModel
 
-    private lateinit var userInfoResponseData: UserInfoResponseData
+    private var userInfoResponseData: UserInfoResponseData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,40 +57,48 @@ class MineFragment : Fragment() {
         val aboutUsItem = view.findViewById<MyLinearLayout>(R.id.aboutUsItem)
 
         changeItem.setOnClickListener {
-            val intent = Intent(activity,ModifyUserInfoActivity::class.java)
-            intent.putExtra("userInfoResponseData",userInfoResponseData)
-            startActivity(intent)
+            if(userInfoResponseData == null){
+                Toast.makeText(HotelBookingApplication.context,"请检查您的网络设置",Toast.LENGTH_SHORT).show()
+            }else{
+                val intent = Intent(activity,ModifyUserInfoActivity::class.java)
+                intent.putExtra("userInfoResponseData",userInfoResponseData)
+                startActivity(intent)
+            }
         }
 
         viewModel.userInfoResult.observe(viewLifecycleOwner, Observer { result->
-            val data = result.getOrNull()
-            if(data != null){
-                userInfoResponseData = data
-                accountItem.item_text_right.text = data.account
-                nickNameItem.item_text_right.text = data.name
-                sexItem.item_text_right.text = data.sex
-                ageItem.item_text_right.text = data.age
-                phoneItem.item_text_right.text = data.phone
-                locationItem.item_text_right.text = data.location
-                Glide.with(this)
-                    .load(MyServiceCreator.userAvatar + data.avatar)
-                    .circleCrop()
-                    .priority(Priority.IMMEDIATE)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .placeholder(R.mipmap.loading)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(avatarImageView)
-                //实现个人中心头部磨砂布局
-                Glide.with(this)
-                    .asBitmap()
-                    .load(MyServiceCreator.userAvatar + data.avatar)
-                    .transform(BlurTransformation(20, 1),CenterCrop())
-                    .priority(Priority.IMMEDIATE)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .placeholder(R.mipmap.loading)
-                    .into(blurImageView)
+            if(result.isFailure){
+                view.findViewById<ImageView>(R.id.iv_blur).setImageResource(R.drawable.ic_network_error_100dp)
+            }else{
+                val data = result.getOrNull()
+                if(data != null){
+                    userInfoResponseData = data
+                    accountItem.item_text_right.text = data.account
+                    nickNameItem.item_text_right.text = data.name
+                    sexItem.item_text_right.text = data.sex
+                    ageItem.item_text_right.text = data.age
+                    phoneItem.item_text_right.text = data.phone
+                    locationItem.item_text_right.text = data.location
+                    Glide.with(this)
+                        .load(MyServiceCreator.userAvatar + data.avatar)
+                        .circleCrop()
+                        .priority(Priority.IMMEDIATE)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .placeholder(R.mipmap.loading)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(avatarImageView)
+                    //实现个人中心头部磨砂布局
+                    Glide.with(this)
+                        .asBitmap()
+                        .load(MyServiceCreator.userAvatar + data.avatar)
+                        .transform(BlurTransformation(20, 1),CenterCrop())
+                        .priority(Priority.IMMEDIATE)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .placeholder(R.mipmap.loading)
+                        .into(blurImageView)
+                }
             }
         })
         return view
