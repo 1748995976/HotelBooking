@@ -199,13 +199,17 @@ class OrderFragment : Fragment() {
                 refreshLayout.finishRefresh(1000,false,true)
             }else{
                 val data = result.getOrNull()
-                if(data != null){
+                if(data == null){
+                    networkError?.visibility = View.GONE
+                    noDataLayout?.visibility = View.VISIBLE
+                    refreshLayout.finishRefresh(1000)
+                }else if(data.isNotEmpty()){
                     //请求订单信息
                     viewModel.refreshInfo(data)
                 }else{
                     networkError?.visibility = View.GONE
                     noDataLayout?.visibility = View.VISIBLE
-                    refreshLayout.finishRefresh(1000,false,true) //传入false表示刷新失败
+                    refreshLayout.finishRefresh(1000)
                 }
             }
         })
