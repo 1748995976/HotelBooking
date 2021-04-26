@@ -133,11 +133,18 @@ class HotelDetail : AppCompatActivity() {
         //获得酒店服务及政策信息
         viewModel.refreshService(hotelId ?: "未知酒店ID")
         viewModel.refreshServiceResult.observe(this, Observer { result ->
-            val data = result.getOrNull()
-            if (data != null) {
-                hotelServiceData = data
-                //获得酒店信息
-                viewModel.refreshHotel(hotelId ?: "未知酒店ID")
+            if(result.isFailure){
+                dateLinear.visibility = View.GONE
+                findViewById<View>(R.id.networkError).visibility = View.VISIBLE
+            }else{
+                dateLinear.visibility = View.VISIBLE
+                findViewById<View>(R.id.networkError).visibility = View.GONE
+                val data = result.getOrNull()
+                if (data != null) {
+                    hotelServiceData = data
+                    //获得酒店信息
+                    viewModel.refreshHotel(hotelId ?: "未知酒店ID")
+                }
             }
         })
         // 获得酒店信息

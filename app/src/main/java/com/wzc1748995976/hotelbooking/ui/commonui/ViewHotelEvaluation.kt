@@ -31,6 +31,7 @@ class ViewHotelEvaluation : AppCompatActivity() {
             finish()
         }
         val noDataLayout = findViewById<View>(R.id.noDataLayout)
+        val networkError = findViewById<View>(R.id.networkError)
 
         val items = ArrayList<EvaluationInfo>()
         val adapter = MultiTypeAdapter()
@@ -45,19 +46,25 @@ class ViewHotelEvaluation : AppCompatActivity() {
         viewModel.getEvaluation(hotelId)
 
         viewModel.evaluationResult.observe(this, Observer { result->
-            val data = result.getOrNull()
-            if(data != null && data.isNotEmpty()){
+            if(result.isFailure){
+                networkError.visibility = View.VISIBLE
                 noDataLayout.visibility = View.GONE
-                items.clear()
-                for (i in data){
-                    items.add(EvaluationInfo(i.roomName,i.userName,i.account,i.score,i.evaluation,
-                        i.businessResponse ?: "暂无回复", MyServiceCreator.userAvatar + i.imgUrl,i.checkInDate,
-                        i.evaluateDate,i.anonymous))
-                }
-                adapter.items = items
-                adapter.notifyDataSetChanged()
             }else{
-                noDataLayout.visibility = View.VISIBLE
+                networkError.visibility = View.GONE
+                val data = result.getOrNull()
+                if(data != null && data.isNotEmpty()){
+                    noDataLayout.visibility = View.GONE
+                    items.clear()
+                    for (i in data){
+                        items.add(EvaluationInfo(i.roomName,i.userName,i.account,i.score,i.evaluation,
+                            i.businessResponse ?: "暂无回复", MyServiceCreator.userAvatar + i.imgUrl,i.checkInDate,
+                            i.evaluateDate,i.anonymous))
+                    }
+                    adapter.items = items
+                    adapter.notifyDataSetChanged()
+                }else{
+                    noDataLayout.visibility = View.VISIBLE
+                }
             }
         })
     }

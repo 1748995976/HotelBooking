@@ -68,19 +68,27 @@ class SearchHotels : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         viewModel.refreshResult.observe(this, Observer { result ->
-            val data = result.getOrNull()
-            if (data != null && data.isNotEmpty()) {
-                val items = ArrayList<Any>()
-                for (i in data) {
-                    items.add(
-                        HotelInfo(
-                            i.id, i.name, MyServiceCreator.hotelsImgPath + i.photo1,
-                            i.types, i.score, i.scoreDec, i.address, i.price
+            if(result.isFailure){
+                findViewById<View>(R.id.networkError).visibility = View.VISIBLE
+                findViewById<View>(R.id.noDataLayout).visibility = View.GONE
+            }else{
+                findViewById<View>(R.id.networkError).visibility = View.GONE
+                findViewById<View>(R.id.noDataLayout).visibility = View.VISIBLE
+                val data = result.getOrNull()
+                if (data != null && data.isNotEmpty()) {
+                    findViewById<View>(R.id.noDataLayout).visibility = View.GONE
+                    val items = ArrayList<Any>()
+                    for (i in data) {
+                        items.add(
+                            HotelInfo(
+                                i.id, i.name, MyServiceCreator.hotelsImgPath + i.photo1,
+                                i.types, i.score, i.scoreDec, i.address, i.price
+                            )
                         )
-                    )
+                    }
+                    adapter.items = items
+                    adapter.notifyDataSetChanged()
                 }
-                adapter.items = items
-                adapter.notifyDataSetChanged()
             }
         })
         /**

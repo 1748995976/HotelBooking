@@ -20,6 +20,7 @@
             android:background="@drawable/slightpink_all"
             android:layout_marginHorizontal="15dp"
             android:paddingVertical="6dp"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -109,6 +110,13 @@
             android:id="@+id/noDataLayout"
             android:visibility="gone"
             layout="@layout/no_data"/>
+        <include
+            android:id="@+id/networkError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:visibility="gone"
+            layout="@layout/network_error"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
