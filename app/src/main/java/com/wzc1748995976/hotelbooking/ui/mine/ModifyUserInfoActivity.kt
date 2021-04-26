@@ -107,14 +107,18 @@ class ModifyUserInfoActivity : AppCompatActivity() {
         val saveInfo = findViewById<TextView>(R.id.saveInfo)
 
         viewModel.modifyResult.observe(this, Observer { result->
-            val data = result.getOrNull()
-            if( data!=null && data){
-                loading.dismiss()
-                Toast.makeText(HotelBookingApplication.context,"上传成功",Toast.LENGTH_LONG).show()
-                finish()
+            loading.dismiss()
+            if(result.isFailure){
+                Toast.makeText(HotelBookingApplication.context,"网络异常",Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(HotelBookingApplication.context,"上传失败",Toast.LENGTH_LONG).show()
-                finish()
+                val data = result.getOrNull()
+                if(data!=null && data){
+                    Toast.makeText(HotelBookingApplication.context,"上传成功",Toast.LENGTH_LONG).show()
+                    finish()
+                }else{
+                    Toast.makeText(HotelBookingApplication.context,"上传失败",Toast.LENGTH_LONG).show()
+                    finish()
+                }
             }
         })
 

@@ -107,4 +107,11 @@ class MineFragment : Fragment() {
         super.onResume()
         viewModel.getUserInfo(HotelBookingApplication.account ?: "未知account")
     }
+
+    override fun onStart() {
+        super.onStart()
+        if(userInfoResponseData == null){
+            viewModel.getUserInfo(HotelBookingApplication.account ?: "未知account")
+        }
+    }
 }

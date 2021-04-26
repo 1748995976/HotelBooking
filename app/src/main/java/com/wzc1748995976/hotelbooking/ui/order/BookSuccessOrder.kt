@@ -39,17 +39,21 @@ class BookSuccessOrder : AppCompatActivity() {
         //获得酒店服务及政策信息
         viewModel.refreshService(orderDetailInfo.hotelId!!)
         viewModel.refreshServiceResult.observe(this, androidx.lifecycle.Observer { result->
-            val data = result.getOrNull()
-            if (data != null) {
-                hotelServiceData = data
-                commonShow(this,orderDetailInfo,hotelServiceData)
-
-                val cancelRule = findViewById<TextView>(R.id.cancelRule)
-                cancelRule.text = hotelServiceData?.cancelpolicy ?: hotelServiceData?.canceltitle
-                val checkInRule = findViewById<TextView>(R.id.checkInRule)
-                checkInRule.text = hotelServiceData?.userule_1
+            if(result.isFailure){
+                Toast.makeText(HotelBookingApplication.context,"网络异常", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(HotelBookingApplication.context,"数据异常", Toast.LENGTH_SHORT).show()
+                val data = result.getOrNull()
+                if (data != null) {
+                    hotelServiceData = data
+                    commonShow(this,orderDetailInfo,hotelServiceData)
+
+                    val cancelRule = findViewById<TextView>(R.id.cancelRule)
+                    cancelRule.text = hotelServiceData?.cancelpolicy ?: hotelServiceData?.canceltitle
+                    val checkInRule = findViewById<TextView>(R.id.checkInRule)
+                    checkInRule.text = hotelServiceData?.userule_1
+                }else{
+                    Toast.makeText(HotelBookingApplication.context,"数据异常", Toast.LENGTH_SHORT).show()
+                }
             }
         })
 

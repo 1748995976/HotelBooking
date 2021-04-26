@@ -30,7 +30,7 @@
         android:background="@color/white"
         app:show_left_text = "账号"
         app:show_left_img = "@drawable/ic_account"
-        app:show_right_text = "111"
+        app:show_right_text = ""
         app:show_right_img = "@drawable/ic_arrow_right_24dp"
         app:show_bottom_line="true"
         app:is_show_right_img="false" />
@@ -41,7 +41,7 @@
         android:background="@color/white"
         app:show_left_text = "昵称"
         app:show_left_img = "@drawable/ic_nick_name"
-        app:show_right_text = "Precious"
+        app:show_right_text = ""
         app:show_right_img = "@drawable/ic_arrow_right_24dp"
         app:show_bottom_line="true"
         app:is_show_right_img="false" />
@@ -52,7 +52,7 @@
         android:background="@color/white"
         app:show_left_text = "性别"
         app:show_left_img = "@drawable/ic_sex"
-        app:show_right_text = "男"
+        app:show_right_text = ""
         app:show_right_img = "@drawable/ic_arrow_right_24dp"
         app:show_bottom_line="true"
         app:is_show_right_img="false" />
@@ -63,7 +63,7 @@
         android:background="@color/white"
         app:show_left_text = "年龄"
         app:show_left_img = "@drawable/ic_age"
-        app:show_right_text = "18岁"
+        app:show_right_text = ""
         app:show_right_img = "@drawable/ic_arrow_right_24dp"
         app:show_bottom_line="true"
         app:is_show_right_img="false" />
@@ -74,7 +74,7 @@
         android:background="@color/white"
         app:show_left_text = "电话"
         app:show_left_img = "@drawable/ic_phone"
-        app:show_right_text = "17612345678"
+        app:show_right_text = ""
         app:show_right_img = "@drawable/ic_arrow_right_24dp"
         app:show_bottom_line="true"
         app:is_show_right_img="false" />
@@ -85,7 +85,7 @@
         android:background="@color/white"
         app:show_left_text = "地点"
         app:show_left_img = "@drawable/ic_location"
-        app:show_right_text = "北京市"
+        app:show_right_text = ""
         app:show_right_img = "@drawable/ic_arrow_right_24dp"
         app:show_bottom_line="true"
         app:is_show_right_img="false" />
