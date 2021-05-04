@@ -1,12 +1,15 @@
 package com.wzc1748995976.hotelbooking.ui.homepage
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +19,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -85,20 +89,43 @@ class InChinaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<SuperButton>(R.id.whereButton).setOnClickListener {
-            CityPickerInstance.let {
-                it.setonPickCallBack(object : onPickCallBack {
-                    override fun getResultToSet(
-                        cityName: String,
-                        adCode: String,
-                        cityCode: String,
-                        pinyin: String
-                    ) {
-                        MainActivity.viewModel.inChinaWhereName.value = cityName
-                        MainActivity.viewModel.inChinaWhereAdCode.value = adCode
-                        MainActivity.viewModel.inChinaWhereCityCode.value = cityCode
+            context?.let {
+                when(ActivityCompat.checkSelfPermission(it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )  == PackageManager.PERMISSION_GRANTED){
+                    true->{
+                        CityPickerInstance.let {
+                            it.setonPickCallBack(object : onPickCallBack {
+                                override fun getResultToSet(
+                                    cityName: String,
+                                    adCode: String,
+                                    cityCode: String,
+                                    pinyin: String
+                                ) {
+                                    MainActivity.viewModel.inChinaWhereName.value = cityName
+                                    MainActivity.viewModel.inChinaWhereAdCode.value = adCode
+                                    MainActivity.viewModel.inChinaWhereCityCode.value = cityCode
+                                }
+                            })
+                            it.getInstance(activity)?.show()
+                        }
                     }
-                })
-                it.getInstance(activity)?.show()
+                    false->{
+                        activity?.let { it1 ->
+                            ActivityCompat.requestPermissions(
+                                it1,
+                                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                                HomeFragment.REQUEST_PREMISSION
+                            )
+                            if(!ActivityCompat.shouldShowRequestPermissionRationale(it1,
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                )){
+
+                                Toast.makeText(it1, "请赋予应用存储权限", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
             }
         }
         view.findViewById<SuperButton>(R.id.checkButton).setOnClickListener {

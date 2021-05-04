@@ -41,6 +41,7 @@ import com.wzc1748995976.hotelbooking.logic.model.UserInfoResponseData
 import com.wzc1748995976.hotelbooking.logic.network.MyService
 import com.wzc1748995976.hotelbooking.logic.network.MyServiceCreator
 import com.wzc1748995976.hotelbooking.ui.homepage.CityPickerInstance
+import com.wzc1748995976.hotelbooking.ui.homepage.HomeFragment.Companion.REQUEST_PREMISSION
 import com.wzc1748995976.hotelbooking.ui.homepage.onPickCallBack
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropCircleTransformation
@@ -182,17 +183,19 @@ class ModifyUserInfoActivity : AppCompatActivity() {
 
         }
         avatarImageView.setOnClickListener {
-            when(this.let { it1 -> ActivityCompat.checkSelfPermission(it1,WRITE_EXTERNAL_STORAGE) } == PackageManager.PERMISSION_GRANTED){
+            when(ActivityCompat.checkSelfPermission(this,WRITE_EXTERNAL_STORAGE)  == PackageManager.PERMISSION_GRANTED){
                 true->{
                     val picture = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                     startActivityForResult(picture, 5)
                 }
                 false->{
-                    if(!this.let { it1 ->
-                            ActivityCompat.shouldShowRequestPermissionRationale(
-                                it1, WRITE_EXTERNAL_STORAGE)
-                        }){
-                        Toast.makeText(this, "请前往应用设置赋予存储权限", Toast.LENGTH_SHORT).show()
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(WRITE_EXTERNAL_STORAGE), REQUEST_PREMISSION
+                    )
+                    if(!ActivityCompat.shouldShowRequestPermissionRationale(this, WRITE_EXTERNAL_STORAGE)){
+
+                        Toast.makeText(this, "请赋予应用存储权限", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

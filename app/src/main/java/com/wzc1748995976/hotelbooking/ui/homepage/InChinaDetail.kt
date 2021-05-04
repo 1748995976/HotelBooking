@@ -23,6 +23,7 @@ import com.wzc1748995976.hotelbooking.logic.model.InChinaDetailResponseData
 import top.androidman.SuperButton
 
 class InChinaDetail : AppCompatActivity() {
+    //下一步处理这里的网络错误情况和log当中所提到的
 
     private lateinit var viewModel: InChinaDetailViewModel
     private val itemsHot = ArrayList<Any>()
