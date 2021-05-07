@@ -2,17 +2,21 @@ package com.wzc1748995976.hotelbooking
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wzc1748995976.hotelbooking.ui.homepage.HomeFragment
 import com.wzc1748995976.hotelbooking.ui.livedcollection.LivedCollectionFragment
 import com.wzc1748995976.hotelbooking.ui.mine.MineFragment
 import com.wzc1748995976.hotelbooking.ui.order.OrderFragment
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
+    private var firstTime: Long = 0
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //        //将状态栏的颜色设置成透明色
@@ -85,5 +89,21 @@ class MainActivity : AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT
         actionBar?.hide()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        val secondTime:Long = System.currentTimeMillis()
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (secondTime - firstTime < 2000) {
+                finish()
+            } else {
+                Toast.makeText(this, "再按一次返回键退出", Toast.LENGTH_SHORT).show()
+                firstTime = System.currentTimeMillis()
+            }
+
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }
